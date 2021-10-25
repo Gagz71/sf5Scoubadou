@@ -55,7 +55,7 @@ class Dog
     private $isAdopted;
 
     /**
-     * @ORM\ManyToMany(targetEntity=AdoptingRequest::class, mappedBy="dogs")
+     * @ORM\ManyToOne(targetEntity=AdoptingRequest::class, inversedBy="dogs")
      */
     private $adoptingRequests;
 
