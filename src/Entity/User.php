@@ -4,11 +4,19 @@ namespace App\Entity;
 
 use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\DiscriminatorColumn;
+use Doctrine\ORM\Mapping\DiscriminatorMap;
+use Doctrine\ORM\Mapping\Entity;
+use Doctrine\ORM\Mapping\InheritanceType;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
+ * @Entity
+ * @InheritanceType("JOINED")
+ * @DiscriminatorColumn(name="discr", type="string")
+ * @DiscriminatorMap({"user" = "User", "adopting" = "Adopting", "admin"="Admin", "advertiser"="Advertiser"})
  */
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
