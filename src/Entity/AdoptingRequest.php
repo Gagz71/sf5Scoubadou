@@ -34,10 +34,21 @@ class AdoptingRequest
      */
     private $advertiser;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Dog::class, mappedBy="adoptingRequests")
+     */
+    private $dogs;
+
+    /**
+     * @ORM\OneToOne(targetEntity=Discussion::class, inversedBy="adoptingRequest", cascade={"persist", "remove"})
+     */
+    private $discussion;
+
     public function __construct()
     {
         $this->adopting = new ArrayCollection();
         $this->advertiser = new ArrayCollection();
+        $this->dogs = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -113,6 +124,42 @@ class AdoptingRequest
                 $advertiser->setAdoptingRequest(null);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Dog[]
+     */
+    public function getDogs(): Collection
+    {
+        return $this->dogs;
+    }
+
+    public function addDog(Dog $dog): self
+    {
+        if (!$this->dogs->contains($dog)) {
+            $this->dogs[] = $dog;
+        }
+
+        return $this;
+    }
+
+    public function removeDog(Dog $dog): self
+    {
+        $this->dogs->removeElement($dog);
+
+        return $this;
+    }
+
+    public function getDiscussion(): ?Discussion
+    {
+        return $this->discussion;
+    }
+
+    public function setDiscussion(?Discussion $discussion): self
+    {
+        $this->discussion = $discussion;
 
         return $this;
     }

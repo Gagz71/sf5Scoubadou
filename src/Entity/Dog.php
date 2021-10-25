@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\DogRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -51,6 +53,21 @@ class Dog
      * @ORM\Column(type="boolean")
      */
     private $isAdopted;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=AdoptingRequest::class, inversedBy="dogs")
+     */
+    private $adoptingRequests;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Advert::class, inversedBy="dogs")
+     */
+    private $advert;
+
+    public function __construct()
+    {
+        $this->adoptingRequests = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -137,6 +154,45 @@ class Dog
     public function setIsAdopted(bool $isAdopted): self
     {
         $this->isAdopted = $isAdopted;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|AdoptingRequest[]
+     */
+    public function getAdoptingRequests(): Collection
+    {
+        return $this->adoptingRequests;
+    }
+
+    public function addAdoptingRequest(AdoptingRequest $adoptingRequest): self
+    {
+        if (!$this->adoptingRequests->contains($adoptingRequest)) {
+            $this->adoptingRequests[] = $adoptingRequest;
+            $adoptingRequest->addDog($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAdoptingRequest(AdoptingRequest $adoptingRequest): self
+    {
+        if ($this->adoptingRequests->removeElement($adoptingRequest)) {
+            $adoptingRequest->removeDog($this);
+        }
+
+        return $this;
+    }
+
+    public function getAdvert(): ?Advert
+    {
+        return $this->advert;
+    }
+
+    public function setAdvert(?Advert $advert): self
+    {
+        $this->advert = $advert;
 
         return $this;
     }
