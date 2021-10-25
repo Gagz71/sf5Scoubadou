@@ -12,4 +12,20 @@ use Doctrine\ORM\Mapping\Entity;
  */
 class Adopting extends User
 {
+    /**
+     * @ORM\ManyToOne(targetEntity=AdoptingRequest::class, inversedBy="adopting")
+     */
+    private $adoptingRequest;
+
+    public function getAdoptingRequest(): ?AdoptingRequest
+    {
+        return $this->adoptingRequest;
+    }
+
+    public function setAdoptingRequest(?AdoptingRequest $adoptingRequest): self
+    {
+        $this->adoptingRequest = $adoptingRequest;
+
+        return $this;
+    }
 }
