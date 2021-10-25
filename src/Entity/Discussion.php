@@ -42,6 +42,11 @@ class Discussion
      */
     private $adooptionRequest;
 
+    /**
+     * @ORM\OneToOne(targetEntity=AdoptingRequest::class, mappedBy="discussion", cascade={"persist", "remove"})
+     */
+    private $adoptingRequest;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -103,6 +108,28 @@ class Discussion
     public function setAdooptionRequest($adooptionRequest): self
     {
         $this->adooptionRequest = $adooptionRequest;
+
+        return $this;
+    }
+
+    public function getAdoptingRequest(): ?AdoptingRequest
+    {
+        return $this->adoptingRequest;
+    }
+
+    public function setAdoptingRequest(?AdoptingRequest $adoptingRequest): self
+    {
+        // unset the owning side of the relation if necessary
+        if ($adoptingRequest === null && $this->adoptingRequest !== null) {
+            $this->adoptingRequest->setDiscussion(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($adoptingRequest !== null && $adoptingRequest->getDiscussion() !== $this) {
+            $adoptingRequest->setDiscussion($this);
+        }
+
+        $this->adoptingRequest = $adoptingRequest;
 
         return $this;
     }
