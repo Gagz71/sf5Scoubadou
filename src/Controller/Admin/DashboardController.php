@@ -85,8 +85,6 @@ class DashboardController extends AbstractDashboardController
 
             MenuItem::linkToDashboard('Home', 'fa fa-home'),
 
-            MenuItem::linkToLogout('Logout', 'fa fa-exit'),
-
             MenuItem::linkToExitImpersonation('Stop impersonation', 'fa fa-exit'),
 
         ];
