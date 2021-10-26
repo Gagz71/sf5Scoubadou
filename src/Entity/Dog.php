@@ -63,6 +63,11 @@ class Dog
      * @ORM\ManyToMany(targetEntity=Race::class, mappedBy="dog")
      */
     private $races;
+	
+	/**
+	 * @ORM\Column(type="string", length=255, nullable=true)
+	 */
+	private $urlPicture;
 
     public function __construct()
     {
@@ -212,4 +217,23 @@ class Dog
 
         return $this;
     }
+	
+	/**
+	 * @return mixed
+	 */
+	public function getUrlPicture()
+	{
+		return $this->urlPicture;
+	}
+	
+	/**
+	 * @param mixed $urlPicture
+	 */
+	public function setUrlPicture($urlPicture): void
+	{
+		$this->urlPicture = $urlPicture;
+	}
+ 
+ 
+ 
 }

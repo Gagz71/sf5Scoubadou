@@ -3,6 +3,43 @@
 {% block title %}Nos annonces{% endblock %}
 
 {% block body %}
+      <div class="container-fluid">
+            <div class="row">
+                  <div class="col-md-10">
+                        <h1 class="display-3">Nos Scoub'Annonces</h1>
+                  </div>
+            </div>
+
+                  <div class="row">
+
+                        {% for advert in adverts %}
+                              <div class="col-3 mb-4 shadow">
+                                    <div class="card-header">
+                                          <div class="small">Crée le  {{ advert.creationDate | date}}</div>
+                                    </div>
+                                    <img src="{{ advert.urlPicture }}" alt="" class="card-imd">
+                                    <div class="card-title">
+                                          <h5 class="display-4"> {{ advert.title }}</h5>
+                                    </div>
+                                    <div class="card-subtitle">{{ advert.dogsNb }} chiens à adopter ! </div>
+                                    <div class="card-body">
+                                          <p class="card-text">{{ advert.description }}</p>
+                                    </div>
+                                    <div class="card-footer">
+                                          Statut:  {{advert.status == 0 ? 'Chiens tous adoptés' : ' Cherche une famille aimante'}}
+                                    </div>
+
+
+
+                                   Chiens: {{dump(advert.dogs) }}
+                                    Annonceur:{{ dump(advert.advertiser) }}
+
+                              </div>
+                        {% endfor %}
+                  </div>
+
+            </div>
+
 
 
 

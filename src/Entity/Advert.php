@@ -53,7 +53,17 @@ class Advert
      * @ORM\ManyToOne(targetEntity=Advertiser::class, inversedBy="adverts")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $advertiser;
+    private ?Advertiser $advertiser;
+	
+	/**
+	 * @ORM\Column(type="string", length=1000, nullable=true)
+	 */
+    private $description;
+	
+	/**
+	 * @ORM\Column(type="string", length=255, nullable=true)
+	 */
+	private $urlPicture;
 
     public function __construct()
     {
@@ -166,4 +176,26 @@ class Advert
 
         return $this;
     }
+	
+	public function getDescription()
+	{
+		return $this->description;
+	}
+	
+	public function setDescription($description): void
+	{
+		$this->description = $description;
+	}
+	
+	public function getUrlPicture()
+	{
+		return $this->urlPicture;
+	}
+	
+	public function setUrlPicture($urlPicture): void
+	{
+		 $this->urlPicture = $urlPicture;
+	}
+	
+	
 }
