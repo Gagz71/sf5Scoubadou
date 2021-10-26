@@ -64,9 +64,15 @@ class Dog
      */
     private $advert;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Race::class, mappedBy="dog")
+     */
+    private $races;
+
     public function __construct()
     {
         $this->adoptingRequests = new ArrayCollection();
+        $this->races = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -193,6 +199,33 @@ class Dog
     public function setAdvert(?Advert $advert): self
     {
         $this->advert = $advert;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Race[]
+     */
+    public function getRaces(): Collection
+    {
+        return $this->races;
+    }
+
+    public function addRace(Race $race): self
+    {
+        if (!$this->races->contains($race)) {
+            $this->races[] = $race;
+            $race->addDog($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRace(Race $race): self
+    {
+        if ($this->races->removeElement($race)) {
+            $race->removeDog($this);
+        }
 
         return $this;
     }
