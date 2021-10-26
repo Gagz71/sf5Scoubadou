@@ -25,7 +25,7 @@ class Dog
     private $name;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $antecedents;
 
@@ -35,12 +35,12 @@ class Dog
     private $lof;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $fullDescription;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="boolean", nullable=true)
      */
     private $sociable;
 
@@ -50,7 +50,7 @@ class Dog
     private $isAdopted;
 
     /**
-     * @ORM\ManyToOne(targetEntity=AdoptingRequest::class, inversedBy="dogs")
+     * @ORM\ManyToMany (targetEntity=AdoptingRequest::class, inversedBy="dogs")
      */
     private $adoptingRequests;
 
@@ -66,7 +66,6 @@ class Dog
 
     public function __construct()
     {
-        $this->adoptingRequests = new ArrayCollection();
         $this->races = new ArrayCollection();
     }
 
