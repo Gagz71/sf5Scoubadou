@@ -5,7 +5,7 @@
     "prefer-stable": true,
     "require": {
         "ext-ctype": "*",
-        "php": ">=7.2.5",
+        "php": ">=7.4.1",
         "ext-iconv": "*",
         "composer/package-versions-deprecated": "1.11.99.4",
         "doctrine/annotations": "^1.0",
@@ -51,6 +51,7 @@
         "symfony/maker-bundle": "^1.0",
         "symfony/phpunit-bridge": "^5.3",
         "symfony/stopwatch": "5.3.*",
+        "symfony/var-dumper": "^5.1",
         "symfony/web-profiler-bundle": "5.3.*"
     },
     "config": {

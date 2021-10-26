@@ -25,11 +25,6 @@ class Dog
     private $name;
 
     /**
-     * @ORM\Column(type="array")
-     */
-    private $race = [];
-
-    /**
      * @ORM\Column(type="string", length=255)
      */
     private $antecedents;
@@ -91,18 +86,7 @@ class Dog
 
         return $this;
     }
-
-    public function getRace(): ?array
-    {
-        return $this->race;
-    }
-
-    public function setRace(array $race): self
-    {
-        $this->race = $race;
-
-        return $this;
-    }
+    
 
     public function getAntecedents(): ?string
     {
