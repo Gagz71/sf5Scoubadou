@@ -2,6 +2,8 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Admin;
+use App\Entity\Adopting;
 use App\Entity\Advertiser;
 use App\Entity\Race;
 use App\Entity\User;
@@ -64,12 +66,15 @@ class DashboardController extends AbstractDashboardController
         return [
             MenuItem::linkToDashboard('Dashboard', 'fa fa-home'),
 
+            MenuItem::section('Admininistration'),
+            MenuItem::linkToCrud('Admininistration', 'fa fa-user', Admin::class),
+
             MenuItem::section('Race'),
             MenuItem::linkToCrud('Race', 'fa fa-dog', Race::class),
 
 
-            MenuItem::section('Utilisateurs'),
-            MenuItem::linkToCrud('Users', 'fa fa-user', User::class),
+            MenuItem::section('Adoptants'),
+            MenuItem::linkToCrud('Adoptants', 'fa fa-user', Adopting::class),
 
 
             MenuItem::section('Annonceurs'),
@@ -77,7 +82,9 @@ class DashboardController extends AbstractDashboardController
 
 
             // links to the 'index' action of the Category CRUD controller
-            MenuItem::linkToCrud('Users', 'fa fa-tags', User::class),
+            /*MenuItem::linkToCrud('Admininistration', 'fa fa-tags', Admin::class),
+
+            MenuItem::linkToCrud('Adoptant', 'fa fa-tags', Adopting::class),
 
             MenuItem::linkToCrud('RAce', 'fa fa-tags', Race::class),
 
@@ -85,7 +92,7 @@ class DashboardController extends AbstractDashboardController
 
             MenuItem::linkToDashboard('Home', 'fa fa-home'),
 
-            MenuItem::linkToExitImpersonation('Stop impersonation', 'fa fa-exit'),
+            MenuItem::linkToExitImpersonation('Stop impersonation', 'fa fa-exit'),*/
 
         ];
     }

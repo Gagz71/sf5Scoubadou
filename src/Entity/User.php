@@ -27,33 +27,38 @@ abstract class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    protected $id;
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
      */
-    private $email;
+    protected $email;
+
+    /**
+     * @ORM\Column(type="json")
+     */
+    protected $roles = [];
 
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
      */
-    private $password;
+    protected $password;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $lastname;
+    protected $lastname;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $firstname;
+    protected $firstname;
 
     /**
      * @ORM\Column(type="datetime")
      */
-    private $registerDate;
+    protected $registerDate;
 
     /**
      * @param $id
