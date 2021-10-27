@@ -36,7 +36,7 @@ class AdoptingRequest
     private $advertiser;
 
     /**
-     * @ORM\OneToMany(targetEntity=Dog::class, mappedBy="adoptingRequests")
+     * @ORM\ManyToMany (targetEntity=Dog::class, mappedBy="adoptingRequests")
      */
     private $dogs;
 

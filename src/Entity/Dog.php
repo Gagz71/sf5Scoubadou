@@ -25,7 +25,7 @@ class Dog
     private $name;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $antecedents;
 
@@ -35,12 +35,12 @@ class Dog
     private $lof;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $fullDescription;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="boolean", nullable=true)
      */
     private $sociable;
 
@@ -50,7 +50,7 @@ class Dog
     private $isAdopted;
 
     /**
-     * @ORM\ManyToOne(targetEntity=AdoptingRequest::class, inversedBy="dogs")
+     * @ORM\ManyToMany (targetEntity=AdoptingRequest::class, inversedBy="dogs")
      */
     private $adoptingRequests;
 
@@ -63,6 +63,11 @@ class Dog
      * @ORM\ManyToMany(targetEntity=Race::class, mappedBy="dog")
      */
     private $races;
+	
+	/**
+	 * @ORM\Column(type="string", length=255, nullable=true)
+	 */
+	private $urlPicture;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -71,7 +76,6 @@ class Dog
 
     public function __construct()
     {
-        $this->adoptingRequests = new ArrayCollection();
         $this->races = new ArrayCollection();
     }
 
@@ -219,15 +223,22 @@ class Dog
         return $this;
     }
 
-    public function getPicture(): ?string
-    {
-        return $this->picture;
-    }
-
-    public function setPicture(string $picture): self
-    {
-        $this->picture = $picture;
-
-        return $this;
-    }
-}
+	
+	/**
+	 * @return mixed
+	 */
+	public function getUrlPicture()
+	{
+		return $this->urlPicture;
+	}
+	
+	/**
+	 * @param mixed $urlPicture
+	 */
+	public function setUrlPicture($urlPicture): void
+	{
+		$this->urlPicture = $urlPicture;
+	}
+ 
+ 
+ 
