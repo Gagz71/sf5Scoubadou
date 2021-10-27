@@ -66,15 +66,15 @@ class DashboardController extends AbstractDashboardController
 
             MenuItem::section('Race'),
             MenuItem::linkToCrud('Race', 'fa fa-dog', Race::class),
-            MenuItem::linkToCrud('Race', 'fa fa-file-text', Race::class),
+
 
             MenuItem::section('Utilisateurs'),
             MenuItem::linkToCrud('Users', 'fa fa-user', User::class),
-            MenuItem::linkToCrud('Users', 'fa fa-user', User::class),
+
 
             MenuItem::section('Annonceurs'),
             MenuItem::linkToCrud('Advertiser', 'fa fa-user', Advertiser::class),
-            MenuItem::linkToCrud('Advertiser', 'fa fa-user', Advertiser::class),
+
 
             // links to the 'index' action of the Category CRUD controller
             MenuItem::linkToCrud('Users', 'fa fa-tags', User::class),
