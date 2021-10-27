@@ -30,4 +30,20 @@ class AdvertController extends AbstractController
             'adverts' =>$adverts,
         ]);
     }
+	
+	/**
+	 * @Route("/annonce/{slug}", name="advert")
+	 */
+    public function singleAdvert($slug): Response
+    {
+	    $advert = $this->entityManager->getRepository(Advert::class)->findOneBySlug($slug);
+	
+	    if(!$advert){
+		    return $this->redirectToRoute('adverts');
+	    }
+	
+	    return $this->render('advert/single-advert.html.twig', [
+		    'advert' => $advert,
+	    ]);
+    }
 }
