@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\DiscriminatorColumn;
 use Doctrine\ORM\Mapping\DiscriminatorMap;
@@ -10,6 +11,7 @@ use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\InheritanceType;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints\Date;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
@@ -18,7 +20,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
  * @DiscriminatorColumn(name="discr", type="string")
  * @DiscriminatorMap({"user" = "User", "adopting" = "Adopting", "admin"="Admin", "advertiser"="Advertiser"})
  */
-class User implements UserInterface, PasswordAuthenticatedUserInterface
+abstract class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     /**
      * @ORM\Id
@@ -54,9 +56,23 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $firstname;
 
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="datetime")
      */
     private $registerDate;
+
+    /**
+     * @param $id
+     * @param $email
+     * @param array $roles
+     * @param string $password
+     * @param $lastname
+     * @param $firstname
+     * @param $registerDate
+     */
+    public function __construct()
+    {
+        $this->registerDate = new DateTime();
+    }
 
     public function getId(): ?int
     {
@@ -74,6 +90,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
+
 
     /**
      * A visual identifier that represents this user.
