@@ -15,9 +15,10 @@
                         {% for advert in adverts %}
                               <div class="col-3 mb-4 shadow">
                                     <div class="card-header">
+                                          Organisation annonciatrice: <b>{{ advert.advertiser.organizationName }}</b>
                                           <div class="small">Crée le  {{ advert.creationDate | date}}</div>
                                     </div>
-                                    <img src="{{ advert.urlPicture }}" alt="" class="card-imd">
+                                    <img src="{{ advert.urlPicture }}" alt="" class="card-img">
                                     <div class="card-title">
                                           <h5 class="display-4"> {{ advert.title }}</h5>
                                     </div>
@@ -25,14 +26,26 @@
                                     <div class="card-body">
                                           <p class="card-text">{{ advert.description }}</p>
                                     </div>
+                                    <div class="card-body">
+                                          <h5 class="card-title">Les toutous </h5>
+                                          <ul class="list-group list-group-flush lead">
+                                                {% for dog in advert.dogs%}
+                                                <li class="list-group-item"> 🐕{{dog.name }}</li>
+                                                {% endfor %}
+                                          </ul>
+                                    </div>
+
+
                                     <div class="card-footer">
                                           Statut:  {{advert.status == 0 ? 'Chiens tous adoptés' : ' Cherche une famille aimante'}}
                                     </div>
 
 
 
-                                   Chiens: {{dump(advert.dogs) }}
-                                    Annonceur:{{ dump(advert.advertiser) }}
+
+
+
+
 
                               </div>
                         {% endfor %}

@@ -35,13 +35,14 @@
 			];
 			for ($i = 0; $i < 10; $i++) {
 				$advertsUrlRandomIndex = shuffle($advertsUrlPicture);
+				$advertisersRandomIndex = shuffle($advertisers);
 				$advert = new Advert();
 				$advert->setTitle($title.$i);
 				$advert->setDogsNb(random_int(1, 15));
 				$advert->setStatus(random_int(0,1));
 				$advert->setCreationDate(new \DateTime());
 				$advert->setUrlPicture($advertsUrlPicture[$advertsUrlRandomIndex]);
-				$advert->setAdvertiser($advertisers[0]);
+				$advert->setAdvertiser($advertisers[$advertisersRandomIndex]);
 				$advert->setDescription('Mais Bohort, j\'vais vous faire mettre au cachot [...]. Non mais j\'vous écoute, j\'vous écoute seulement j\'vous préviens, j\'vous l\'dis, j\'vais vous faire descendre en cabane avec un pichet de flotte et un bout de pain sec. J\'suis désolé, j\'suis démuni, j\'vois pas d\'autre solution. Et puis j\'pense que ça vous donnera un peu l\'occasion de... de réfléchir un peu à tout ça à tête reposée, de prendre un peu d\'recul sur les choses parce que Bohort, on n\'réveille pas son roi en pleine nuit pour des conneries, encore moins deux fois d\'suite...');
 				
 				$manager->persist($advert);
