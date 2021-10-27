@@ -69,6 +69,11 @@ class Dog
 	 */
 	private $urlPicture;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $picture;
+
     public function __construct()
     {
         $this->races = new ArrayCollection();
@@ -217,6 +222,7 @@ class Dog
 
         return $this;
     }
+
 	
 	/**
 	 * @return mixed
@@ -236,4 +242,3 @@ class Dog
  
  
  
-}
