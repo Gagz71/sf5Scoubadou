@@ -53,14 +53,14 @@ class DogsFixtures extends Fixture implements DependentFixtureInterface
 	    ];
 		
 	    foreach ($dogNames as $dogName){
+		    $dogsUrlRandomIndex = shuffle($dogsUrlPicture);
 		    $dog = new Dog();
 		    $dog->setName($dogName);
 		    $dog->setAntecedents('dogAntecedent');
 		    $dog->setLof(random_int(0, 1));
 		    $dog->setSociable(random_int(0, 1));
 		    $dog->setIsAdopted(random_int(0, 1));
-		    //TODO: FOnction random sur array string
-		    $dog->setUrlPicture(array_rand($dogsUrlPicture));
+		    $dog->setUrlPicture($dogsUrlPicture[$dogsUrlRandomIndex]);
 		    
 		    
 		    $manager->persist($dog);
