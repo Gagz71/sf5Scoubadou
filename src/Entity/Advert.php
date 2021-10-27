@@ -6,6 +6,7 @@ use App\Repository\AdvertRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity(repositoryClass=AdvertRepository::class)
@@ -23,6 +24,12 @@ class Advert
      * @ORM\Column(type="string", length=255)
      */
     private $title;
+	
+	/**
+	 * @ORM\Column(type="string", length=100, unique=true)
+	 * @Gedmo\Slug(fields={"title"})
+	 */
+	private $slug;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
@@ -86,8 +93,21 @@ class Advert
 
         return $this;
     }
-
-    public function getDogsNb(): ?int
+	
+	public function getSlug(): ?string
+	{
+		return $this->slug;
+	}
+	
+	public function setSlug(string $slug): self
+	{
+		$this->slug = $slug;
+		
+		return $this;
+	}
+	
+	
+	public function getDogsNb(): ?int
     {
         return $this->dogsNb;
     }

@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ advert.title }}{% endblock %}
+
+{% block body %}
+
+      <div class="jumbotron jumbotron-fluid">
+            <div class="container">
+                  <h1 class="display-4">{{ advert.title }}</h1>
+                  <small>De <b>{{ advert.advertiser.organizationName }}</b></small>
+                  <p class="lead">{{ advert.description }}</p>
+            </div>
+      </div>
+
+{% endblock %}
