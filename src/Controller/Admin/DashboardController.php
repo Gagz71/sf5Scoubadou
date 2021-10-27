@@ -26,9 +26,9 @@ class DashboardController extends AbstractDashboardController
         $routeBuilder = $this->get(AdminUrlGenerator::class);
         return $this->redirect($routeBuilder->setController(AdminCrudController::class)->generateUrl());
 
-        /*// you can also render some template to display a proper Dashboard
+
         // (tip: it's easier if your template extends from @EasyAdmin/page/content.html.twig)
-        return $this->render('some/path/my-dashboard.html.twig');*/
+        //return $this->render('dashboard/dashboard.html.twig');
     }
 
 
