@@ -2,8 +2,11 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Race;
 use App\Repository\AdvertiserRepository;
 use App\Repository\AdvertRepository;
+use App\Repository\RaceRepository;
+use App\Repository\UrlPictureRepository;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
@@ -13,15 +16,20 @@ class DogsFixtures extends Fixture implements DependentFixtureInterface
 {
 	private AdvertiserRepository  $advertiserRepository;
 	private AdvertRepository $advertRepository;
+	private RaceRepository  $raceRepository;
+	private UrlPictureRepository  $urlPictureRepository;
 	
-	public function __construct(AdvertiserRepository $advertiserRepository, AdvertRepository $advertRepository){
+	public function __construct(AdvertiserRepository $advertiserRepository, AdvertRepository $advertRepository, RaceRepository $raceRepository, UrlPictureRepository $urlPictureRepository ){
 		$this->advertiserRepository = $advertiserRepository;
 		$this->advertRepository = $advertRepository;
+		$this->raceRepository = $raceRepository;
+		$this->urlPictureRepository = $urlPictureRepository;
 	}
     public function load(ObjectManager $manager): void
     {
-	    $races = $this->advertiserRepository->findAll();
 	    $adverts = $this->advertRepository->findAll();
+	    $dogsRaces = $this->raceRepository->findAll();
+	    $dogsUrlPicture = $this->urlPictureRepository->findAll();
 	    
 	    $dogNames =[
 		    'Snoopy',
@@ -46,19 +54,11 @@ class DogsFixtures extends Fixture implements DependentFixtureInterface
 		    'Sloubi5'
 	    ];
 	    
-	    $dogsUrlPicture=[
-		    'https://bit.ly/2XKG9N8',
-		    'https://bit.ly/3jDzk7X',
-		    'https://i.imgur.com/J24C6krl.jpg',
-		    'https://i.imgur.com/abuk4JTl.jpg',
-		    'https://i.imgur.com/fDNmoWSl.jpg',
-		    'https://bit.ly/3vKNPM9',
-		    'https://bit.ly/2ZoVPGe'
-	    ];
 		
 	    foreach ($dogNames as $dogName){
-		    $dogsUrlRandomIndex = shuffle($dogsUrlPicture);
+		    
 		    $advertsRandomIndex = shuffle($adverts);
+		    $racesDogRandomIndex = shuffle($dogsRaces);
 		    $dog = new Dog();
 		    $dog->setName($dogName);
 		    $dog->setAntecedents('dogAntecedent');
@@ -66,8 +66,11 @@ class DogsFixtures extends Fixture implements DependentFixtureInterface
 		    $dog->setSociable(random_int(0, 1));
 		    $dog->setIsAdopted(random_int(0, 1));
 		    $dog->setAdvert($adverts[$advertsRandomIndex]);
-		    $dog->setUrlPicture($dogsUrlPicture[$dogsUrlRandomIndex]);
-		    
+		    $dog->addRace($dogsRaces[$racesDogRandomIndex]);
+		    for ($i = 0; $i < 5; $i++){
+			    $dogsUrlRandomIndex = shuffle($dogsUrlPicture);
+			    $dog->addUrlPicture($dogsUrlPicture[$dogsUrlRandomIndex]);
+		    }
 		    
 		    $manager->persist($dog);
 	    }
@@ -77,6 +80,7 @@ class DogsFixtures extends Fixture implements DependentFixtureInterface
 	public function getDependencies()
 	{
 		return[
+			DogsUrlPictures::class,
 			RaceFixtures::class,
 			AdvertsFixtures::class,
 		];

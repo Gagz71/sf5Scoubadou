@@ -34,10 +34,12 @@ abstract class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     protected $email;
 
+
     /**
      * @ORM\Column(type="json")
      */
     protected $roles = [];
+
 
     /**
      * @var string The hashed password
@@ -200,4 +202,5 @@ abstract class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
 }
