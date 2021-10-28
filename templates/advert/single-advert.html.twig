@@ -9,7 +9,49 @@
                   <h1 class="display-4">{{ advert.title }}</h1>
                   <small>De <b>{{ advert.advertiser.organizationName }}</b></small>
                   <p class="lead">{{ advert.description }}</p>
+                  <img src="{{ advert.urlPicture }}" class="card-img-top" alt="...">
+
             </div>
       </div>
+
+      <div class="container-fluid">
+            {% for dog in advert.dogs%}
+{#                  {{ dump(dog) }}#}
+            <div class="card mb-3 col-7 m-auto" >
+                  <h1 class="display-4 m-auto pt-4 pb-4">🐕{{dog.name }}</h1>
+                  {% for picture in dog.urlPictures %}
+                  <img src="{{ picture.url }}" class="card-img-top img-fluid m-auto" alt="..." style="width: 50rem;">
+                  {% endfor %}
+                  <div class="card-body">
+
+                        {% for race in dog.races %}
+                        <h6 class="card-subtitle mb-2 text-muted">{{race.name }}</h6>
+                        {% endfor %}
+                        <p class="card-text">TODO -> set description complète (texte descriptif du chien et de son comportement) dans fixtures</p>
+                        <ul class="list-group list-group-flush">
+                              <li class="list-group-item"><b>Antécédents: </b>{{ dog.antecedents }}</li>
+                              <li class="list-group-item"><b>L.O.F.:</b> {{ dog.lof == true ? 'L.O.F.' : 'Chien de race non-homologué' }}</li>
+                              <li class="list-group-item"><b>Sociabilité: </b>{{ dog.sociable == true ? 'Accepte les autres animaux' : 'Aime être la seule bête à poile à la maison' }}</li>
+                              <li class="list-group-item"><b>Statut d'adoption: </b>{{ dog.isAdopted == true ? 'Adopté' : 'Cherche encore une famille' }}</li>
+                              {% if dog.adoptingRequests|length > 0 %}
+                                    {% for adoptingRequest in dog.adoptingRequests %}
+                                    <li class="list-group-item"><b>Demande d'adoptions: </b>{{dump(adoptingRequest)  }}</li>
+                                    {% endfor %}
+                              {% else %}
+                                          <li class="list-group-item"><b>Demande d'adoptions: </b>Aucune demandes d'adoption n'a encore été effectué.</li>
+                              {% endif %}
+
+                        </ul>
+                        <a href="#" class="card-link">Card link</a>
+                        <a href="#" class="card-link">Another link</a>
+                  </div>
+            </div>
+            {% endfor %}
+
+
+
+
+      </div>
+
 
 {% endblock %}

@@ -36,7 +36,8 @@
 				'Yorkshire Terrier',
 				'Boxer',
 				'Pékinois',
-				'Lévrier Afghan'
+				'Lévrier Afghan',
+				'Inconnue'
 			];
 			
 			foreach($raceNames  as $raceName ){
