@@ -2,6 +2,7 @@
 
 namespace App\EventSubscriber;
 
+use App\Entity\User;
 use EasyCorp\Bundle\EasyAdminBundle\Event\BeforeEntityPersistedEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -14,6 +15,9 @@ class UserUpdateSubscriber implements EventSubscriberInterface
     {
         // ...
         $user = $event->getEntityInstance();
+        if(!$user instanceof User) {
+            return;
+        }
 
     }
 

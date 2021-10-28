@@ -12,7 +12,8 @@ class RaceCrudController extends AbstractCrudController
         return Race::class;
     }
 
-    /*
+    /**
+
     public function configureFields(string $pageName): iterable
     {
         return [

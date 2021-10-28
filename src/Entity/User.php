@@ -61,6 +61,11 @@ abstract class User implements UserInterface, PasswordAuthenticatedUserInterface
     protected $registerDate;
 
     /**
+     * @var string | null
+     */
+    protected $plainPassword;
+
+    /**
      * @param $id
      * @param $email
      * @param array $roles
@@ -162,7 +167,7 @@ abstract class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function eraseCredentials()
     {
         // If you store any temporary, sensitive data on the user, clear it here
-        // $this->plainPassword = null;
+         $this->plainPassword = null;
     }
 
     public function getLastname(): ?string
@@ -199,5 +204,21 @@ abstract class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->registerDate = $registerDate;
 
         return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getPlainPassword(): ?string
+    {
+        return $this->plainPassword;
+    }
+
+    /**
+     * @param string|null $plainPassword
+     */
+    public function setPlainPassword(?string $plainPassword): void
+    {
+        $this->plainPassword = $plainPassword;
     }
 }
