@@ -2,6 +2,7 @@
 
 namespace App\Security;
 
+use Doctrine\ORM\EntityManager;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -23,6 +24,7 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
     public const LOGIN_ROUTE = 'login';
 
     private UrlGeneratorInterface $urlGenerator;
+    private EntityManager $entityManager;
 
     public function __construct(UrlGeneratorInterface $urlGenerator)
     {
@@ -51,8 +53,8 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
         }
 
         // For example:
-        //return new RedirectResponse($this->urlGenerator->generate('some_route'));
-        throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);
+        return new RedirectResponse($this->urlGenerator->generate('adverts'));
+
     }
 
     protected function getLoginUrl(Request $request): string
