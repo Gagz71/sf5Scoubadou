@@ -24,12 +24,12 @@ class Advert
      * @ORM\Column(type="string", length=255)
      */
     private $title;
-	
-	/**
-	 * @ORM\Column(type="string", length=100, unique=true)
-	 * @Gedmo\Slug(fields={"title"})
-	 */
-	private $slug;
+
+    /**
+     * @ORM\Column(type="string", length=100, unique=true)
+     * @Gedmo\Slug(fields={"title"})
+     */
+    private $slug;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
@@ -61,16 +61,16 @@ class Advert
      * @ORM\JoinColumn(nullable=false)
      */
     private ?Advertiser $advertiser;
-	
-	/**
-	 * @ORM\Column(type="string", length=1000, nullable=true)
-	 */
+
+    /**
+     * @ORM\Column(type="string", length=1000, nullable=true)
+     */
     private $description;
-	
-	/**
-	 * @ORM\Column(type="string", length=255, nullable=true)
-	 */
-	private $urlPicture;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $urlPicture;
 
     public function __construct()
     {
@@ -93,21 +93,21 @@ class Advert
 
         return $this;
     }
-	
-	public function getSlug(): ?string
-	{
-		return $this->slug;
-	}
-	
-	public function setSlug(string $slug): self
-	{
-		$this->slug = $slug;
-		
-		return $this;
-	}
-	
-	
-	public function getDogsNb(): ?int
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): self
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+
+    public function getDogsNb(): ?int
     {
         return $this->dogsNb;
     }
@@ -196,26 +196,40 @@ class Advert
 
         return $this;
     }
-	
-	public function getDescription()
-	{
-		return $this->description;
-	}
-	
-	public function setDescription($description): void
-	{
-		$this->description = $description;
-	}
-	
-	public function getUrlPicture()
-	{
-		return $this->urlPicture;
-	}
-	
-	public function setUrlPicture($urlPicture): void
-	{
-		 $this->urlPicture = $urlPicture;
-	}
-	
-	
+
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    public function setDescription($description): void
+    {
+        $this->description = $description;
+    }
+
+    public function getUrlPicture()
+    {
+        return $this->urlPicture;
+    }
+
+    public function setUrlPicture($urlPicture): void
+    {
+        $this->urlPicture = $urlPicture;
+    }
+
+    public function getThreePictures()
+    {
+        $ret = [];
+        foreach ($this->getDogs() as $dog) {
+            foreach ($dog->getUrlPictures() as $picture) {
+                $ret[] = $picture;
+                if (count($ret) >= 3) {
+                    return $ret;
+                }
+            }
+        }
+        return $ret;
+    }
+
+
 }
