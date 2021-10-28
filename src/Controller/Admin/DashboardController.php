@@ -23,12 +23,22 @@ class DashboardController extends AbstractDashboardController
     public function index(): Response
     {
         // redirect to some CRUD controller
-        $routeBuilder = $this->get(AdminUrlGenerator::class);
-        return $this->redirect($routeBuilder->setController(AdminCrudController::class)->generateUrl());
+        //$routeBuilder = $this->get(AdminUrlGenerator::class);
+        //return $this->redirect($routeBuilder->setController(AdminCrudController::class)->generateUrl());
 
+        $advertisers = $this->getDoctrine()->getRepository(Advertiser::class)->count([]);
+        $adopting = $this->getDoctrine()->getRepository(Adopting::class)->count([]);
+        $users = $this->getDoctrine()->getRepository(User::class)->count([]);
+        $races = $this->getDoctrine()->getRepository(Race::class)->count([]);
 
         // (tip: it's easier if your template extends from @EasyAdmin/page/content.html.twig)
-        //return $this->render('dashboard/dashboard.html.twig');
+        return $this->render('dashboard/dashboard.html.twig',
+        [
+            'advertisers' => $advertisers,
+            'adopting' => $adopting,
+            'users' => $users,
+            'races'=> $races
+        ]);
     }
 
 
