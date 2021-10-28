@@ -64,174 +64,188 @@ class Dog
 	 */
 	private $races;
 	
-	/**
-	 * @ORM\Column(type="string", length=255, nullable=true)
-	 */
-	private $urlPicture;
+    /**
+     * @ORM\OneToMany(targetEntity=UrlPicture::class, mappedBy="dogs")
+     */
+    private $urlPictures;
 	
 	public function __construct()
-	{
-		$this->races = new ArrayCollection();
-	}
+               	{
+               		$this->races = new ArrayCollection();
+                 $this->urlPictures = new ArrayCollection();
+               	}
 	
 	public function getId(): ?int
-	{
-		return $this->id;
-	}
+               	{
+               		return $this->id;
+               	}
 	
 	public function getName(): ?string
-	{
-		return $this->name;
-	}
+               	{
+               		return $this->name;
+               	}
 	
 	public function setName(string $name): self
-	{
-		$this->name = $name;
-		
-		return $this;
-	}
+               	{
+               		$this->name = $name;
+               		
+               		return $this;
+               	}
 	
 	
 	public function getAntecedents(): ?string
-	{
-		return $this->antecedents;
-	}
+               	{
+               		return $this->antecedents;
+               	}
 	
 	public function setAntecedents(string $antecedents): self
-	{
-		$this->antecedents = $antecedents;
-		
-		return $this;
-	}
+               	{
+               		$this->antecedents = $antecedents;
+               		
+               		return $this;
+               	}
 	
 	public function getLof(): ?bool
-	{
-		return $this->lof;
-	}
+               	{
+               		return $this->lof;
+               	}
 	
 	public function setLof(bool $lof): self
-	{
-		$this->lof = $lof;
-		
-		return $this;
-	}
+               	{
+               		$this->lof = $lof;
+               		
+               		return $this;
+               	}
 	
 	public function getFullDescription(): ?string
-	{
-		return $this->fullDescription;
-	}
+               	{
+               		return $this->fullDescription;
+               	}
 	
 	public function setFullDescription(string $fullDescription): self
-	{
-		$this->fullDescription = $fullDescription;
-		
-		return $this;
-	}
+               	{
+               		$this->fullDescription = $fullDescription;
+               		
+               		return $this;
+               	}
 	
 	public function getSociable(): ?bool
-	{
-		return $this->sociable;
-	}
+               	{
+               		return $this->sociable;
+               	}
 	
 	public function setSociable(bool $sociable): self
-	{
-		$this->sociable = $sociable;
-		
-		return $this;
-	}
+               	{
+               		$this->sociable = $sociable;
+               		
+               		return $this;
+               	}
 	
 	public function getIsAdopted(): ?bool
-	{
-		return $this->isAdopted;
-	}
+               	{
+               		return $this->isAdopted;
+               	}
 	
 	public function setIsAdopted(bool $isAdopted): self
-	{
-		$this->isAdopted = $isAdopted;
-		
-		return $this;
-	}
+               	{
+               		$this->isAdopted = $isAdopted;
+               		
+               		return $this;
+               	}
 	
 	/**
 	 * @return Collection|AdoptingRequest[]
 	 */
 	public function getAdoptingRequests(): Collection
-	{
-		return $this->adoptingRequests;
-	}
+               	{
+               		return $this->adoptingRequests;
+               	}
 	
 	public function addAdoptingRequest(AdoptingRequest $adoptingRequest): self
-	{
-		if (!$this->adoptingRequests->contains($adoptingRequest)) {
-			$this->adoptingRequests[] = $adoptingRequest;
-			$adoptingRequest->addDog($this);
-		}
-		
-		return $this;
-	}
+               	{
+               		if (!$this->adoptingRequests->contains($adoptingRequest)) {
+               			$this->adoptingRequests[] = $adoptingRequest;
+               			$adoptingRequest->addDog($this);
+               		}
+               		
+               		return $this;
+               	}
 	
 	public function removeAdoptingRequest(AdoptingRequest $adoptingRequest): self
-	{
-		if ($this->adoptingRequests->removeElement($adoptingRequest)) {
-			$adoptingRequest->removeDog($this);
-		}
-		
-		return $this;
-	}
+               	{
+               		if ($this->adoptingRequests->removeElement($adoptingRequest)) {
+               			$adoptingRequest->removeDog($this);
+               		}
+               		
+               		return $this;
+               	}
 	
 	public function getAdvert(): ?Advert
-	{
-		return $this->advert;
-	}
+               	{
+               		return $this->advert;
+               	}
 	
 	public function setAdvert(?Advert $advert): self
-	{
-		$this->advert = $advert;
-		
-		return $this;
-	}
+               	{
+               		$this->advert = $advert;
+               		
+               		return $this;
+               	}
 	
 	/**
 	 * @return Collection|Race[]
 	 */
 	public function getRaces(): Collection
-	{
-		return $this->races;
-	}
+               	{
+               		return $this->races;
+               	}
 	
 	public function addRace(Race $race): self
-	{
-		if (!$this->races->contains($race)) {
-			$this->races[] = $race;
-			$race->addDog($this);
-		}
-		
-		return $this;
-	}
+               	{
+               		if (!$this->races->contains($race)) {
+               			$this->races[] = $race;
+               			$race->addDog($this);
+               		}
+               		
+               		return $this;
+               	}
 	
 	public function removeRace(Race $race): self
-	{
-		if ($this->races->removeElement($race)) {
-			$race->removeDog($this);
-		}
-		
-		return $this;
-	}
-	
-	
-	/**
-	 * @return mixed
-	 */
-	public function getUrlPicture()
-	{
-		return $this->urlPicture;
-	}
-	
-	/**
-	 * @param mixed $urlPicture
-	 */
-	public function setUrlPicture($urlPicture): void
-	{
-		$this->urlPicture = $urlPicture;
-	}
+               	{
+               		if ($this->races->removeElement($race)) {
+               			$race->removeDog($this);
+               		}
+               		
+               		return $this;
+               	}
+				
+    /**
+     * @return Collection|UrlPicture[]
+     */
+    public function getUrlPictures(): Collection
+    {
+        return $this->urlPictures;
+    }
+
+    public function addUrlPicture(UrlPicture $urlPicture): self
+    {
+        if (!$this->urlPictures->contains($urlPicture)) {
+            $this->urlPictures[] = $urlPicture;
+            $urlPicture->setDogs($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUrlPicture(UrlPicture $urlPicture): self
+    {
+        if ($this->urlPictures->removeElement($urlPicture)) {
+            // set the owning side to null (unless already changed)
+            if ($urlPicture->getDogs() === $this) {
+                $urlPicture->setDogs(null);
+            }
+        }
+
+        return $this;
+    }
 }

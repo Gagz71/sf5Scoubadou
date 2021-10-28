@@ -19,7 +19,9 @@
 {#                  {{ dump(dog) }}#}
             <div class="card mb-3 col-7 m-auto" >
                   <h1 class="display-4 m-auto pt-4 pb-4">🐕{{dog.name }}</h1>
-                  <img src="{{ dog.urlPicture }}" class="card-img-top img-fluid m-auto" alt="..." style="width: 50rem;">
+                  {% for picture in dog.urlPictures %}
+                  <img src="{{ picture.url }}" class="card-img-top img-fluid m-auto" alt="..." style="width: 50rem;">
+                  {% endfor %}
                   <div class="card-body">
 
                         {% for race in dog.races %}
