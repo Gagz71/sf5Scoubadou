@@ -15,9 +15,10 @@
                             <div class="small">Crée le {{ advert.creationDate | date }}
                             </div>
                         </div>
-                        {% for dog in adverts.dog %}
-                        <img src="{{ dog.urlPicture }}" alt="" class="card-img">
+                        {% for picture in advert.getThreePictures() %}
+                                <img src="{{ picture.url }}" alt="" class="card-img">
                         {% endfor %}
+
                         <div class="card-title">
                             <h5 class="display-4"> {{ advert.title }}</h5>
                         </div>
