@@ -2,27 +2,49 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Admin;
+use App\Entity\Adopting;
 use App\Entity\Advertiser;
 use App\Entity\Race;
 use App\Entity\User;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
+use EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class DashboardController extends AbstractDashboardController
 {
+
     /**
-     * @Route("/admin", name="admin")
+     * @Route("/admin")
      */
     public function index(): Response
     {
-        return parent::index();
+        // redirect to some CRUD controller
+        //$routeBuilder = $this->get(AdminUrlGenerator::class);
+        //return $this->redirect($routeBuilder->setController(AdminCrudController::class)->generateUrl());
+
+        $advertisers = $this->getDoctrine()->getRepository(Advertiser::class)->count([]);
+        $adopting = $this->getDoctrine()->getRepository(Adopting::class)->count([]);
+        $users = $this->getDoctrine()->getRepository(User::class)->count([]);
+        $races = $this->getDoctrine()->getRepository(Race::class)->count([]);
+
+        // (tip: it's easier if your template extends from @EasyAdmin/page/content.html.twig)
+        return $this->render('dashboard/dashboard.html.twig',
+        [
+            'advertisers' => $advertisers,
+            'adopting' => $adopting,
+            'users' => $users,
+            'races'=> $races
+        ]);
     }
+
 
     public function configureDashboard(): Dashboard
     {
+
         return Dashboard::new()
             // the name visible to end users
             ->setTitle('ScOuBaDoO Corp.')
@@ -62,30 +84,20 @@ class DashboardController extends AbstractDashboardController
     public function configureMenuItems(): iterable
     {
         return [
-            MenuItem::linkToDashboard('Dashboard', 'fa fa-home'),
+//            MenuItem::linkToDashboard('Dashboard', 'fa fa-home'),
+
+            MenuItem::section('Admininistration'),
+            MenuItem::linkToCrud('Admininistration', 'fas fa-user-lock', Admin::class),
 
             MenuItem::section('Race'),
             MenuItem::linkToCrud('Race', 'fa fa-dog', Race::class),
 
-
-            MenuItem::section('Utilisateurs'),
-            MenuItem::linkToCrud('Users', 'fa fa-user', User::class),
-
-
             MenuItem::section('Annonceurs'),
-            MenuItem::linkToCrud('Advertiser', 'fa fa-user', Advertiser::class),
+            MenuItem::linkToCrud('Annonceur', 'fas fa-user-tie', Advertiser::class),
 
 
-            // links to the 'index' action of the Category CRUD controller
-            MenuItem::linkToCrud('Users', 'fa fa-tags', User::class),
-
-            MenuItem::linkToCrud('RAce', 'fa fa-tags', Race::class),
-
-            MenuItem::linkToCrud('Advertiser', 'fa fa-tags', User::class),
-
-            MenuItem::linkToDashboard('Home', 'fa fa-home'),
-
-            MenuItem::linkToExitImpersonation('Stop impersonation', 'fa fa-exit'),
+            MenuItem::section('Adoptants'),
+            MenuItem::linkToCrud('Adoptants', 'fa fa-user', Adopting::class)
 
         ];
     }

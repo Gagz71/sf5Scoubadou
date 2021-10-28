@@ -1,0 +1,73 @@
+{% extends '@EasyAdmin/layout.html.twig' %}
+
+{% block main %}
+
+
+    <div class="dashboardTitle">
+        <h1>WeLCoME tO DaShBoArD    </h1>
+    </div>
+
+
+    <div class="container-fluid mt-5">
+
+
+
+        <div class="card mt-5 mb-5">
+            <div class="card-header">
+                -ScOuBaDoO Corp.-
+            </div>
+            <div class="card-body text-center">
+                <h5 class="card-title">Accueil</h5>
+                <p class="card-text">Bienvenue sur le tableau de bord </p>
+                <p class="card-text">Cette section vous permets de gérer les diiferents utilisateurs de la plateforme: annonceurs , adoptants et race de chiens  </p>
+                <a href="#" class="btn btn-primary">Lien à definir😉😉</a>
+            </div>
+        </div>
+
+        <div class="row mt-5">
+            <div class="col-sm-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h2 class="card-title">{{ advertisers }}</h2>
+                        <p class="card-text"> - Annonceurs présents sur la plateforme - </p>
+                        <p class="card-text"> il est possible ici de les modifier, supprimer ou encore d'en faire une création </p>
+                        <a href="{{ ea_url()
+                            .setController('App\\Controller\\Admin\\AdvertiserCrudController')
+                            .setAction('index') }}" class="btn btn-primary">Annonceurs</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h2 class="card-title">{{ adopting }}</h2>
+                        <p class="card-text">- Adoptants présents sur la plateforme -</p>
+                        <p class="card-text"> il est possible ici de les modifier, supprimer ou encore d'en faire une création </p>
+                        <a href="{{ ea_url()
+                            .setController('App\\Controller\\Admin\\AdoptingCrudController')
+                            .setAction('index') }}" class="btn btn-primary">Adoptants</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h2 class="card-title">{{ races }}</h2>
+                        <p class="card-text">- Races disponibles à ce jour -</p>
+                        <p class="card-text"> il est possible ici de les modifier, supprimer ou encore d'en faire une création </p>
+                        <a href="{{ ea_url()
+                            .setController('App\\Controller\\Admin\\RaceCrudController')
+                            .setAction('index') }}" class="btn btn-primary">Races</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+
+
+
+{% endblock %}
