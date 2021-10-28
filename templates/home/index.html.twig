@@ -3,18 +3,41 @@
 {% block title %}Hello HomeController!{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+    <div class="container-fluid">
+        <div class="jumbotron">
+            <h1 class="display-4">Les dernières annonces</h1>
+        </div>
+        <div class="row">
+            {% for advert in advertsHome %}
+                <div class="col-3 mb-4 shadow">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="small">Crée le {{ advert.creationDate | date }}
+                            </div>
+                        </div>
+                        <img src="{{ advert.urlPicture }}" alt="" class="card-img">
+                        <div class="card-title">
+                            <h5 class="display-4"> {{ advert.title }}</h5>
+                        </div>
+                        <div class="card-subtitle">{{ advert.dogsNb }} chiens à adopter !
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Les races</h5>
+                            <ul class="list-group list-group-flush lead">
+                                {% for dog in advert.dogs %}
+                                    {% for race in dog.races %}
+                                        <li class="list-group-item"> {{ race.name }}</li>
+                                    {% endfor %}
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="jumbotron">
+        <h1 class="display-4">Les éleveurs</h1>
+    </div>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/home/gagz/Documents/PhpstormProjects/scoubadoo/src/Controller/HomeController.php'|file_link(0) }}">src/Controller/HomeController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/home/gagz/Documents/PhpstormProjects/scoubadoo/templates/home/index.html.twig'|file_link(0) }}">templates/home/index.html.twig</a></code></li>
-    </ul>
-</div>
 {% endblock %}
