@@ -65,15 +65,7 @@ abstract class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     protected $plainPassword;
 
-    /**
-     * @param $id
-     * @param $email
-     * @param array $roles
-     * @param string $password
-     * @param $lastname
-     * @param $firstname
-     * @param $registerDate
-     */
+
     public function __construct()
     {
         $this->registerDate = new DateTime();
