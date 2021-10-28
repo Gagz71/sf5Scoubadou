@@ -65,14 +65,23 @@ class Dog
     private $races;
 
     /**
+<<<<<<< HEAD
      * @ORM\OneToMany(targetEntity=UrlPicture::class, mappedBy="dogs")
      */
     private $urlPictures;
+=======
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $urlPicture;
+>>>>>>> fabc74d312ee574db443bc1e8f862375057d5b31
 
     public function __construct()
     {
         $this->races = new ArrayCollection();
+<<<<<<< HEAD
         $this->urlPictures = new ArrayCollection();
+=======
+>>>>>>> fabc74d312ee574db443bc1e8f862375057d5b31
     }
 
     public function getId(): ?int
@@ -219,6 +228,7 @@ class Dog
         return $this;
     }
 
+<<<<<<< HEAD
     /**
      * @return Collection|UrlPicture[]
      */
@@ -249,3 +259,23 @@ class Dog
         return $this;
     }
 }
+=======
+
+    /**
+     * @return mixed
+     */
+    public function getUrlPicture()
+    {
+        return $this->urlPicture;
+    }
+
+    /**
+     * @param mixed $urlPicture
+     */
+    public function setUrlPicture($urlPicture): void
+    {
+        $this->urlPicture = $urlPicture;
+    }
+
+}
+>>>>>>> fabc74d312ee574db443bc1e8f862375057d5b31
