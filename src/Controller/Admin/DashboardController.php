@@ -25,8 +25,6 @@ use Symfony\Component\Routing\Annotation\Route;
 class DashboardController extends AbstractDashboardController
 {
 
-
-
     /**
      * @Route("/admin")
      */

@@ -23,7 +23,8 @@ class AdvertController extends AbstractController
      */
     public function index(Request $request): Response
     {
-	    
+        $user = $this->getUser();
+
 	    $adverts = $this->entityManager->getRepository(Advert::class)->findAll();
 	    //var_dump($adverts.dogs);
         return $this->render('advert/index.html.twig', [
