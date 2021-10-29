@@ -46,8 +46,8 @@
                               {% else %}
                                     <button  class="card-link btn btn-outline-dark" disabled>Envoyer une demande d'adoption</button>
                               {% endif %}
-{#                        TODO: Si user = advertiser#}
-                        <button class="card-link btn btn-outline-warning">Modifier l'annonce📝</button>
+
+                        <a href="{{ path('edit-advert', {'slug' : advert.slug}) }}" class="card-link btn btn-outline-warning" >Modifier l'annonce📝</a>
                         <button class="card-link btn btn-outline-danger">Supprimer l'annonce🗑️</button>
                   </div>
             </div>

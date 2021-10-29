@@ -35,7 +35,7 @@ class AdvertController extends AbstractController
     }
 	
 	/**
-	 * @Route("/annonce/{id}/edit", name="edit-advert")
+	 * @Route("/annonce/{slug}/edit", name="edit-advert")
 	 * @Route("/annonce/ajout", name="add-advert")
 	 */
 	public function addAdvert(Request $request, ?Advert $advert = null): Response
@@ -102,13 +102,4 @@ class AdvertController extends AbstractController
 		    'advert' => $advert,
 	    ]);
     }
-	
-	
-	/**
-	 * @Route("/annonce/{slug}/modifier-annonce", name="update-advert")
-	 */
-	public function updateAdvert($slug, Request $request): Response
-	{
-		return $this->render('advert/update-advert.html.twig');
-	}
 }
