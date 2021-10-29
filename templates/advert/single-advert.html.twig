@@ -16,7 +16,6 @@
 
       <div class="container-fluid">
             {% for dog in advert.dogs%}
-{#                  {{ dump(dog) }}#}
             <div class="card mb-3 col-7 m-auto" >
                   <h1 class="display-4 m-auto pt-4 pb-4">🐕{{dog.name }}</h1>
                   {% for picture in dog.urlPictures %}
@@ -42,8 +41,14 @@
                               {% endif %}
 
                         </ul>
-                        <a href="#" class="card-link">Card link</a>
-                        <a href="#" class="card-link">Another link</a>
+                              {% if dog.isAdopted == 0 %}
+                              <button  class="card-link btn btn-outline-success">Envoyer une demande d'adoption 🖋️</button>
+                              {% else %}
+                                    <button  class="card-link btn btn-outline-dark" disabled>Envoyer une demande d'adoption</button>
+                              {% endif %}
+{#                        TODO: Si user = advertiser#}
+                        <button class="card-link btn btn-outline-warning">Modifier l'annonce📝</button>
+                        <button class="card-link btn btn-outline-danger">Supprimer l'annonce🗑️</button>
                   </div>
             </div>
             {% endfor %}

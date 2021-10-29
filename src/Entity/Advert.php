@@ -52,7 +52,7 @@ class Advert
     private $status;
 
     /**
-     * @ORM\OneToMany(targetEntity=Dog::class, mappedBy="advert")
+     * @ORM\OneToMany(targetEntity=Dog::class, mappedBy="advert", cascade={"persist"})
      */
     private $dogs;
 
