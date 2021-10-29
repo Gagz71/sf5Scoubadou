@@ -1,0 +1,82 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajout d'une nouvelle annonce{% endblock %}
+
+{% block body %}
+      <div class="container-fluid">
+
+            <div class="jumbotron">
+                  <h1 class="display-4">Création d'une nouvelle annonce d'adoption</h1>
+
+                  <div class="d-flex flex-column mt-5 mb-5">
+                        <div class="form-group col-10 ">
+                              {{ form_start(form) }}
+
+                              {{ form_row(form.title) }}
+
+                              {{ form_row(form.description) }}
+
+
+
+                              {{ form_row(form.urlPicture) }}
+                              <button type="button" class=" add_dog_link btn btn-outline-dark" data-collection-holder-class="dogs">Ajouter un chien 🐶 </button>
+
+                              <ul class="dogs" data-index="{{ form.dogs|length > 0 ? form.dogs|length+ 1 : 0 }}" data-prototype="{{ form_widget(form.dogs.vars.prototype)|e }}">
+                                    {% for dog in form.dogs %}
+                                          <li>{{ form_widget(dog) }}</li>
+                                    {% endfor %}
+                              </ul>
+
+
+
+
+
+                              {{ form_row(form.submit) }}
+                              {{ form_end(form) }}
+                        </div>
+                  </div>
+            </div>
+
+      </div>
+
+
+
+{% endblock %}
+
+{% block script %}
+      <script>
+
+           const addFormToCollection = (e) => {
+                const collectionHolder = document.querySelector('.' + e.currentTarget.dataset.collectionHolderClass);
+
+                const item = document.createElement('li');
+
+                item.innerHTML = collectionHolder
+                     .dataset
+                     .prototype
+                     .replace(
+                          /__name__/g,
+                          collectionHolder.dataset.index
+                     );
+
+                collectionHolder.appendChild(item);
+                console.log(item);
+
+                collectionHolder.dataset.index++;
+           }
+
+           document
+                .querySelectorAll('.add_dog_link')
+                .forEach(btn => btn.addEventListener("click", addFormToCollection));
+          /* document.querySelector('.add_dog_link').addEventListener('click', ()=> {
+                addFormToCollection();
+
+           });*/
+
+           // document.querySelectorAll('.add_dog_link')
+           //      .forEach(btn => btn.addEventListener('click', ()=> {
+           //           alert('ok');
+           //      })
+      </script>
+
+{% endblock %}
