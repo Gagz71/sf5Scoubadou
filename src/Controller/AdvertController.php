@@ -102,4 +102,26 @@ class AdvertController extends AbstractController
 		    'advert' => $advert,
 	    ]);
     }
+    /**
+	 * @Route("/annonce/{slug}/supprimer", name="remove-advert")
+	 */
+    public function removeAdvert($slug): Response
+    {
+	    $advert = $this->entityManager->getRepository(Advert::class)->findOneBySlug($slug);
+	    $dogs = $advert->getDogs();
+	    foreach($dogs as $dog){
+		    $advert->removeDog($dog);
+	    }
+	    
+	
+	   /* if(!$advert){
+		    //return $this->redirectToRoute('adverts');
+		   
+	    }*/
+	    
+	    $this->entityManager->remove($advert);
+	    $this->entityManager->flush();
+	
+	    return $this->redirectToRoute('adverts');
+    }
 }

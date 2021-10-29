@@ -48,7 +48,7 @@
                               {% endif %}
 
                         <a href="{{ path('edit-advert', {'slug' : advert.slug}) }}" class="card-link btn btn-outline-warning" >Modifier l'annonce📝</a>
-                        <button class="card-link btn btn-outline-danger">Supprimer l'annonce🗑️</button>
+                        <a href="{{ path('remove-advert', {'slug': advert.slug}) }}" class="card-link btn btn-outline-danger">Supprimer l'annonce🗑️</a>
                   </div>
             </div>
             {% endfor %}

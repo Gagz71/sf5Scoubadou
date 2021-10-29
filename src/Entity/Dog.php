@@ -56,6 +56,7 @@ class Dog
 	
 	/**
 	 * @ORM\ManyToOne(targetEntity=Advert::class, inversedBy="dogs")
+	 * @ORM\JoinColumn(onDelete="SET NULL")
 	 */
 	private $advert;
 	

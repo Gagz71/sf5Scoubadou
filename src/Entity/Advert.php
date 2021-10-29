@@ -58,7 +58,7 @@ class Advert
 
     /**
      * @ORM\ManyToOne(targetEntity=Advertiser::class, inversedBy="adverts")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=false, onDelete="SET NULL")
      */
     private ?Advertiser $advertiser;
 
