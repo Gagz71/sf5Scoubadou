@@ -1,0 +1,11 @@
+{% block _advert_dogs_entry_urlPictures_row  %}
+      <button type="button" class=" add_link btn btn-outline-dark" data-collection-holder-class="picturesDog">Ajouter
+            une photo chien 🖼🐾
+      </button>
+      <ul class="picturesDog" data-index="{{ form.children|length > 0 ? form.children|length+ 1 : 0 }}"
+          data-prototype="{{ form_widget(form.vars.prototype)|e }}">
+            {% for picture in form.children %}
+                  <li>{{ form_widget(picture) }}</li>
+            {% endfor %}
+      </ul>
+{% endblock  %}
