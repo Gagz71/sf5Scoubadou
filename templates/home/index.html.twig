@@ -50,13 +50,13 @@
             <th scope="col">Nombre annonces pourvus</th>
             <th scope="col">Nombre annonces non pourvus</th>
         </tr>
-        </thead> {% for advert in advertisers %}
+        </thead>
+        {% for advertiser in advertisers %}
             <tbody>
             <tr>
-                <th>{{ advert.organizationName }}</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
+                <th>{{ advertiser.organizationName }}</th>
+                <td>{{ advertiser.countAdvertsAvailable }}</td>
+                <td>{{ advertiser.countAdvertsNotAvailable }}</td>
             </tr>
             </tbody>
         {% endfor %}

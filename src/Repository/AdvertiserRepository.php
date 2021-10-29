@@ -19,13 +19,6 @@ class AdvertiserRepository extends ServiceEntityRepository
         parent::__construct($registry, Advertiser::class);
     }
 
-    public function getAdvertAvailable() {
-        return $this->createQueryBuilder('advertiser')
-            ->select('advertisers.adverts')
-            ->where('advertisers.adverts.status = 0')
-            ->getQuery()
-            ->getResult();
-    }
 
 
     // /**
