@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Advert;
+use App\Entity\Advertiser;
 use App\Entity\Dog;
 use App\Form\AdvertType;
 use Doctrine\ORM\EntityManagerInterface;
@@ -24,7 +25,6 @@ class AdvertController extends AbstractController
      */
     public function index(Request $request): Response
     {
-        $user = $this->getUser();
 
 	    $adverts = $this->entityManager->getRepository(Advert::class)->findAll();
 	    //var_dump($adverts.dogs);
@@ -38,6 +38,13 @@ class AdvertController extends AbstractController
 	 */
 	public function addAdvert(Request $request): Response
 	{
+		$idUser = getUser()->getId();
+		$advertiserId = $this->entityManager->getRepository(Advertiser::class)->findOneById($idUser);
+		
+		if (!$advertiserId){
+			return $this->redirectToRoute('adverts');
+		}
+		
 		$advert = new Advert();
 		
 		$dog = new Dog();
@@ -51,7 +58,8 @@ class AdvertController extends AbstractController
 		if ($form->isSubmitted() && $form->isValid()) {
 			$advert->setCreationDate(new \DateTime());
 			$advert->setStatus(0);
-			$advert->setAdvertiser($this->getUser());
+			$advertiser = $this->getUser();
+			$advert->setAdvertiser($advertiser);
 			// On enregistre
 			$this->entityManager->persist($advert);
 			$this->entityManager->flush();
