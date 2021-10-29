@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Adopting;
+use App\Entity\User;
 use App\Form\AdoptingType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -11,7 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
-class AccountController extends AbstractController
+class RegisterController extends AbstractController
 {
     private UserPasswordHasherInterface $hasher;
 
@@ -21,32 +22,33 @@ class AccountController extends AbstractController
     }
 
     /**
-     * @Route("/account", name="account")
+     * @Route("/register", name="register")
+     * @Route ("/adopting/{id}/edit", name="adopting_edit")
      */
-    public function new(Request $request, EntityManagerInterface $entityManager) : Response {
-        $adopting = new Adopting();
+    public function index(Request $request, EntityManagerInterface $entityManager, ?Adopting $adopting) : Response {
 
-        $form =$this->createForm(AdoptingType::class, $adopting, [
-            'method' => 'POST',
-            'action' => $this->generateUrl('account'),
-        ]);
-
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() &&$form->isValid()) {
-            $pwd = $this->hasher->hashPassword($adopting, $adopting->getPassword());
-            $adopting->setPassword($pwd);
-            $entityManager->persist($adopting);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('home');
+        {
+            if(!$adopting) {
+                $adopting = new Adopting();
+            }
         }
 
-        return $this->render('account/index.html.twig', [
+        $form =$this->createForm(AdoptingType::class, $adopting);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            if (!$adopting->getId()) {
+                $pwd = $this->hasher->hashPassword($adopting, $adopting->getPassword());
+                $adopting->setPassword($pwd);
+                $entityManager->persist($adopting);
+            }
+            $entityManager->flush();
+
+            return $this->redirect($this->generateUrl('adopting_edit', ['id' => $adopting->getId()]));
+        }
+
+        return $this->render('register/index.html.twig', [
             'form' => $form->createView(),
         ]);
     }
-
-
-
 }

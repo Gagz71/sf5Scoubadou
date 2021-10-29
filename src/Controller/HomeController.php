@@ -25,9 +25,6 @@ class     HomeController extends AbstractController
      */
     public function index(AdvertRepository $advertRepository, EntityManagerInterface $entityManager): Response
     {
-
-        // appel repo function 5 last adverts
-        //need entity manager
         $adverts = $this->advertRepository->callFiveAdverts();
         $advertisers = $this->advertiserRepository->findAll();
 
