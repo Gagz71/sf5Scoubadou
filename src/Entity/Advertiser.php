@@ -36,7 +36,6 @@ class Advertiser extends User
     }
 
 
-
     public function getOrganizationName(): ?string
     {
         return $this->organizationName;
@@ -101,5 +100,25 @@ class Advertiser extends User
         $roles[] = 'ROLE_ADVERTISER';
 
         return array_unique($roles);
+    }
+
+    public function countAdvertsAvailable() {
+        $cpt = 0;
+        foreach ($this->getAdverts() as $advert) {
+            if ($advert->getStatus()) {
+                $cpt++;
+            }
+        }
+        return $cpt;
+    }
+
+    public function countAdvertsNotAvailable() {
+        $cpt = 0;
+        foreach ($this->getAdverts() as $advert) {
+            if (!$advert->getStatus()) {
+                $cpt++;
+            }
+        }
+        return $cpt;
     }
 }
