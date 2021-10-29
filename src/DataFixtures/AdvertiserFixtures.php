@@ -17,7 +17,30 @@
 		{
 			
 			$slugger = new AsciiSlugger('fr');
-			
+			$lastNames=[
+				'Manhs',
+				'Adj',
+				'Baz',
+				'De Galles',
+				'De Vannes',
+				'Pandragon',
+				'Ackermann',
+				'Benz',
+				'Forson',
+				'Lawson'
+			];
+			$firstNames = [
+				'Douns',
+				'Steph',
+				'Evan',
+				'Perceval',
+				'Karadoc',
+				'Arthur',
+				'Mikasa',
+				'Martha',
+				'Jim',
+				'Dawson'
+			];
 			$organizationNames = [
 				'SPA',
 				'Le coup de patte',
@@ -28,18 +51,23 @@
 				'Un kien vaut mieux que ???'
 			];
 			
-			foreach($organizationNames  as  $organizationName){
-				$bddOrganizationName = $slugger->slug($organizationName);
+			foreach($lastNames as $key0 => $lastname ){
+				foreach($firstNames as $key => $firstname) {
+					$advertiser = new Advertiser();
+					
+					$advertOrganizationRandIndex = shuffle($organizationNames);
+					$advertiser->setFirstName($firstname);
+					$advertiser->setLastName($lastname);
+					
+					$advertiser->setEmail('email@'.$organizationNames[$advertOrganizationRandIndex]. $key0.$key.'.com');
+					$advertiser->setOrganizationName($organizationNames[$advertOrganizationRandIndex]);
+					$advertiser->setPassword('1234');
+					$advertiser->setRegisterDate(new \DateTime());
+					
+					$manager->persist($advertiser);
+					
+				}
 				
-				$advertiser = new Advertiser();
-				$advertiser->setOrganizationName($organizationName);
-				$advertiser->setFirstname('');
-				$advertiser->setLastname('');
-				$advertiser->setOrganizationName($organizationName);
-				$advertiser->setEmail('email@'.$bddOrganizationName.'.com');
-				$advertiser->setPassword('');
-				$advertiser->setRegisterDate(new \DateTime());
-				$manager->persist($advertiser);
 			}
 			
 			$manager->flush();
