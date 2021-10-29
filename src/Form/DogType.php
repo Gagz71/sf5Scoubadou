@@ -8,6 +8,7 @@ use App\Entity\UrlPicture;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -52,6 +53,13 @@ class DogType extends AbstractType
 	            'expanded' => true,
             ])
 	        
+	        ->add('urlPictures', CollectionType::class, [
+			   'entry_type' => DogsPicturesType::class,
+		        'entry_options' => ['label' => false],
+		        'allow_add' => true,
+		        'label' => false,
+		        'by_reference' => false,
+	        ])
 	      
         ;
     }

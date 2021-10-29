@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Advert;
 use App\Entity\Advertiser;
 use App\Entity\Dog;
+use App\Entity\UrlPicture;
 use App\Form\AdvertType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -34,22 +35,26 @@ class AdvertController extends AbstractController
     }
 	
 	/**
+	 * @Route("/annonce/{id}/edit", name="edit-advert")
 	 * @Route("/annonce/ajout", name="add-advert")
 	 */
-	public function addAdvert(Request $request): Response
+	public function addAdvert(Request $request, ?Advert $advert = null): Response
 	{
-		$idUser = getUser()->getId();
-		$advertiserId = $this->entityManager->getRepository(Advertiser::class)->findOneById($idUser);
-		
-		if (!$advertiserId){
+		/** @var Advertiser $advertiser */
+		$advertiser = $this->getUser();
+		if (!$advertiser instanceof Advertiser){
 			return $this->redirectToRoute('adverts');
 		}
 		
-		$advert = new Advert();
-		
-		$dog = new Dog();
-		$dog->setName('Rex');
-		$advert->addDog($dog);
+		if (!$advert) {
+			$advert = new Advert();
+			
+			$dog = new Dog();
+			$dog->setName('Rex');
+			$advert->addDog($dog);
+			$picture = new UrlPicture();
+			$dog->addUrlPicture($picture);
+		}
 		
 		$form = $this->createForm(AdvertType::class, $advert);
 		
@@ -58,7 +63,6 @@ class AdvertController extends AbstractController
 		if ($form->isSubmitted() && $form->isValid()) {
 			$advert->setCreationDate(new \DateTime());
 			$advert->setStatus(0);
-			$advertiser = $this->getUser();
 			$advert->setAdvertiser($advertiser);
 			// On enregistre
 			$this->entityManager->persist($advert);
@@ -81,6 +85,8 @@ class AdvertController extends AbstractController
 		]);
 	}
 	
+	
+	
 	/**
 	 * @Route("/annonce/{slug}", name="advert")
 	 */
@@ -96,4 +102,13 @@ class AdvertController extends AbstractController
 		    'advert' => $advert,
 	    ]);
     }
+	
+	
+	/**
+	 * @Route("/annonce/{slug}/modifier-annonce", name="update-advert")
+	 */
+	public function updateAdvert($slug, Request $request): Response
+	{
+		return $this->render('advert/update-advert.html.twig');
+	}
 }
