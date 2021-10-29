@@ -107,7 +107,7 @@ class DashboardController extends AbstractDashboardController
             MenuItem::section('Adoptants'),
             MenuItem::linkToCrud('Adoptants', 'fa fa-user', Adopting::class),
 
-            //MenuItem::linkToLogout('Logout', 'fa fa-exit')
+            MenuItem::linkToLogout('Logout', 'fa fa-exit')
 
         ];
     }

@@ -16,8 +16,7 @@ class AdvertController extends AbstractController
 	public function __construct(EntityManagerInterface $entityManager){
 		$this->entityManager = $entityManager;
 	}
-	
-	
+
 	/**
      * @Route("/annonces", name="adverts")
      */
