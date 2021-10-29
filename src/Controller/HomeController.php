@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Repository\AdvertiserRepository;
 use App\Repository\AdvertRepository;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
@@ -13,10 +14,10 @@ class     HomeController extends AbstractController
 {
     private $entityManager;
 
-    public function __construct(EntityManagerInterface $entityManager, AdvertRepository $advertRepository)
+    public function __construct(AdvertRepository $advertRepository, AdvertiserRepository $advertiserRepository)
     {
-        $this->entityManager = $entityManager;
         $this->advertRepository = $advertRepository;
+        $this->advertiserRepository = $advertiserRepository;
     }
 
     /**
@@ -28,9 +29,11 @@ class     HomeController extends AbstractController
         // appel repo function 5 last adverts
         //need entity manager
         $adverts = $this->advertRepository->callFiveAdverts();
+        $advertisers = $this->advertiserRepository->findAll();
 
         return $this->render('home/index.html.twig', [
             'advertsHome' => $adverts,
+            'advertisers' => $advertisers,
             'controller_name' => 'HomeController',
         ]);
     }
