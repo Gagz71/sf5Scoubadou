@@ -33,7 +33,7 @@
 				'https://bit.ly/2ZyqrWn',
 				'https://bit.ly/3EnYxei'
 			];
-			for ($i = 0; $i < 10; $i++) {
+			for ($i = 0; $i < 100; $i++) {
 				$advertsUrlRandomIndex = shuffle($advertsUrlPicture);
 				$advertisersRandomIndex = shuffle($advertisers);
 				$advert = new Advert();
