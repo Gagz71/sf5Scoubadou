@@ -27,12 +27,6 @@
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="{{ path('home') }}">Home</a>
                 </li>
-<<<<<<< HEAD
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ path('add-advert') }}">Ajouter une annonce</a>
-
-                </li>
-=======
                 {% if is_granted('ROLE_ADVERTISER') %}
                     <li class="nav-item">
                         <a class="nav-link" href="{{ path('add-advert') }}">Ajouter une annonce</a>
@@ -48,7 +42,6 @@
                     </li>
                 {% endif %}
 
->>>>>>> navBar update
             </ul>
         </div>
     </div>
