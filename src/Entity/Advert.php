@@ -72,6 +72,13 @@ class Advert
      */
     private $urlPicture;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=AdoptingRequest::class, inversedBy="advert")
+     */
+    private $adoptingRequest;
+
+
+
     public function __construct()
     {
         $this->dogs = new ArrayCollection();
@@ -230,6 +237,25 @@ class Advert
         }
         return $ret;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getAdoptingRequest()
+    {
+        return $this->adoptingRequest;
+    }
+
+    /**
+     * @param mixed $adoptingRequest
+     */
+    public function setAdoptingRequest($adoptingRequest): void
+    {
+        $this->adoptingRequest = $adoptingRequest;
+    }
+
+
+
 
 
 

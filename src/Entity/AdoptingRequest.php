@@ -21,7 +21,7 @@ class AdoptingRequest
     private $id;
 
     /**
-     * @ORM\OneToMany(targetEntity=Adopting::class, mappedBy="adoptingRequest")
+     * @ORM\ManyToOne(targetEntity=Adopting::class, inversedBy="adoptingRequest")
      */
     private $adopting;
 
@@ -31,9 +31,9 @@ class AdoptingRequest
     private $status;
 
     /**
-     * @ORM\OneToMany(targetEntity=Advertiser::class, mappedBy="adoptingRequest")
+     * @ORM\OneToMany(targetEntity=Advert::class, mappedBy="adoptingRequest")
      */
-    private $advertiser;
+    private $advert;
 
     /**
      * @ORM\ManyToMany (targetEntity=Dog::class, mappedBy="adoptingRequests")
@@ -48,7 +48,7 @@ class AdoptingRequest
     public function __construct()
     {
         $this->adopting = new ArrayCollection();
-        $this->advertiser = new ArrayCollection();
+        $this->advert = new ArrayCollection();
         $this->dogs = new ArrayCollection();
     }
 
@@ -58,34 +58,22 @@ class AdoptingRequest
     }
 
     /**
-     * @return Collection|Adopting[]
+     * @return ArrayCollection
      */
-    public function getAdopting(): Collection
+    public function getAdopting(): ArrayCollection
     {
         return $this->adopting;
     }
 
-    public function addAdopting(Adopting $adopting): self
+    /**
+     * @param ArrayCollection $adopting
+     */
+    public function setAdopting(ArrayCollection $adopting): void
     {
-        if (!$this->adopting->contains($adopting)) {
-            $this->adopting[] = $adopting;
-            $adopting->setAdoptingRequest($this);
-        }
-
-        return $this;
+        $this->adopting = $adopting;
     }
 
-    public function removeAdopting(Adopting $adopting): self
-    {
-        if ($this->adopting->removeElement($adopting)) {
-            // set the owning side to null (unless already changed)
-            if ($adopting->getAdoptingRequest() === $this) {
-                $adopting->setAdoptingRequest(null);
-            }
-        }
 
-        return $this;
-    }
 
     public function getStatus(): ?bool
     {
@@ -100,34 +88,43 @@ class AdoptingRequest
     }
 
     /**
-     * @return Collection|Advertiser[]
+     * @return ArrayCollection
      */
-    public function getAdvertiser(): Collection
+    public function getAdvert(): ArrayCollection
     {
-        return $this->advertiser;
+        return $this->advert;
     }
 
-    public function addAdvertiser(Advertiser $advertiser): self
+    public function addAdvert(Advert $advert): self
     {
-        if (!$this->advertiser->contains($advertiser)) {
-            $this->advertiser[] = $advertiser;
-            $advertiser->setAdoptingRequest($this);
+        if (!$this->advert->contains($advert)) {
+            $this->advert[] = $advert;
+            $advert->setAdoptingRequest($this);
         }
 
         return $this;
     }
 
-    public function removeAdvertiser(Advertiser $advertiser): self
+    public function removeAdvert(Advert $advert): self
     {
-        if ($this->advertiser->removeElement($advertiser)) {
+        if ($this->advert->removeElement($advert)) {
             // set the owning side to null (unless already changed)
-            if ($advertiser->getAdoptingRequest() === $this) {
-                $advertiser->setAdoptingRequest(null);
+            if ($advert->getAdoptingRequest() === $this) {
+                $advert->setAdoptingRequest(null);
             }
         }
 
         return $this;
     }
+
+    /**
+     * @param ArrayCollection $advert
+     */
+    public function setAdvert(ArrayCollection $advert): void
+    {
+        $this->advert = $advert;
+    }
+
 
     /**
      * @return Collection|Dog[]
