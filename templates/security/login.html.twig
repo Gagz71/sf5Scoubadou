@@ -14,7 +14,7 @@
         <div class="mb-3">
 
 
-            You are logged in as {{ app.user.username }}  <a href="{{ path('logout') }}"><button class="btn btn-primary">Logout</button></a>
+            Vous etes connecté sous {{ app.user.username }}  <a href="{{ path('logout') }}"><button class="btn btn-primary">Logout</button></a>
         </div>
     {% endif %}
     <div class="container">
@@ -31,7 +31,9 @@
             </div>
             <input type="hidden" name="_csrf_token"
             value="{{ csrf_token('authenticate') }}">
-            <button type="submit" class="btn btn-primary text-center">Submit</button>
+            <button type="submit" class="btn btn-primary text-center">connexion</button>
+            | <a class="btn btn-dark" href='{{ path("register") }}'>création de compte </button> </a>
+
         </form>
     </div>
 {% endblock %}

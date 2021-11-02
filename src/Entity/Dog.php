@@ -36,7 +36,7 @@ class Dog
 	private $lof;
 	
 	/**
-	 * @ORM\Column(type="string", length=255, nullable=true)
+	 * @ORM\Column(type="text", nullable=true)
 	 */
 	private $fullDescription;
 	
@@ -57,7 +57,6 @@ class Dog
 	
 	/**
 	 * @ORM\ManyToOne(targetEntity=Advert::class, inversedBy="dogs")
-	 * @ORM\JoinColumn(onDelete="SET NULL")
 	 */
 	private $advert;
 	
@@ -68,7 +67,7 @@ class Dog
 	
 
     /**
-     * @ORM\OneToMany(targetEntity=UrlPicture::class, mappedBy="dogs", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity=UrlPicture::class, mappedBy="dogs", cascade={"persist", "remove"})
      */
     private $urlPictures;
 
