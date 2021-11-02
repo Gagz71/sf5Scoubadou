@@ -1,60 +1,63 @@
-      {% extends 'base.html.twig' %}
+{% extends 'base.html.twig' %}
 
 {% block title %}Nos annonces{% endblock %}
 
 {% block body %}
-      <div class="container-fluid">
+    <div class="container-fluid">
 
-            <div class="jumbotron">
-                  <h1 class="display-4">Nos Scoub'Annonces</h1>
-                  <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
-                  <hr class="my-4">
-                  <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
-                  {% if is_granted('ROLE_ADVERTISER') %}
-                  <a class="btn btn-primary btn-lg" href="{{ path('add-advert') }}" role="button">Créer une nouvelle annonce</a>
-                  {% endif %}
-            </div>
+        <div class="jumbotron">
+            <h1 class="display-4">Nos Scoub'Annonces</h1>
+            <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention
+                to featured content or information.</p>
+            <hr class="my-4">
+            <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
+            {% if is_granted('ROLE_ADVERTISER') %}
+                <a class="btn btn-primary btn-lg" href="{{ path('add-advert') }}" role="button">Créer une nouvelle
+                    annonce</a>
+            {% endif %}
+        </div>
 
-                  <div class="row">
+        <div class="row">
 
-                        {% for advert in adverts %}
-                        <div class="col-3 mb-4 shadow">
-                                    <div class="card">
-                                          <div class="card-header">
-                                                Organisation annonciatrice: <b>{{ advert.advertiser.organizationName }}</b>
-                                                <div class="small">Crée le  {{ advert.creationDate | date}}</div>
-                                          </div>
-                                          <img src="{{ advert.urlPicture }}" alt="" class="card-img">
-                                          <div class="card-title">
-                                                <h5 class="display-4"> {{ advert.title }}</h5>
-                                          </div>
-                                          <div class="card-subtitle">{{ advert.dogsNb }} chiens à adopter ! </div>
-                                          <div class="card-body">
-                                                <p class="card-text">{{ advert.description }}</p>
-                                          </div>
-                                          <div class="card-body">
-                                                <h5 class="card-title">Les toutous 🐾</h5>
-                                                <ul class="list-group list-group-flush lead">
-                                                      {% for dog in advert.dogs%}
-                                                            <li class="list-group-item"> 🐕{{dog.name }}</li>
-
-                                                      {% endfor %}
-                                                </ul>
-                                          </div>
-                                          <div class="card-footer">
-                                                <div class="small">
-                                                      Statut:  {{advert.status == 0 ? 'Chiens tous adoptés' : ' Cherche une famille aimante'}}
-                                                </div>
-                                                <div class="text"><a href="{{ path('advert', {'slug' : advert.slug}) }}" title="Voir l'annonce en détail">En savoir plus</a></div>
-                                          </div>
-                                    </div>
-
+            {% for advert in adverts %}
+                <div class="col-3 mb-4 shadow">
+                    <div class="card">
+                        <div class="card-header">
+                            Organisation annonciatrice: <b>{{ advert.advertiser.organizationName }}</b>
+                            <div class="small">Crée le {{ advert.creationDate | date }}</div>
                         </div>
-                        {% endfor %}
+                        <img src="{{ advert.urlPicture }}" alt="" class="card-img">
+                        <div class="card-title">
+                            <h5 class="display-4"> {{ advert.title }}</h5>
+                        </div>
+                        <div class="card-subtitle">{{ advert.dogsNb }} chiens à adopter !</div>
+                        <div class="card-body">
+                            <p class="card-text">{{ advert.description }}</p>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Les toutous 🐾</h5>
+                            <ul class="list-group list-group-flush lead">
+                                {% for dog in advert.dogs %}
+                                    <li class="list-group-item"> 🐕{{ dog.name }}</li>
 
-                  </div>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        <div class="card-footer">
+                            <div class="small">
+                                Statut: {{ advert.status == 0 ? 'Chiens tous adoptés' : ' Cherche une famille aimante' }}
+                            </div>
+                            <div class="text"><a href="{{ path('advert', {'slug' : advert.slug}) }}"
+                                                 title="Voir l'annonce en détail">En savoir plus</a></div>
+                        </div>
+                    </div>
 
-      </div>
+                </div>
+            {% endfor %}
+
+        </div>
+
+    </div>
 
 
 
