@@ -52,18 +52,18 @@ class Advert
     private $status;
 
     /**
-     * @ORM\OneToMany(targetEntity=Dog::class, mappedBy="advert", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity=Dog::class, mappedBy="advert", cascade={"persist", "remove"})
      */
     private $dogs;
 
     /**
      * @ORM\ManyToOne(targetEntity=Advertiser::class, inversedBy="adverts")
-     * @ORM\JoinColumn(nullable=false, onDelete="SET NULL")
+     * @ORM\JoinColumn(nullable=false)
      */
     private ?Advertiser $advertiser;
 
     /**
-     * @ORM\Column(type="string", length=1000, nullable=true)
+     * @ORM\Column(type="text", nullable=true)
      */
     private $description;
 
