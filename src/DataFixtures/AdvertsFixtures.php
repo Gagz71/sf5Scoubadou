@@ -49,7 +49,7 @@
 				
 				$advert = new Advert();
 				$advert->setTitle($title.$i);
-				$advert->setDogsNb(count($dogs));
+				$advert->setDogsNb(2);
 				$advert->setStatus(random_int(0,1));
 				$advert->setCreationDate(new \DateTime());
 				$advert->setUrlPicture($advertsUrlPicture[$advertsUrlRandomIndex]);
