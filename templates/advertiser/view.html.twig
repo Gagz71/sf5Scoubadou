@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Détails de l'annonceur{% endblock %}
+
+{% block body %}
+
+
+    <div class="jumbotron">
+        <h1 class="display-4">{{advertiser.organizationName}}</h1>
+        <p class="lead">Rumor, abactus, et lacta. Domesticus, neuter tuss solite visum de bi-color, festus ventus. Sunt dominaes transferre fatalis, domesticus idoleumes.</p>
+        <hr class="my-4">
+        <p>"reincarnation"</p>
+        <p class="lead">
+            <a class="btn btn-dark btn-lg" href="#" role="button"> Accéder directement à notre site</a>
+        </p>
+    </div>
+
+
+    <div class="container">
+        {% for advert in listAdverts%}
+            <div class="row m-2 mt-5 pt-3 shadow rounded" style="">
+                <div class="col">
+                    <img src="{{ advert.urlPicture }}" class="rounded w-100 " alt="..." style="max-height: 330px">
+                </div>
+                <div class="col">
+                    <h2>{{ advert.title }}</h2>
+                    <h3 style="color: #c2cbb2 "> - {{ advert.dogsnb }} toutous disponibles</h3>
+                    <p>{{ advert.description }} </p>
+                    <p>Date de création de l'annonce :  {{ advert.creationDate | date ('d M Y')}} </p>
+                </div>
+                <div class="row p-0 m-0  rounded-bottom shadow" style="background-color: #e3ecd3">
+                    {% for dog in advert.dogs %}
+                        <div class="row col-12 p-0 m-0 pt-5" style="">
+                            <div class="col text-center w-100">
+                                <H2> Voici  {{ dog.name }} </H2>
+                            </div>
+                        </div>
+                        <div class="row col-12 p-0 m-0 mb-5  d-flex justify-content-center" style="">
+                            {% for dogPic in dog.urlPictures %}
+                                <div class="col ml-2 mr-2 mt-5  pb-0 rounded shadow"  style="height: 300px; width:300px; background-image: url({{ dogPic.url }}); background-size: cover"></div>
+                            {% endfor %}
+                        </div>
+                    {% endfor %}
+                 </div>
+            </div>
+        {% endfor %}
+    </div>
+
+{% endblock %}

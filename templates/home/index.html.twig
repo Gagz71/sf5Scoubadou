@@ -54,12 +54,14 @@
         {% for advertiser in advertisers %}
             <tbody>
             <tr>
-                <th>{{ advertiser.organizationName }}</th>
+                <th><a href='{{ path("advertiser_view", {id: advertiser.id}) }}' >{{ advertiser.organizationName }}</a></th>
                 <td>{{ advertiser.countAdvertsAvailable }}</td>
                 <td>{{ advertiser.countAdvertsNotAvailable }}</td>
             </tr>
+
             </tbody>
         {% endfor %}
     </table>
 
 {% endblock %}
+
