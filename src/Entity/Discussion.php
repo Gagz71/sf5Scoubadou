@@ -28,7 +28,7 @@ class Discussion
     private $advertiser;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="text")
      */
     private $content;
 
@@ -36,12 +36,7 @@ class Discussion
      * @ORM\Column(type="date")
      */
     private $creationDate;
-
-    /**
-     * @ORM\Column(type="object")
-     */
-    private $adooptionRequest;
-
+    
     /**
      * @ORM\OneToOne(targetEntity=AdoptingRequest::class, mappedBy="discussion", cascade={"persist", "remove"})
      */
@@ -96,18 +91,6 @@ class Discussion
     public function setCreationDate(\DateTimeInterface $creationDate): self
     {
         $this->creationDate = $creationDate;
-
-        return $this;
-    }
-
-    public function getAdooptionRequest()
-    {
-        return $this->adooptionRequest;
-    }
-
-    public function setAdooptionRequest($adooptionRequest): self
-    {
-        $this->adooptionRequest = $adooptionRequest;
 
         return $this;
     }
