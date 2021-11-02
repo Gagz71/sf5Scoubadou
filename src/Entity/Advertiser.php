@@ -26,12 +26,13 @@ class Advertiser extends User
     private $adoptingRequest;
 
     /**
-     * @ORM\OneToMany(targetEntity=Advert::class, mappedBy="advertiser", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=Advert::class, mappedBy="advertiser", orphanRemoval=true, cascade={"persist", "remove"})
      */
     private $adverts;
 
     public function __construct()
     {
+	    parent::__construct();
         $this->adverts = new ArrayCollection();
     }
 
