@@ -24,6 +24,7 @@ class AdvertiserController extends AbstractController
             'listAdverts' => $listAdverts,
             'listAdoptingRqs' => $listAdoptingRqs
         ]);
-
     }
+
+
 }

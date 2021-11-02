@@ -7,6 +7,7 @@ use App\Entity\Advertiser;
 use App\Entity\Dog;
 use App\Entity\UrlPicture;
 use App\Form\AdvertType;
+use App\Repository\AdvertiserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,10 +17,10 @@ use Symfony\Component\Routing\Annotation\Route;
 class AdvertController extends AbstractController
 {
     private $entityManager;
-
-    public function __construct(EntityManagerInterface $entityManager)
+    public function __construct(EntityManagerInterface $entityManager, AdvertiserRepository $advertiserRepository)
     {
         $this->entityManager = $entityManager;
+        $this->advertiserRepository = $advertiserRepository;
     }
 
     /**
@@ -27,9 +28,7 @@ class AdvertController extends AbstractController
      */
     public function index(Request $request): Response
     {
-
         $adverts = $this->entityManager->getRepository(Advert::class)->findAll();
-        //var_dump($adverts.dogs);
         return $this->render('advert/index.html.twig', [
             'adverts' => $adverts,
         ]);
@@ -112,15 +111,19 @@ class AdvertController extends AbstractController
             $advert->removeDog($dog);
         }
 
-
-        /* if(!$advert){
-             //return $this->redirectToRoute('adverts');
-
-         }*/
-
         $this->entityManager->remove($advert);
         $this->entityManager->flush();
-
         return $this->redirectToRoute('adverts');
     }
+
+    /**
+     * @Route("/annonces/{id}", name="advert-by-advertiser")
+     */
+    public function getAdvertsByAdvertiser(Advertiser $advertiser) :Response {
+        return $this->render('advert/advertsByAdvertiser.html.twig', [
+            'advertiser' =>$advertiser,
+        ]);
+    }
+
+
 }
