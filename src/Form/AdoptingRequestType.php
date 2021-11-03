@@ -33,7 +33,7 @@ class AdoptingRequestType extends AbstractType
                 }
             ])
             //imbriquation des champs email,password,lastname, firstname
-            ->add('adopting', AdoptingType::class, [
+            ->add('adopting', AdoptingForRequestType::class, [
             ])
             ->add('discussions', CollectionType::class, [
                 'entry_type' =>discussionType::class,
