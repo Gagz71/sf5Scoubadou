@@ -41,8 +41,6 @@
 				'https://bit.ly/3EnYxei'
 			];
 			
-		
-			
 			for ($i = 0; $i < 10; $i++) {
 				$advertisersRandomIndex = shuffle($advertisers);
 				$advertsUrlRandomIndex = shuffle($advertsUrlPicture);
@@ -50,7 +48,7 @@
 				$advert = new Advert();
 				$advert->setTitle($title.$i);
 				$advert->setDogsNb(2);
-				$advert->setStatus(random_int(0,1));
+				$advert->setStatus(1);
 				$advert->setCreationDate(new \DateTime());
 				$advert->setUrlPicture($advertsUrlPicture[$advertsUrlRandomIndex]);
 				$advert->setAdvertiser($advertisers[$advertisersRandomIndex]);

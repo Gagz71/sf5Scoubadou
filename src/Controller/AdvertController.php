@@ -38,22 +38,6 @@ class AdvertController extends AbstractController
     }
 
     /**
-     * @Route("/annonce/{slug}", name="advert")
-     */
-    public function singleAdvert($slug): Response
-    {
-        $advert = $this->entityManager->getRepository(Advert::class)->findOneBySlug($slug);
-
-        if (!$advert) {
-            return $this->redirectToRoute('adverts');
-        }
-
-        return $this->render('advert/single-advert.html.twig', [
-            'advert' => $advert,
-        ]);
-    }
-
-    /**
      * @Route("/annonce/{slug}/edit", name="edit-advert")
      * @Route("/annonce/ajout", name="add-advert")
      * @IsGranted("ROLE_ADVERTISER")
@@ -103,7 +87,23 @@ class AdvertController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
-
+    
+	/**
+	 * @Route("/annonce/{slug}", name="advert")
+	 */
+	public function singleAdvert($slug): Response
+	{
+		$advert = $this->entityManager->getRepository(Advert::class)->findOneBySlug($slug);
+		
+		if (!$advert) {
+			return $this->redirectToRoute('adverts');
+		}
+		
+		return $this->render('advert/single-advert.html.twig', [
+			'advert' => $advert,
+		]);
+	}
+	
     /**
      * @Route("/annonce/{slug}/supprimer", name="remove-advert")
      */
