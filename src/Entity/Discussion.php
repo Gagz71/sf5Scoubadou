@@ -18,16 +18,6 @@ class Discussion
     private $id;
 
     /**
-     * @ORM\Column(type="object")
-     */
-    private $adopting;
-
-    /**
-     * @ORM\Column(type="object")
-     */
-    private $advertiser;
-
-    /**
      * @ORM\Column(type="string", length=255)
      */
     private $content;
@@ -38,42 +28,14 @@ class Discussion
     private $creationDate;
 
     /**
-     * @ORM\Column(type="object")
-     */
-    private $adooptionRequest;
-
-    /**
-     * @ORM\OneToOne(targetEntity=AdoptingRequest::class, mappedBy="discussion", cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity=AdoptingRequest::class, inversedBy="discussions")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $adoptingRequest;
 
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getAdopting()
-    {
-        return $this->adopting;
-    }
-
-    public function setAdopting($adopting): self
-    {
-        $this->adopting = $adopting;
-
-        return $this;
-    }
-
-    public function getAdvertiser()
-    {
-        return $this->advertiser;
-    }
-
-    public function setAdvertiser($advertiser): self
-    {
-        $this->advertiser = $advertiser;
-
-        return $this;
     }
 
     public function getContent(): ?string
@@ -100,18 +62,6 @@ class Discussion
         return $this;
     }
 
-    public function getAdooptionRequest()
-    {
-        return $this->adooptionRequest;
-    }
-
-    public function setAdooptionRequest($adooptionRequest): self
-    {
-        $this->adooptionRequest = $adooptionRequest;
-
-        return $this;
-    }
-
     public function getAdoptingRequest(): ?AdoptingRequest
     {
         return $this->adoptingRequest;
@@ -119,16 +69,6 @@ class Discussion
 
     public function setAdoptingRequest(?AdoptingRequest $adoptingRequest): self
     {
-        // unset the owning side of the relation if necessary
-        if ($adoptingRequest === null && $this->adoptingRequest !== null) {
-            $this->adoptingRequest->setDiscussion(null);
-        }
-
-        // set the owning side of the relation if necessary
-        if ($adoptingRequest !== null && $adoptingRequest->getDiscussion() !== $this) {
-            $adoptingRequest->setDiscussion($this);
-        }
-
         $this->adoptingRequest = $adoptingRequest;
 
         return $this;

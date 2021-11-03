@@ -34,60 +34,63 @@ class AdvertController extends AbstractController
             'adverts' => $adverts,
         ]);
     }
+	
+	/**
+	 * @Route("/annonce/{slug}/edit", name="edit-advert")
+	 * @Route("/annonce/ajout", name="add-advert")
+	 */
+	public function addAdvert(Request $request, ?Advert $advert = null): Response
+	{
+		/** @var Advertiser $advertiser */
+		$advertiser = $this->getUser();
+		if (!$advertiser instanceof Advertiser){
+			return $this->redirectToRoute('adverts');
+		}
+		
+		if (!$advert) {
+			$advert = new Advert();
+			
+			$dog = new Dog();
+			$dog->setName('Rex');
+			$advert->addDog($dog);
+			$picture = new UrlPicture();
+			$dog->addUrlPicture($picture);
 
-    /**
-     * @Route("/annonce/{slug}/edit", name="edit-advert")
-     * @Route("/annonce/ajout", name="add-advert")
-     */
-    public function addAdvert(Request $request, ?Advert $advert = null): Response
-    {
-        /** @var Advertiser $advertiser */
-        $advertiser = $this->getUser();
-        if (!$advertiser instanceof Advertiser) {
-            return $this->redirectToRoute('adverts');
-        }
+		}
+		
+		$form = $this->createForm(AdvertType::class, $advert);
+		
+		$form->handleRequest($request);
+		
+		if ($form->isSubmitted() && $form->isValid()) {
+			$advert->setCreationDate(new \DateTime());
+			$advert->setStatus(0);
+			$advert->setAdvertiser($advertiser);
+			// On enregistre
+			$this->entityManager->persist($advert);
+			$this->entityManager->flush();
+			
+			// On peut également afficher un message à l'utilisateur
+			// Les flashs sont affichés une fois, au chargement de la page suivante
+			// Et permettent donc d'afficher un message, malgré une redirection
+			$this->addFlash('success', 'Nouvelle annonce ajoutée ');
+			
+			// Une fois que le formulaire est validé,
+			// on redirige pour éviter que l'utilisateur ne recharge la page
+			// et soumette la même information une seconde fois
+			return $this->redirectToRoute('adverts');
+		}
+		
+		
+		return $this->render('advert/add-advert.html.twig', [
+			'form' =>$form->createView(),
+		]);
+	}
+	
+	/**
+	 * @Route("/annonce/{slug}", name="advert")
+	 */
 
-        if (!$advert) {
-            $advert = new Advert();
-
-            $dog = new Dog();
-            $dog->setName('Rex');
-            $advert->addDog($dog);
-            $picture = new UrlPicture();
-            $dog->addUrlPicture($picture);
-        }
-
-        $form = $this->createForm(AdvertType::class, $advert);
-
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $advert->setCreationDate(new \DateTime());
-            $advert->setStatus(0);
-            $advert->setAdvertiser($advertiser);
-            // On enregistre
-            $this->entityManager->persist($advert);
-            $this->entityManager->flush();
-
-            // On peut également afficher un message à l'utilisateur
-            // Les flashs sont affichés une fois, au chargement de la page suivante
-            // Et permettent donc d'afficher un message, malgré une redirection
-            $this->addFlash('success', 'Nouvelle annonce ajoutée ');
-
-            // Une fois que le formulaire est validé,
-            // on redirige pour éviter que l'utilisateur ne recharge la page
-            // et soumette la même information une seconde fois
-            return $this->redirectToRoute('adverts');
-        }
-
-        return $this->render('advert/add-advert.html.twig', [
-            'form' => $form->createView(),
-        ]);
-    }
-
-    /**
-     * @Route("/annonce/{slug}", name="advert")
-     */
     public function singleAdvert($slug): Response
     {
         $advert = $this->entityManager->getRepository(Advert::class)->findOneBySlug($slug);

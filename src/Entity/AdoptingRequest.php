@@ -21,7 +21,7 @@ class AdoptingRequest
     private $id;
 
     /**
-     * @ORM\OneToMany(targetEntity=Adopting::class, mappedBy="adoptingRequest")
+     * @ORM\ManyToOne(targetEntity=Adopting::class, inversedBy="adoptingRequest")
      */
     private $adopting;
 
@@ -31,9 +31,9 @@ class AdoptingRequest
     private $status;
 
     /**
-     * @ORM\OneToMany(targetEntity=Advertiser::class, mappedBy="adoptingRequest")
+     * @ORM\OneToMany(targetEntity=Advert::class, mappedBy="adoptingRequest")
      */
-    private $advertiser;
+    private $advert;
 
     /**
      * @ORM\ManyToMany (targetEntity=Dog::class, mappedBy="adoptingRequests")
@@ -41,15 +41,14 @@ class AdoptingRequest
     private $dogs;
 
     /**
-     * @ORM\OneToOne(targetEntity=Discussion::class, inversedBy="adoptingRequest", cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity=Discussion::class, mappedBy="adoptingRequest")
      */
-    private $discussion;
+    private $discussions;
 
     public function __construct()
     {
-        $this->adopting = new ArrayCollection();
-        $this->advertiser = new ArrayCollection();
         $this->dogs = new ArrayCollection();
+        $this->discussions = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -58,34 +57,25 @@ class AdoptingRequest
     }
 
     /**
-     * @return Collection|Adopting[]
+     * @return Adopting
      */
-    public function getAdopting(): Collection
+    public function getAdopting(): Adopting
     {
         return $this->adopting;
     }
 
-    public function addAdopting(Adopting $adopting): self
+    /**
+     * @param Adopting $adopting
+     * @return AdoptingRequest
+     */
+    public function setAdopting(Adopting $adopting): self
     {
-        if (!$this->adopting->contains($adopting)) {
-            $this->adopting[] = $adopting;
-            $adopting->setAdoptingRequest($this);
-        }
+        $this->adopting = $adopting;
 
         return $this;
     }
 
-    public function removeAdopting(Adopting $adopting): self
-    {
-        if ($this->adopting->removeElement($adopting)) {
-            // set the owning side to null (unless already changed)
-            if ($adopting->getAdoptingRequest() === $this) {
-                $adopting->setAdoptingRequest(null);
-            }
-        }
 
-        return $this;
-    }
 
     public function getStatus(): ?bool
     {
@@ -100,34 +90,24 @@ class AdoptingRequest
     }
 
     /**
-     * @return Collection|Advertiser[]
+     * @return Advert
      */
-    public function getAdvertiser(): Collection
+    public function getAdvert(): Advert
     {
-        return $this->advertiser;
+        return $this->advert;
     }
 
-    public function addAdvertiser(Advertiser $advertiser): self
+    /**
+     * @param Advert $advert
+     * @return AdoptingRequest
+     */
+    public function setAdvert(Advert $advert): self
     {
-        if (!$this->advertiser->contains($advertiser)) {
-            $this->advertiser[] = $advertiser;
-            $advertiser->setAdoptingRequest($this);
-        }
+        $this->advert = $advert;
 
         return $this;
     }
 
-    public function removeAdvertiser(Advertiser $advertiser): self
-    {
-        if ($this->advertiser->removeElement($advertiser)) {
-            // set the owning side to null (unless already changed)
-            if ($advertiser->getAdoptingRequest() === $this) {
-                $advertiser->setAdoptingRequest(null);
-            }
-        }
-
-        return $this;
-    }
 
     /**
      * @return Collection|Dog[]
@@ -153,14 +133,32 @@ class AdoptingRequest
         return $this;
     }
 
-    public function getDiscussion(): ?Discussion
+    /**
+     * @return Collection|Discussion[]
+     */
+    public function getDiscussions(): Collection
     {
-        return $this->discussion;
+        return $this->discussions;
     }
 
-    public function setDiscussion(?Discussion $discussion): self
+    public function addDiscussion(Discussion $discussion): self
     {
-        $this->discussion = $discussion;
+        if (!$this->discussions->contains($discussion)) {
+            $this->discussions[] = $discussion;
+            $discussion->setAdoptingRequest($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDiscussion(Discussion $discussion): self
+    {
+        if ($this->discussions->removeElement($discussion)) {
+            // set the owning side to null (unless already changed)
+            if ($discussion->getAdoptingRequest() === $this) {
+                $discussion->setAdoptingRequest(null);
+            }
+        }
 
         return $this;
     }

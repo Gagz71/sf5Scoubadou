@@ -21,18 +21,15 @@ class Advertiser extends User
     private $organizationName;
 
     /**
-     * @ORM\ManyToOne(targetEntity=AdoptingRequest::class, inversedBy="advertiser")
-     */
-    private $adoptingRequest;
-
-    /**
      * @ORM\OneToMany(targetEntity=Advert::class, mappedBy="advertiser", orphanRemoval=true, cascade={"persist", "remove"})
      */
     private $adverts;
 
     public function __construct()
     {
-	    parent::__construct();
+
+        parent::__construct();
+
         $this->adverts = new ArrayCollection();
     }
 
@@ -45,18 +42,6 @@ class Advertiser extends User
     public function setOrganizationName(string $organizationName): self
     {
         $this->organizationName = $organizationName;
-
-        return $this;
-    }
-
-    public function getAdoptingRequest(): ?AdoptingRequest
-    {
-        return $this->adoptingRequest;
-    }
-
-    public function setAdoptingRequest(?AdoptingRequest $adoptingRequest): self
-    {
-        $this->adoptingRequest = $adoptingRequest;
 
         return $this;
     }
