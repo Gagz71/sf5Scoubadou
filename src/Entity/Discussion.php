@@ -26,12 +26,7 @@ class Discussion
      * @ORM\Column(type="object")
      */
     private $advertiser;
-
-    /**
-     * @ORM\Column(type="text")
-
-    private $content;
-
+    
     /**
      * @ORM\Column(type="date")
      */
