@@ -10,6 +10,7 @@ use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -34,11 +35,19 @@ class AdoptingRequestType extends AbstractType
             ])
             //imbriquation des champs email,password,lastname, firstname
             ->add('adopting', AdoptingForRequestType::class, [
+                'label' => 'informations de l\'adoptant'
             ])
             ->add('discussions', CollectionType::class, [
-                'entry_type' =>discussionType::class,
+                'entry_type' =>DiscussionType::class,
                 'by_reference' => false,
                 'allow_add'=> false,
+            ])
+
+            ->add('submit', SubmitType::class, [
+                'label' => 'i wAnT mY dOg',
+                'attr'=>[
+                    'class' => 'btn btn-outline-secondary m-auto'
+                ]
             ])
 
         ;

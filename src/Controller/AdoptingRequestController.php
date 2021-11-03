@@ -20,7 +20,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class AdoptingRequestController extends AbstractController
 {
 
-    private  $entityManager;
+    private EntityManagerInterface $entityManager;
 
     public function __construct(EntityManagerInterface $entityManager){
         $this->entityManager = $entityManager;
@@ -45,7 +45,7 @@ class AdoptingRequestController extends AbstractController
         $discussion = new Discussion();
         $discussion->setCreationDate(new \DateTime());
 
-        //$adoptingRequest->addDiscussion($discussion);
+        $adoptingRequest->addDiscussion($discussion);
 
 
         $form = $this->createForm(AdoptingRequestType::class, $adoptingRequest, [
@@ -55,6 +55,8 @@ class AdoptingRequestController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $adoptingRequest->setStatus(0);
+
+            // dd($adoptingRequest);
 
             // On enregistre
             $this->entityManager->persist($adoptingRequest);

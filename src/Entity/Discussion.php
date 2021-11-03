@@ -18,18 +18,8 @@ class Discussion
     private $id;
 
     /**
-     * @ORM\Column(type="object")
-     */
-    private $adopting;
-
-    /**
-     * @ORM\Column(type="object")
-     */
-    private $advertiser;
-
-    /**
      * @ORM\Column(type="text")
-
+     */
     private $content;
 
     /**
@@ -38,7 +28,7 @@ class Discussion
     private $creationDate;
     
     /**
-     * @ORM\OneToOne(targetEntity=AdoptingRequest::class, inversedBy="discussions", cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity=AdoptingRequest::class, inversedBy="discussions", cascade={"persist", "remove"})
      */
     private $adoptingRequest;
 

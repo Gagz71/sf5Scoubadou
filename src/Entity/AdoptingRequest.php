@@ -41,7 +41,7 @@ class AdoptingRequest
     private $dogs;
 
     /**
-     * @ORM\OneToMany(targetEntity=Discussion::class, mappedBy="adoptingRequest")
+     * @ORM\OneToMany(targetEntity=Discussion::class, mappedBy="adoptingRequest", cascade={"persist"})
      */
     private $discussions;
 
