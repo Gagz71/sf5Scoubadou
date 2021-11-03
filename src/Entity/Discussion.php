@@ -18,18 +18,27 @@ class Discussion
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="object")
      */
+    private $adopting;
+
+    /**
+     * @ORM\Column(type="object")
+     */
+    private $advertiser;
+
+    /**
+     * @ORM\Column(type="text")
+
     private $content;
 
     /**
      * @ORM\Column(type="date")
      */
     private $creationDate;
-
+    
     /**
-     * @ORM\ManyToOne(targetEntity=AdoptingRequest::class, inversedBy="discussions")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\OneToOne(targetEntity=AdoptingRequest::class, mappedBy="discussion", cascade={"persist", "remove"})
      */
     private $adoptingRequest;
 
