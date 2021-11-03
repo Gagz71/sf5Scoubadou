@@ -14,13 +14,11 @@ use App\Entity\Dog;
 
 class DogsFixtures extends Fixture implements DependentFixtureInterface
 {
-	private AdvertiserRepository  $advertiserRepository;
 	private AdvertRepository $advertRepository;
 	private RaceRepository  $raceRepository;
 	private UrlPictureRepository  $urlPictureRepository;
 	
-	public function __construct(AdvertiserRepository $advertiserRepository, AdvertRepository $advertRepository, RaceRepository $raceRepository, UrlPictureRepository $urlPictureRepository ){
-		$this->advertiserRepository = $advertiserRepository;
+	public function __construct(AdvertRepository $advertRepository, RaceRepository $raceRepository, UrlPictureRepository $urlPictureRepository ){
 		$this->advertRepository = $advertRepository;
 		$this->raceRepository = $raceRepository;
 		$this->urlPictureRepository = $urlPictureRepository;
@@ -53,7 +51,7 @@ class DogsFixtures extends Fixture implements DependentFixtureInterface
 		    'Sloubi4',
 		    'Sloubi5'
 	    ];
-	    
+	
 		
 	    foreach ($dogNames as $dogName){
 		    
@@ -62,10 +60,14 @@ class DogsFixtures extends Fixture implements DependentFixtureInterface
 		    $dog = new Dog();
 		    $dog->setName($dogName);
 		    $dog->setAntecedents('dogAntecedent');
+		    $dog->setFullDescription(   'Coucou, moi c\'est '.$dogName.' ! Je fais environ 15 kgs.Ma tatie dit que je suis le loulou parfait !J\'aime beaucoup jouer, je suis encore jeune et
+				 j\'ai de l\'énergie à revendre 🤪 Je m\'entend bien avec tous les copains, chats 🐈 ou chiens 🐕\nJ\'adoooooore ça !! Du coup faudra prévoir des moments câlins et gratouilles car ça sera primordial pour mon bien être, oui oui 😌
+				Troisièmement, et c\'est ce point là qui va vous convaincre j\'en suis sûr... Je suis très intelligent 🤓 Je comprend vite ce qu\'on me demande ! Je sais même donner la patte, c\'est pas trop cool ça ? 😎 Je reviens aussi quand on m\'appelle et je marche bien en laisse!\n Alors vous êtes tombé sous mon charme ? Attendez j\'ai encore pleins de qualités à vous révéler... mais pour ça, faudra m\'adopter !🥰',
+		    );
 		    $dog->setLof(random_int(0, 1));
 		    $dog->setSociable(random_int(0, 1));
 		    $dog->setIsAdopted(random_int(0, 1));
-		    $dog->setAdvert($adverts[$advertsRandomIndex]);
+//		    $dog->setAdvert($adverts[$advertsRandomIndex]);
 		    $dog->addRace($dogsRaces[$racesDogRandomIndex]);
 		    for ($i = 0; $i < 5; $i++){
 			    $dogsUrlRandomIndex = shuffle($dogsUrlPicture);
@@ -82,7 +84,7 @@ class DogsFixtures extends Fixture implements DependentFixtureInterface
 		return[
 			DogsUrlPictures::class,
 			RaceFixtures::class,
-			AdvertsFixtures::class,
+//			AdvertsFixtures::class,
 		];
 	}
 }

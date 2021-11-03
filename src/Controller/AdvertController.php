@@ -15,22 +15,23 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class AdvertController extends AbstractController
 {
-	private  $entityManager;
-	
-	public function __construct(EntityManagerInterface $entityManager){
-		$this->entityManager = $entityManager;
-	}
+    private $entityManager;
 
-	/**
+    public function __construct(EntityManagerInterface $entityManager)
+    {
+        $this->entityManager = $entityManager;
+    }
+
+    /**
      * @Route("/annonces", name="adverts")
      */
     public function index(Request $request): Response
     {
 
-	    $adverts = $this->entityManager->getRepository(Advert::class)->findAll();
-	    //var_dump($adverts.dogs);
+        $adverts = $this->entityManager->getRepository(Advert::class)->findAll();
+        //var_dump($adverts.dogs);
         return $this->render('advert/index.html.twig', [
-            'adverts' =>$adverts,
+            'adverts' => $adverts,
         ]);
     }
 	
@@ -86,43 +87,43 @@ class AdvertController extends AbstractController
 		]);
 	}
 	
-	
-	
 	/**
 	 * @Route("/annonce/{slug}", name="advert")
 	 */
+
     public function singleAdvert($slug): Response
     {
-	    $advert = $this->entityManager->getRepository(Advert::class)->findOneBySlug($slug);
-	
-	    if(!$advert){
-		    return $this->redirectToRoute('adverts');
-	    }
-	
-	    return $this->render('advert/single-advert.html.twig', [
-		    'advert' => $advert,
-	    ]);
+        $advert = $this->entityManager->getRepository(Advert::class)->findOneBySlug($slug);
+
+        if (!$advert) {
+            return $this->redirectToRoute('adverts');
+        }
+
+        return $this->render('advert/single-advert.html.twig', [
+            'advert' => $advert,
+        ]);
     }
+
     /**
-	 * @Route("/annonce/{slug}/supprimer", name="remove-advert")
-	 */
+     * @Route("/annonce/{slug}/supprimer", name="remove-advert")
+     */
     public function removeAdvert($slug): Response
     {
-	    $advert = $this->entityManager->getRepository(Advert::class)->findOneBySlug($slug);
-	    $dogs = $advert->getDogs();
-	    foreach($dogs as $dog){
-		    $advert->removeDog($dog);
-	    }
-	    
-	
-	   /* if(!$advert){
-		    //return $this->redirectToRoute('adverts');
-		   
-	    }*/
-	    
-	    $this->entityManager->remove($advert);
-	    $this->entityManager->flush();
-	
-	    return $this->redirectToRoute('adverts');
+        $advert = $this->entityManager->getRepository(Advert::class)->findOneBySlug($slug);
+        $dogs = $advert->getDogs();
+        foreach ($dogs as $dog) {
+            $advert->removeDog($dog);
+        }
+
+
+        /* if(!$advert){
+             //return $this->redirectToRoute('adverts');
+
+         }*/
+
+        $this->entityManager->remove($advert);
+        $this->entityManager->flush();
+
+        return $this->redirectToRoute('adverts');
     }
 }
