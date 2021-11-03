@@ -57,7 +57,8 @@ class Advert
     private $dogs;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Advertiser::class, inversedBy="adverts")
+
+     * @ORM\ManyToOne(targetEntity=Advertiser::class, inversedBy="adverts", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      */
     private ?Advertiser $advertiser;
@@ -71,6 +72,13 @@ class Advert
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $urlPicture;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=AdoptingRequest::class, inversedBy="advert")
+     */
+    private $adoptingRequest;
+
+
 
     public function __construct()
     {
@@ -230,6 +238,25 @@ class Advert
         }
         return $ret;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getAdoptingRequest()
+    {
+        return $this->adoptingRequest;
+    }
+
+    /**
+     * @param mixed $adoptingRequest
+     */
+    public function setAdoptingRequest($adoptingRequest): void
+    {
+        $this->adoptingRequest = $adoptingRequest;
+    }
+
+
+
 
 
 

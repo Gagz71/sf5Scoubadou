@@ -29,7 +29,7 @@ class Discussion
 
     /**
      * @ORM\Column(type="text")
-     */
+
     private $content;
 
     /**
@@ -45,30 +45,6 @@ class Discussion
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getAdopting()
-    {
-        return $this->adopting;
-    }
-
-    public function setAdopting($adopting): self
-    {
-        $this->adopting = $adopting;
-
-        return $this;
-    }
-
-    public function getAdvertiser()
-    {
-        return $this->advertiser;
-    }
-
-    public function setAdvertiser($advertiser): self
-    {
-        $this->advertiser = $advertiser;
-
-        return $this;
     }
 
     public function getContent(): ?string
@@ -102,16 +78,6 @@ class Discussion
 
     public function setAdoptingRequest(?AdoptingRequest $adoptingRequest): self
     {
-        // unset the owning side of the relation if necessary
-        if ($adoptingRequest === null && $this->adoptingRequest !== null) {
-            $this->adoptingRequest->setDiscussion(null);
-        }
-
-        // set the owning side of the relation if necessary
-        if ($adoptingRequest !== null && $adoptingRequest->getDiscussion() !== $this) {
-            $adoptingRequest->setDiscussion($this);
-        }
-
         $this->adoptingRequest = $adoptingRequest;
 
         return $this;

@@ -17,13 +17,14 @@ class AdvertiserController extends AbstractController
     public function advertiserView(Advertiser $advertiser) {
 
         $listAdverts = $advertiser->getAdverts();
-        $listAdoptingRqs = $advertiser ->getAdoptingRequest();
+        //$listAdoptingRqs = $advertiser ->getAdoptingRequest();
         //$listDogs = $advertiser - getDogs();
         return $this->render('advertiser/view.html.twig', [
             'advertiser' => $advertiser,
             'listAdverts' => $listAdverts,
-            'listAdoptingRqs' => $listAdoptingRqs
+            //'listAdoptingRqs' => $listAdoptingRqs
         ]);
-
     }
+
+
 }
