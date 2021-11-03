@@ -13,16 +13,16 @@
                   <a class="btn btn-primary btn-lg" href="{{ path('add-advert') }}" role="button">Créer une nouvelle annonce</a>
             </div>
 
-                  <div class="row">
+                  <div class="row row-cols-1 row-cols-md-2 ">
 
                         {% for advert in adverts %}
-                        <div class="col-3 mb-4 shadow">
-                                    <div class="card">
+                        <div class=" col mb-4  shadow">
+                                    <div class="card h-100  ">
                                           <div class="card-header">
                                                 Organisation annonciatrice: <b>{{ advert.advertiser.organizationName }}</b>
                                                 <div class="small">Crée le  {{ advert.creationDate | date}}</div>
                                           </div>
-                                          <img src="{{ advert.urlPicture }}" alt="" class="card-img">
+                                          <img src="{{ advert.urlPicture }}" alt="image annonce" class="card-img" height="50%">
                                           <div class="card-title">
                                                 <h5 class="display-4"> {{ advert.title }}</h5>
                                           </div>
@@ -43,18 +43,12 @@
                                                 <div class="small">
                                                       Statut:  {{advert.status == 0 ? 'Chiens tous adoptés' : ' Cherche une famille aimante'}}
                                                 </div>
-                                                <div class="text"><a href="{{ path('advert', {'slug' : advert.slug}) }}" title="Voir l'annonce en détail">En savoir plus</a></div>
+                                                <div class="text"><a href="{{ path('advert', {'slug' : advert.slug}) }}" title="Voir l'annonce en détail" class="btn btn-outline-info">En savoir plus</a></div>
                                           </div>
                                     </div>
-
                         </div>
                         {% endfor %}
-
                   </div>
-
       </div>
-
-
-
 
 {% endblock %}

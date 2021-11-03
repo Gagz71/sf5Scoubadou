@@ -66,11 +66,18 @@
             console.log(item);
 
             collectionHolder.dataset.index++;
+            document
+                  .querySelectorAll('.add_link')
+                  .forEach(btn => {
+                      btn.removeEventListener('click', addFormToCollection);
+                      btn.addEventListener("click", addFormToCollection);
+                  });
+
         }
 
         document
-            .querySelectorAll('.add_link')
-            .forEach(btn => btn.addEventListener("click", addFormToCollection));
+              .querySelectorAll('.add_link')
+              .forEach(btn => btn.addEventListener("click", addFormToCollection));
     </script>
 
 {% endblock %}

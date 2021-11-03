@@ -8,6 +8,7 @@ use App\Entity\Dog;
 use App\Entity\UrlPicture;
 use App\Form\AdvertType;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -38,6 +39,7 @@ class AdvertController extends AbstractController
     /**
      * @Route("/annonce/{slug}/edit", name="edit-advert")
      * @Route("/annonce/ajout", name="add-advert")
+     * @IsGranted("ROLE_ADVERTISER")
      */
     public function addAdvert(Request $request, ?Advert $advert = null): Response
     {
