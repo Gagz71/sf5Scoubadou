@@ -38,7 +38,7 @@ class Discussion
     private $creationDate;
     
     /**
-     * @ORM\OneToOne(targetEntity=AdoptingRequest::class, mappedBy="discussion", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity=AdoptingRequest::class, inversedBy="discussions", cascade={"persist", "remove"})
      */
     private $adoptingRequest;
 

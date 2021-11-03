@@ -10,7 +10,10 @@
                   <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
                   <hr class="my-4">
                   <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
-                  <a class="btn btn-primary btn-lg" href="{{ path('add-advert') }}" role="button">Créer une nouvelle annonce</a>
+
+                  {% if is_granted("ROLE_ADVERTISER") %}
+                        <a class="btn btn-primary btn-lg" href="{{ path('add-advert') }}" role="button">Créer une nouvelle annonce</a>
+                  {% endif %}
             </div>
 
                   <div class="row row-cols-1 row-cols-md-2 ">
@@ -44,6 +47,7 @@
                                                       Statut:  {{advert.status == 0 ? 'Chiens tous adoptés' : ' Cherche une famille aimante'}}
                                                 </div>
                                                 <div class="text"><a href="{{ path('advert', {'slug' : advert.slug}) }}" title="Voir l'annonce en détail" class="btn btn-outline-info">En savoir plus</a></div>
+
                                           </div>
                                     </div>
                         </div>
