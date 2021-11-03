@@ -26,6 +26,7 @@ class     HomeController extends AbstractController
 
     /**
      * @Route("/", name="home")
+     *
      */
     public function index(AdvertRepository $advertRepository, EntityManagerInterface $entityManager): Response
     {
