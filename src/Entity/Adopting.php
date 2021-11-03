@@ -13,20 +13,24 @@ use Doctrine\ORM\Mapping\Entity;
 class Adopting extends User
 {
     /**
-     * @ORM\ManyToOne(targetEntity=AdoptingRequest::class, inversedBy="adopting")
+     * @ORM\OneToMany(targetEntity=AdoptingRequest::class, mappedBy="adopting")
      */
     private $adoptingRequest;
 
-    public function getAdoptingRequest(): ?AdoptingRequest
+    /**
+     * @return mixed
+     */
+    public function getAdoptingRequest()
     {
         return $this->adoptingRequest;
     }
 
-    public function setAdoptingRequest(?AdoptingRequest $adoptingRequest): self
+    /**
+     * @param mixed $adoptingRequest
+     */
+    public function setAdoptingRequest($adoptingRequest): void
     {
         $this->adoptingRequest = $adoptingRequest;
-
-        return $this;
     }
 
     /**

@@ -56,7 +56,7 @@ class Dog
 	private $adoptingRequests;
 	
 	/**
-	 * @ORM\ManyToOne(targetEntity=Advert::class, inversedBy="dogs")
+	 * @ORM\ManyToOne(targetEntity=Advert::class, inversedBy="dogs", cascade={"persist", "remove"})
 	 */
 	private $advert;
 	
