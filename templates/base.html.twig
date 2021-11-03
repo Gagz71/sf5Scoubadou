@@ -61,7 +61,9 @@
                 {% endif %}
             </ul>
         </div>
+        {% if is_granted('ROLE_USER') %}
         <a>Bienvenue {{app.user.firstname}} {{app.user.lastname}}</a>
+        {% endif %}
     </div>
 </nav>
 {% block body %}
