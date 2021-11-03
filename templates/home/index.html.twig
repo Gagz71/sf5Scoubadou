@@ -4,38 +4,33 @@
 
 {% block body %}
     <div class="container-fluid">
-        <div class="jumbotron">
-            <h1 class="display-4">Les dernières annonces</h1>
+        <div>
+            <h1>Les dernières annonces</h1>
         </div>
         <div class="row">
-            {% for advert in advertsHome %}
-                <div class="col-3 mb-4 shadow">
-                    <div class="card">
-                        <div class="card-header">
-                            <div class="small">Crée le {{ advert.creationDate | date }}
-                            </div>
-                        </div>
-                        {% for picture in advert.getThreePictures() %}
-                            <img src="{{ picture.url }}" alt="" class="card-img">
-                        {% endfor %}
-
-                        <div class="card-title">
-                            <h5 class="display-4"> {{ advert.title }}</h5>
-                        </div>
-                        <div class="card-subtitle">{{ advert.dogsNb }} chiens à adopter !
-                        </div>
-                        <div class="card-body">
-                            <h5 class="card-title">Les races</h5>
-                            <ul class="list-group list-group-flush lead">
-                                {% for dog in advert.dogs %}
-                                    {% for race in dog.races %}
-                                        <li class="list-group-item"> {{ race.name }}</li>
-                                    {% endfor %}
-                                {% endfor %}
-                            </ul>
-                        </div>
+        {% for advert in advertsHome %}
+        <div class="col">
+            <div class="card">
+                {% for picture in advert.getThreePictures() %}
+                    <img src="{{ picture.url }}" class="card-img-top" alt="...">
+                {% endfor %}
+                <div class="card-body">
+                    <h5 class="card-title">{{ advert.title }}</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">{{ advert.creationDate | date }}</h6>
+                    <p class="card-text">{{ advert.dogsNb }} chiens à adopter !</p>
+                    <div class="card-title">
+                        Les races
                     </div>
+                    <ul>
+                        {% for dog in advert.dogs %}
+                            {% for race in dog.races %}
+                                <li>{{ race.name }}</li>
+                            {% endfor %}
+                        {% endfor %}
+                    </ul>
                 </div>
+            </div>
+            </div>
             {% endfor %}
         </div>
     </div>
@@ -66,6 +61,5 @@
             </tbody>
         {% endfor %}
     </table>
-
 {% endblock %}
 
