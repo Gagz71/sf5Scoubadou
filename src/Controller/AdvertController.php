@@ -54,6 +54,7 @@ class AdvertController extends AbstractController
 			$advert->addDog($dog);
 			$picture = new UrlPicture();
 			$dog->addUrlPicture($picture);
+
 		}
 		
 		$form = $this->createForm(AdvertType::class, $advert);

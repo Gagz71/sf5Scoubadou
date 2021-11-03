@@ -56,8 +56,7 @@ class Dog
 	private $adoptingRequests;
 	
 	/**
-	 * @ORM\ManyToOne(targetEntity=Advert::class, inversedBy="dogs")
-	 * @ORM\JoinColumn(onDelete="SET NULL")
+	 * @ORM\ManyToOne(targetEntity=Advert::class, inversedBy="dogs", cascade={"persist", "remove"})
 	 */
 	private $advert;
 	
@@ -68,7 +67,7 @@ class Dog
 	
 
     /**
-     * @ORM\OneToMany(targetEntity=UrlPicture::class, mappedBy="dogs", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity=UrlPicture::class, mappedBy="dogs", cascade={"persist", "remove"})
      */
     private $urlPictures;
 

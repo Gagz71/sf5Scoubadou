@@ -28,6 +28,7 @@
                     <p>{{ advert.description }} </p>
                     <p>Date de création de l'annonce :  {{ advert.creationDate | date ('d M Y')}} </p>
                 </div>
+                adopting_request
                 <div class="row  mt-5 p-0 m-0  rounded-bottom shadow" style="background-color: #e3ecd3">
                     {% for dog in advert.dogs %}
                         <div class="row col-12 p-0 m-0 pt-5" style="">
@@ -43,6 +44,7 @@
                     {% endfor %}
                  </div>
             </div>
+            <a class="btn btn-dark btn-lg" href="{{ path('adopting_request', {id: advert.id}) }}" role="button"> Faire une demande d'adoption</a>
         {% endfor %}
     </div>
 

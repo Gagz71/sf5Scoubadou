@@ -13,11 +13,10 @@ class DiscussionType extends AbstractType
     {
         $builder
             ->add('adopting')
-            ->add('advertiser')
+            //->add('advertiser')
             ->add('content')
             ->add('creationDate')
-            ->add('adooptionRequest')
-            ->add('adoptingRequest')
+            //->add('adooptionRequest')
         ;
     }
 

@@ -41,15 +41,14 @@ class AdoptingRequest
     private $dogs;
 
     /**
-     * @ORM\OneToOne(targetEntity=Discussion::class, inversedBy="adoptingRequest", cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity=Discussion::class, mappedBy="adoptingRequest")
      */
-    private $discussion;
+    private $discussions;
 
     public function __construct()
     {
-        $this->adopting = new ArrayCollection();
-        $this->advert = new ArrayCollection();
         $this->dogs = new ArrayCollection();
+        $this->discussions = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -58,19 +57,22 @@ class AdoptingRequest
     }
 
     /**
-     * @return ArrayCollection
+     * @return Adopting
      */
-    public function getAdopting(): ArrayCollection
+    public function getAdopting(): Adopting
     {
         return $this->adopting;
     }
 
     /**
-     * @param ArrayCollection $adopting
+     * @param Adopting $adopting
+     * @return AdoptingRequest
      */
-    public function setAdopting(ArrayCollection $adopting): void
+    public function setAdopting(Adopting $adopting): self
     {
         $this->adopting = $adopting;
+
+        return $this;
     }
 
 
@@ -88,41 +90,22 @@ class AdoptingRequest
     }
 
     /**
-     * @return ArrayCollection
+     * @return Advert
      */
-    public function getAdvert(): ArrayCollection
+    public function getAdvert(): Advert
     {
         return $this->advert;
     }
 
-    public function addAdvert(Advert $advert): self
-    {
-        if (!$this->advert->contains($advert)) {
-            $this->advert[] = $advert;
-            $advert->setAdoptingRequest($this);
-        }
-
-        return $this;
-    }
-
-    public function removeAdvert(Advert $advert): self
-    {
-        if ($this->advert->removeElement($advert)) {
-            // set the owning side to null (unless already changed)
-            if ($advert->getAdoptingRequest() === $this) {
-                $advert->setAdoptingRequest(null);
-            }
-        }
-
-        return $this;
-    }
-
     /**
-     * @param ArrayCollection $advert
+     * @param Advert $advert
+     * @return AdoptingRequest
      */
-    public function setAdvert(ArrayCollection $advert): void
+    public function setAdvert(Advert $advert): self
     {
         $this->advert = $advert;
+
+        return $this;
     }
 
 
@@ -150,14 +133,32 @@ class AdoptingRequest
         return $this;
     }
 
-    public function getDiscussion(): ?Discussion
+    /**
+     * @return Collection|Discussion[]
+     */
+    public function getDiscussions(): Collection
     {
-        return $this->discussion;
+        return $this->discussions;
     }
 
-    public function setDiscussion(?Discussion $discussion): self
+    public function addDiscussion(Discussion $discussion): self
     {
-        $this->discussion = $discussion;
+        if (!$this->discussions->contains($discussion)) {
+            $this->discussions[] = $discussion;
+            $discussion->setAdoptingRequest($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDiscussion(Discussion $discussion): self
+    {
+        if ($this->discussions->removeElement($discussion)) {
+            // set the owning side to null (unless already changed)
+            if ($discussion->getAdoptingRequest() === $this) {
+                $discussion->setAdoptingRequest(null);
+            }
+        }
 
         return $this;
     }
