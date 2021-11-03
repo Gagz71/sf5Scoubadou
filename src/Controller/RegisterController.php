@@ -25,26 +25,28 @@ class RegisterController extends AbstractController
      * @Route("/register", name="register")
      * @Route ("/adopting/{id}/edit", name="adopting_edit")
      */
-    public function index(Request $request, EntityManagerInterface $entityManager, ?Adopting $adopting) : Response {
+    public function index(Request $request, EntityManagerInterface $entityManager, ?Adopting $adopting = null) : Response {
 
-        {
-            if(!$adopting) {
-                $adopting = new Adopting();
-            }
+        $isNew = false;
+        if(!$adopting) {
+            $adopting = new Adopting();
+            $isNew = true;
         }
 
         $form =$this->createForm(AdoptingType::class, $adopting);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            if (!$adopting->getId()) {
+            if ($isNew) {
                 $pwd = $this->hasher->hashPassword($adopting, $adopting->getPassword());
                 $adopting->setPassword($pwd);
                 $entityManager->persist($adopting);
+                $entityManager->flush();
+                return $this->redirect($this->generateUrl('home'));
+            } else {
+                return $this->redirect($this->generateUrl('adopting_edit', ['id' => $adopting->getId()]));
             }
-            $entityManager->flush();
 
-            return $this->redirect($this->generateUrl('adopting_edit', ['id' => $adopting->getId()]));
         }
 
         return $this->render('register/index.html.twig', [
