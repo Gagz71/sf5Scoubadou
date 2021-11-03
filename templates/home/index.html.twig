@@ -54,15 +54,15 @@
         {% for advertiser in advertisers %}
             <tbody>
             <tr>
-                <th><a href='{{ path("advertiser_view", {id: advertiser.id}) }}' >{{ advertiser.organizationName }}</a></th>
+                <th><a href='{{ path("advertiser_view", {id: advertiser.id}) }}'>{{ advertiser.organizationName }}</a>
+                </th>
                 {% if advertiser.countAdvertsAvailable >0 %}
-                <td>{{ advertiser.countAdvertsAvailable }}</td>
+                    <td>{{ advertiser.countAdvertsAvailable }}</td>
                 {% endif %}
-                {% if advertiser.countAdvertsNotAvailable > 0%}
-                <td>{{ advertiser.countAdvertsNotAvailable }}</td>
+                {% if advertiser.countAdvertsNotAvailable > 0 %}
+                    <td>{{ advertiser.countAdvertsNotAvailable }}</td>
                 {% endif %}
             </tr>
-
             </tbody>
         {% endfor %}
     </table>
