@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+{% block title %}404-Page non trouvé{% endblock %}
+    {% block stylesheet %}
+          <link rel="stylesheet" href="{{ asset('assets/css/style-errors.css') }}">
+    {% endblock %}
+{% block body %}
+      <div class="container-fluid">
+            <div class="row overlay">
+                  <img src="https://upload.chien.com/img_global/24-comportement-education-du-chien/_light-18216-chien-perdu-que-faire-si-mon-chien-a-disparu.jpg" alt="" class="image-overlay">
+                  <div class="text">
+                        <h1 class="display-3">La page demandée n'existe pas.</h1>
+                        <a href="{{ path('adverts') }}" class="btn btn-dark">Retour à l'accueil</a>
+                  </div>
+
+            </div>
+
+
+      </div>
+
+{% endblock %}

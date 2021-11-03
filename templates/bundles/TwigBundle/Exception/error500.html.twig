@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+{% block title %}500-Problème interne{% endblock %}
+    {% block stylesheet %}
+          <link rel="stylesheet" href="{{ asset('assets/css/style-errors.css') }}">
+    {% endblock %}
+{% block body %}
+      <div class="container-fluid">
+            <div class="row overlay">
+                  <img src="https://dogfence.co.uk/wp-content/uploads/2018/12/shutterstock_95458003.jpg" alt="" class="imge-overlay">
+                  <div class="text">
+                        <h1 class="display-3">Un problème interne est survenu</h1>
+                        <a href="{{ path('adverts') }}" class="btn btn-dark">Retour à l'accueil</a>
+                  </div>
+
+            </div>
+
+
+      </div>
+
+{% endblock %}
