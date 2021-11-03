@@ -31,36 +31,26 @@
                     <a class="nav-link active" aria-current="page" href="{{ path('adverts') }}">Voir toutes les
                         annonces</a>
                 </li>
-                {% if is_granted('ROLE_ADVERTISER') %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ path('add-advert') }}">Ajouter une annonce</a>
-                    </li>
+                </li>
+                {% if is_granted('ROLE_USER') %}
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                           data-bs-toggle="dropdown" aria-expanded="false">
-                            Mon compte
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="{{ path('advert-by-advertiser', {'id': app.user.id}) }}">Mes
-                                    annonces</a></li>
-                        </ul>
-                    </li>
-                {% endif %}
-                {% if is_granted('ROLE_ADOPTING') %}
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                           data-bs-toggle="dropdown" aria-expanded="false">
-                            Mon compte
+                           data-bs-toggle="dropdown" aria-expanded="false">Mon compte
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <li><a class="dropdown-item" href="{{ path('adopting_edit', {'id' : app.user.id}) }}">Mes
                                     infos</a></li>
-                            <li><a class="dropdown-item" href="{{ path('', {'id' : app.user.id}) }}">Mes demandes
-                                    d'adoptions</a></li>
+                            {# <li><a class="dropdown-item" href="{{ path('', {'id' : app.user.id}) }}">Mes demandes #}
+                            {# d'adoptions</a></li> #}
+                            {% if is_granted('ROLE_ADVERTISER') %}
+                                <li><a class="dropdown-item"
+                                       href="{{ path('advert-by-advertiser', {'id': app.user.id}) }}">Mes annonces</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="dropdown-item" href="{{ path('add-advert') }}">Ajouter une annonce</a>
+                                </li>
+                            {% endif %}
                         </ul>
-                    </li>
-                {% endif %}
-                {% if is_granted('ROLE_USER') %}
                     <li>
                         <a class="nav-link active" href="{{ path('logout') }}">Déconnexion</a>
                     </li>
@@ -69,7 +59,6 @@
                         <a class="nav-link active" href="{{ path('login') }}">Connexion</a>
                     </li>
                 {% endif %}
-
             </ul>
         </div>
     </div>
@@ -77,7 +66,6 @@
 {% block body %}
     <h1>{{ ea.dashboardTitle }}</h1>
     {% for menuItem in ea.mainMenu.items %}
-        {# ... #}
     {% endfor %}
 {% endblock %}
 {% block script %}
