@@ -21,6 +21,7 @@ class AdvertiserCrudController extends AbstractCrudController
             IdField::new('id')-> hideOnForm(),
             TextField::new('lastname','Votre nom'),
             TextField::new('firstname', 'Votre prénom'),
+	        TextField::new('organizationName', 'Nom de l\'association'),
             EmailField::new('email', 'Votre email'),
             TextField::new('plainPassword', 'Mot de passe (personnel)')-> hideOnIndex()
 
