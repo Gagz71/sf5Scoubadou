@@ -9,6 +9,7 @@ use App\Entity\UrlPicture;
 use App\Form\AdvertType;
 use App\Repository\AdvertiserRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -29,9 +30,15 @@ class AdvertController extends AbstractController
     /**
      * @Route("/annonces", name="adverts")
      */
-    public function index(Request $request): Response
+    public function index(EntityManagerInterface $entityManager,PaginatorInterface $paginator, Request $request): Response
     {
-        $adverts = $this->entityManager->getRepository(Advert::class)->findAll();
+        $data = $this->getDoctrine()->getRepository(Advert::class)->findAll();
+
+        $adverts = $paginator->paginate(
+            $data,
+            $request->query->getInt('page', 1),6
+        );
+
         return $this->render('advert/index.html.twig', [
             'adverts' => $adverts,
         ]);
@@ -68,42 +75,32 @@ class AdvertController extends AbstractController
             $advert->setCreationDate(new \DateTime());
             $advert->setStatus(0);
             $advert->setAdvertiser($advertiser);
-            // On enregistre
             $this->entityManager->persist($advert);
             $this->entityManager->flush();
-
-            // On peut également afficher un message à l'utilisateur
-            // Les flashs sont affichés une fois, au chargement de la page suivante
-            // Et permettent donc d'afficher un message, malgré une redirection
             $this->addFlash('success', 'Nouvelle annonce ajoutée ');
-
-            // Une fois que le formulaire est validé,
-            // on redirige pour éviter que l'utilisateur ne recharge la page
-            // et soumette la même information une seconde fois
             return $this->redirectToRoute('adverts');
         }
-
         return $this->render('advert/add-advert.html.twig', [
             'form' => $form->createView(),
         ]);
     }
-    
-	/**
-	 * @Route("/annonce/{slug}", name="advert")
-	 */
-	public function singleAdvert($slug): Response
-	{
-		$advert = $this->entityManager->getRepository(Advert::class)->findOneBySlug($slug);
-		
-		if (!$advert) {
-			return $this->redirectToRoute('adverts');
-		}
-		
-		return $this->render('advert/single-advert.html.twig', [
-			'advert' => $advert,
-		]);
-	}
-	
+
+    /**
+     * @Route("/annonce/{slug}", name="advert")
+     */
+    public function singleAdvert($slug): Response
+    {
+        $advert = $this->entityManager->getRepository(Advert::class)->findOneBySlug($slug);
+
+        if (!$advert) {
+            return $this->redirectToRoute('adverts');
+        }
+
+        return $this->render('advert/single-advert.html.twig', [
+            'advert' => $advert,
+        ]);
+    }
+
     /**
      * @Route("/annonce/{slug}/supprimer", name="remove-advert")
      */
@@ -123,9 +120,10 @@ class AdvertController extends AbstractController
     /**
      * @Route("/annonces/{id}", name="advert-by-advertiser")
      */
-    public function getAdvertsByAdvertiser(Advertiser $advertiser) :Response {
+    public function getAdvertsByAdvertiser(Advertiser $advertiser): Response
+    {
         return $this->render('advert/advertsByAdvertiser.html.twig', [
-            'advertiser' =>$advertiser,
+            'advertiser' => $advertiser,
         ]);
     }
 
