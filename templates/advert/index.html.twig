@@ -8,20 +8,13 @@
 
 {% block body %}
     <div class="container-fluid">
-
-        <div class="jumbotron">
+        <div>
             <h1 class="display-4">Nos Scoub'Annonces</h1>
-            <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention
-                to featured content or information.</p>
-            <hr class="my-4">
-            <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
-
             {% if is_granted("ROLE_ADVERTISER") %}
                 <a class="btn btn-primary btn-lg" href="{{ path('add-advert') }}" role="button">Créer une nouvelle
                     annonce</a>
             {% endif %}
         </div>
-
         <div class="container-fluid ">
             {% for advert in adverts %}
                 <div class="row mb-5 d-flex justify-content-around mt-5">
@@ -31,9 +24,7 @@
                             <div class="card-header">{{ advert.title }} </div>
                             <img src="{{ advert.urlPicture }}" alt="" class="img-dogs">
                         </div>
-
                     </div>
-
                     <div class="col-sm-6">
                         <div class="card card-content h-100">
                             <div class="card-header">
@@ -58,15 +49,12 @@
                                     <a href="{{ path('advert', {'slug' : advert.slug}) }}"
                                        title="Voir l'annonce en détail" class="btn btn-outline-info">En savoir plus</a>
                                 </div>
-
                             </div>
                         </div>
                     </div>
                 </div>
-
             {% endfor %}
         </div>
     </div>
     {{ knp_pagination_render(adverts) }}
-
 {% endblock %}

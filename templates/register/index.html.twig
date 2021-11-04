@@ -2,20 +2,24 @@
 {% block title %}Hello RegisterController!
 {% endblock %}
 {% block body %}
-<div class="col-4">
+    <div class="container">
+        <div class=" row mt-5">
+            <div class="col-6 card shadow mx-auto p-3">
+                <h4 class="text-center mb-3 font-weight-normal">Inscription</h4>
 
-        {{ form_start(form) }}
-        {{ form_row(form.firstname) }}
-
-        {{ form_row(form.lastname,) }}
-
-        {{ form_rest(form) }}
-
-        <button type="submit" class="btn btn-primary">Valider</button>
-        {{ form_end(form) }}
-
-
-
-
-</div>
+                {{ form_start(form) }}
+                <div class="mb-3">
+                    {{ form_row(form.firstname) }}
+                </div>
+                <div class="mb-3">
+                    {{ form_row(form.lastname,) }}
+                </div>
+                {{ form_rest(form) }}
+                <div class="text-center mb-3">
+                    <button type="submit" class="btn btn-primary">Valider</button>
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

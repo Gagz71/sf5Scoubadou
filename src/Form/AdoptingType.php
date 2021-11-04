@@ -7,6 +7,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\BrowserKit\Request;
 use Symfony\Component\BrowserKit\Response;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -15,10 +16,18 @@ class AdoptingType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('email')
-            ->add('password')
-            ->add('lastname')
-            ->add('firstname')
+            ->add('email', TextType::class, [
+                'label' => 'Email'
+            ])
+            ->add('password', TextType::class, [
+                'label' => 'Mot de passe'
+            ])
+            ->add('lastname', TextType::class, [
+                'label' => 'Prénom'
+            ])
+            ->add('firstname', TextType::class, [
+                'label' => 'Nom'
+            ])
         ;
     }
 
