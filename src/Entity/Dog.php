@@ -75,6 +75,7 @@ class Dog
     {
         $this->races = new ArrayCollection();
         $this->urlPictures = new ArrayCollection();
+        $this->adoptingRequests = new ArrayCollection();
     }
 
     public function getId(): ?int

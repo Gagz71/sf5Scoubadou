@@ -21,7 +21,7 @@ class AdoptingRequest
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Adopting::class, inversedBy="adoptingRequest")
+     * @ORM\ManyToOne(targetEntity=Adopting::class, inversedBy="adoptingRequests")
      */
     private $adopting;
 
@@ -31,19 +31,19 @@ class AdoptingRequest
     private $status;
 
     /**
-     * @ORM\OneToMany(targetEntity=Advert::class, mappedBy="adoptingRequest")
+     * @ORM\ManyToOne(targetEntity=Advert::class, inversedBy="adoptingRequests")
      */
     private $advert;
 
     /**
      * @ORM\ManyToMany (targetEntity=Dog::class, mappedBy="adoptingRequests")
      */
-    private $dogs;
+    private Collection $dogs;
 
     /**
      * @ORM\OneToMany(targetEntity=Discussion::class, mappedBy="adoptingRequest", cascade={"persist"})
      */
-    private $discussions;
+    private Collection $discussions;
 
     public function __construct()
     {
@@ -88,26 +88,6 @@ class AdoptingRequest
 
         return $this;
     }
-
-    /**
-     * @return Advert
-     */
-    public function getAdvert(): Advert
-    {
-        return $this->advert;
-    }
-
-    /**
-     * @param Advert $advert
-     * @return AdoptingRequest
-     */
-    public function setAdvert(Advert $advert): self
-    {
-        $this->advert = $advert;
-
-        return $this;
-    }
-
 
     /**
      * @return Collection|Dog[]
@@ -159,6 +139,18 @@ class AdoptingRequest
                 $discussion->setAdoptingRequest(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getAdvert(): ?Advert
+    {
+        return $this->advert;
+    }
+
+    public function setAdvert(?Advert $advert): self
+    {
+        $this->advert = $advert;
 
         return $this;
     }

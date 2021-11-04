@@ -74,15 +74,16 @@ class Advert
     private $urlPicture;
 
     /**
-     * @ORM\ManyToOne(targetEntity=AdoptingRequest::class, inversedBy="advert")
+     * @ORM\OneToMany(targetEntity=AdoptingRequest::class, mappedBy="advert")
      */
-    private $adoptingRequest;
+    private Collection $adoptingRequests;
 
 
 
     public function __construct()
     {
         $this->dogs = new ArrayCollection();
+        $this->adoptingRequests = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -240,24 +241,32 @@ class Advert
     }
 
     /**
-     * @return mixed
+     * @return Collection|AdoptingRequest[]
      */
-    public function getAdoptingRequest()
+    public function getAdoptingRequests(): Collection
     {
-        return $this->adoptingRequest;
+        return $this->adoptingRequests;
     }
 
-    /**
-     * @param mixed $adoptingRequest
-     */
-    public function setAdoptingRequest($adoptingRequest): void
+    public function addAdoptingRequest(AdoptingRequest $adoptingRequest): self
     {
-        $this->adoptingRequest = $adoptingRequest;
+        if (!$this->adoptingRequests->contains($adoptingRequest)) {
+            $this->adoptingRequests[] = $adoptingRequest;
+            $adoptingRequest->setAdvert($this);
+        }
+
+        return $this;
     }
 
+    public function removeAdoptingRequest(AdoptingRequest $adoptingRequest): self
+    {
+        if ($this->adoptingRequests->removeElement($adoptingRequest)) {
+            // set the owning side to null (unless already changed)
+            if ($adoptingRequest->getAdvert() === $this) {
+                $adoptingRequest->setAdvert(null);
+            }
+        }
 
-
-
-
-
+        return $this;
+    }
 }
