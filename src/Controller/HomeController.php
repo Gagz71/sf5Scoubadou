@@ -2,9 +2,13 @@
 
 namespace App\Controller;
 
+use App\Entity\Advert;
+use App\Entity\Advertiser;
 use App\Repository\AdvertiserRepository;
 use App\Repository\AdvertRepository;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -20,11 +24,16 @@ class  HomeController extends AbstractController
      * @Route("/", name="home")
      *
      */
-    public function index(): Response
+    public function index(Request $request, PaginatorInterface $paginator)
     {
         $adverts = $this->advertRepository->callFiveAdverts();
         $advertisers = $this->advertiserRepository->getAdvertsByDate();
+        //$advertisers = $this->getDoctrine()->getRepository(Advertiser::class)->findBy([], ['creationDate' =>'desc']);
 
+        $advertisers = $paginator->paginate(
+            $advertisers,
+            $request->query->getInt('page',1),10
+        );
         return $this->render('home/index.html.twig', [
             'advertsHome' => $adverts,
             'advertisers' => $advertisers,

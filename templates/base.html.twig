@@ -40,8 +40,6 @@
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <li><a class="dropdown-item" href="{{ path('info') }}">Mes
                                     infos</a></li>
-                            {# <li><a class="dropdown-item" href="{{ path('', {'id' : app.user.id}) }}">Mes demandes #}
-                            {# d'adoptions</a></li> #}
                             {% if is_granted('ROLE_ADVERTISER') %}
                                 <li><a class="dropdown-item"
                                        href="{{ path('advert-by-advertiser', {'id': app.user.id}) }}">Mes annonces</a>
