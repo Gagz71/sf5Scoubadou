@@ -2,16 +2,14 @@
 
 namespace App\Controller;
 
-use App\Entity\Advert;
 use App\Repository\AdvertiserRepository;
 use App\Repository\AdvertRepository;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\Mapping\OrderBy;
-use Doctrine\ORM\Query\AST\OrderByItem;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
 class  HomeController extends AbstractController
@@ -38,6 +36,23 @@ class  HomeController extends AbstractController
             'advertisers' => $advertisers,
             'controller_name' => 'HomeController',
         ]);
+    }
+
+    public function listAdvertisers(EntityManager $entityManager, PaginatorInterface $paginator, Request $request)
+    {
+
+        $dql = "SELECT a FROM AcmeMainBundle:Advertisers a";
+        $query = $entityManager->createQuery($dql);
+
+        $pagination = $paginator->paginate(
+            $query,
+            $request->query->getInt('page', 1),
+            10
+        );
+        return $this->render('home/index.html.twig', [
+                'pagination' => $pagination
+            ]
+        );
     }
 
 }
