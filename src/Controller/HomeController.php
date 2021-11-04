@@ -14,8 +14,6 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class  HomeController extends AbstractController
 {
-    private $entityManager;
-
     public function __construct(AdvertRepository $advertRepository, AdvertiserRepository $advertiserRepository)
     {
         $this->advertRepository = $advertRepository;
@@ -26,7 +24,7 @@ class  HomeController extends AbstractController
      * @Route("/", name="home")
      *
      */
-    public function index(AdvertRepository $advertRepository, EntityManagerInterface $entityManager): Response
+    public function index(): Response
     {
         $adverts = $this->advertRepository->callFiveAdverts();
         //$advertisers = $this->advertiserRepository->getAdvertsByDate();
@@ -40,13 +38,13 @@ class  HomeController extends AbstractController
 
     public function listAdvertisers(EntityManager $entityManager, PaginatorInterface $paginator, Request $request)
     {
-        $advertisers = $this->advertiserRepository->getAdvertsByDate();
+        $advertisers = "SELECT a FROM AcmeMainBundle:Advertiser a";
+        //$advertisers = $this->advertiserRepository->getAdvertsByDate();
         $query = $entityManager->createQuery($advertisers);
 
         $pagination = $paginator->paginate(
             $query,
-            $request->query->getInt('page', 1),
-            10
+            $request->query->getInt('page', 1), 10
         );
         return $this->render('home/index.html.twig', [
                 'pagination' => $pagination

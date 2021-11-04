@@ -38,10 +38,10 @@
         <h1 class="display-4">Les éleveurs</h1>
     </div>
     <table class="table">
-
         <thead>
         <tr>
-            <th scope="col">Eleveurs</th>
+            <th scope="col" {% if pagination.isSorted('a.eleveurs') %} class="sorted" {% endif %}>
+                {{ knp_pagination_sortable(pagination, 'Eleveurs', 'a.eleveurs') }}</th>
             <th scope="col">Nombre annonces pourvus</th>
             <th scope="col">Nombre annonces non pourvus</th>
         </tr>
