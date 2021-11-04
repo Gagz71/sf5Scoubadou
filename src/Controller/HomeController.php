@@ -29,19 +29,18 @@ class  HomeController extends AbstractController
     public function index(AdvertRepository $advertRepository, EntityManagerInterface $entityManager): Response
     {
         $adverts = $this->advertRepository->callFiveAdverts();
-        $advertisers = $this->advertiserRepository->getAdvertsByDate();
+        //$advertisers = $this->advertiserRepository->getAdvertsByDate();
 
         return $this->render('home/index.html.twig', [
             'advertsHome' => $adverts,
-            'advertisers' => $advertisers,
+            //'advertisers' => $advertisers,
             'controller_name' => 'HomeController',
         ]);
     }
 
     public function listAdvertisers(EntityManager $entityManager, PaginatorInterface $paginator, Request $request)
     {
-
-        $dql = "SELECT a FROM AcmeMainBundle:Advertisers a";
+        $dql = "SELECT a FROM AcmeMainBundle:Advertiser a";
         $query = $entityManager->createQuery($dql);
 
         $pagination = $paginator->paginate(
