@@ -53,4 +53,12 @@ class RegisterController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+
+    /**
+     * @Route ("/info", name="info")
+     */
+    public function showInfos()
+    {
+        return $this->render('register/info.html.twig');
+    }
 }

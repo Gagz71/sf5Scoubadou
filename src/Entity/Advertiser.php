@@ -107,4 +107,12 @@ class Advertiser extends User
         }
         return $cpt;
     }
+
+    public function countAdverts() {
+        $cpt = 0;
+        foreach ($this->getAdverts() as $advert) {
+            $cpt++;
+        }
+        return $cpt;
+    }
 }
