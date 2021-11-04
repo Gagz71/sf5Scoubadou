@@ -28,7 +28,6 @@ class  HomeController extends AbstractController
     {
         $adverts = $this->advertRepository->callFiveAdverts();
         $advertisers = $this->advertiserRepository->getAdvertsByDate();
-        //$advertisers = $this->getDoctrine()->getRepository(Advertiser::class)->findBy([], ['creationDate' =>'desc']);
 
         $advertisers = $paginator->paginate(
             $advertisers,
