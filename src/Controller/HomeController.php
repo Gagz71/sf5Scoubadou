@@ -40,8 +40,8 @@ class  HomeController extends AbstractController
 
     public function listAdvertisers(EntityManager $entityManager, PaginatorInterface $paginator, Request $request)
     {
-        $dql = "SELECT a FROM AcmeMainBundle:Advertiser a";
-        $query = $entityManager->createQuery($dql);
+        $advertisers = $this->advertiserRepository->getAdvertsByDate();
+        $query = $entityManager->createQuery($advertisers);
 
         $pagination = $paginator->paginate(
             $query,
