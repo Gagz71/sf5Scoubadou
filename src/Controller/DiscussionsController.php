@@ -15,13 +15,11 @@ class DiscussionsController extends AbstractController
     /**
      * @Route("/discussions/{id}", name="discussions")
      */
-    public function showDiscussions(Adopting $adopting): Response
+    public function showDiscussions(AdoptingRequest $adoptingRequest): Response
     {
-        $listAdoptingRequest = $adopting->getAdoptingRequests();
-
         return $this->render('discussions/index.html.twig', [
 
-            'listAdoptingRequest' => $listAdoptingRequest
+            'adoptingRequest' => $adoptingRequest
 
         ]);
     }
