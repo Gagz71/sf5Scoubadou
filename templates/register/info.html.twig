@@ -6,7 +6,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="card" style="width: 18rem;">
-                <h5 class="card-header">Mes infos</h5>
+                <h5 class="card-header">Mes infos personnelles</h5>
                 <p class="card-text"><small class="text-muted">Compte crée le {{ app.user.registerDate | date }}</small>
                 </p>
                 <div class="card-body">
@@ -24,8 +24,52 @@
                     <p class="card-text">{{ app.user.email }}</p>
                     <a href="{{ path('adopting_edit', {'id' : app.user.id}) }}" class="btn btn-warning">Modifier mes
                         infos</a>
-                    <a href='{{ path("discussions", {id: app.user.id}) }}' class="btn btn-primary mt-3">Messages</a>
                 </div>
+            </div>
+            <div class="jumbotron">
+                <div class="d-flex justify-content-between">
+
+                    <h1 class="display-4">Mes demandes d'adoptions</h1>
+                    <div class="">
+                        <span class="badge badge-warning">{{ app.user.adoptingRequests.count }}</span>
+                    </div>
+                </div>
+                <div class="row">
+                {% for adoptingRequest in app.user.adoptingRequests %}
+
+                        <div class="col-sm-6">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ adoptingRequest.advert.title }}</h5>
+                                    <p class="card-subtitle text-muted">Association: <b>{{ adoptingRequest.advert.advertiser.getOrganizationName() }}</b></p>
+                                    <p class="card-title">{{ dump(adoptingRequest.dogs) }}</p>
+{#                                    <p class="card-title">{{ adoptingRequest.dog }}</p>#}
+                                    <hr class="my-4">
+                                    <h5 class="card-title">🐕</h5>
+                                    <ul class="list-group list-group-flush lead">
+                                    {% for dog in adoptingRequest.dogs %}
+                                        <li class="list-group-item">{{ dog.name }} 🐾  </li>
+                                    {% endfor %}
+                                    </ul>
+
+                                    <div class="card-footer">
+
+                                        <a class="btn btn-primary btn-lg" href="{{ path('discussions', {'id':adoptingRequest.id}) }}" role="button">voir mes messages</a>
+                                        <div class="small">
+                                            Statut: {{adoptingRequest.status == 0 ? 'Adopté' : ' En cours' }}
+                                        </div>
+                                        <div class="text">
+                                            <a href="{{ path('advert', {'slug' : adoptingRequest.advert.slug}) }}"
+                                               title="Voir l'annonce en détail" class="btn btn-outline-info">En savoir plus</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                {% endfor %}
+                </div>
+
             </div>
             {% if is_granted('ROLE_ADVERTISER') %}
             <div>

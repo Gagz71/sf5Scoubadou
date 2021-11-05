@@ -36,7 +36,7 @@ class AdoptingRequest
     private $advert;
 
     /**
-     * @ORM\ManyToMany (targetEntity=Dog::class, mappedBy="adoptingRequests")
+     * @ORM\ManyToMany (targetEntity=Dog::class, mappedBy="adoptingRequests",cascade={"persist"})
      */
     private Collection $dogs;
 
@@ -101,6 +101,7 @@ class AdoptingRequest
     {
         if (!$this->dogs->contains($dog)) {
             $this->dogs[] = $dog;
+		  $dog->addAdoptingRequest($this);
         }
 
         return $this;

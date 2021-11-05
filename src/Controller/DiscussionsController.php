@@ -17,6 +17,7 @@ class DiscussionsController extends AbstractController
      */
     public function showDiscussions(AdoptingRequest $adoptingRequest): Response
     {
+	    
         return $this->render('discussions/index.html.twig', [
 
             'adoptingRequest' => $adoptingRequest
