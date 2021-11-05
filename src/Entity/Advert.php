@@ -269,4 +269,9 @@ class Advert
 
         return $this;
     }
+	
+	public function __sleep()
+	{
+		return [];
+	}
 }

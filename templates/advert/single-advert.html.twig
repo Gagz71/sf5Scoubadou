@@ -42,13 +42,14 @@
 
                         </ul>
                               {% if dog.isAdopted == 0 %}
-                              <button  class="card-link btn btn-outline-success">Envoyer une demande d'adoption 🖋️</button>
+                              <a href="{{ path('adopting_request', {id: advert.id}) }}"  class="card-link btn btn-outline-success">Envoyer une demande d'adoption 🖋️</a>
                               {% else %}
                                     <button  class="card-link btn btn-outline-dark" disabled>Envoyer une demande d'adoption</button>
                               {% endif %}
-
-                        <a href="{{ path('edit-advert', {'slug' : advert.slug}) }}" class="card-link btn btn-outline-warning" >Modifier l'annonce📝</a>
-                        <a href="{{ path('remove-advert', {'slug': advert.slug}) }}" class="card-link btn btn-outline-danger">Supprimer l'annonce🗑️</a>
+                              {% if is_granted('ROLE_ADVERTISER') %}
+                              <a href="{{ path('edit-advert', {'slug' : advert.slug}) }}" class="card-link btn btn-outline-warning" >Modifier l'annonce📝</a>
+                              <a href="{{ path('remove-advert', {'slug': advert.slug}) }}" class="card-link btn btn-outline-danger">Supprimer l'annonce🗑️</a>
+                              {% endif %}
                   </div>
             </div>
             {% endfor %}
