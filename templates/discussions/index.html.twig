@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}   messages {% endblock %}
+
+{% block body %}
+
+    <div class="jumbotron mt-5">
+        <h1 class="display-4">Vos messages</h1>
+        <p class="lead">
+            <a class="btn btn-dark" href="#" role="button"> à parametrer</a>
+        </p>
+    </div>
+    <div class="container">
+        <div class="row col-6 mx-auto " style="">
+            {% for adoptingRequest in listAdoptingRequest%}
+
+                <div class="col-12 mt-5  pb-0 rounded shadow"  style="">
+                    <h3 class="">  message {{ adoptingRequest.id }} </h3>
+
+                    {% for discussion in adoptingRequest.discussions %}
+                        {{ discussion.content[:400] ~ '...'  }}
+                    {% endfor %}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+
+
+{% endblock %}
