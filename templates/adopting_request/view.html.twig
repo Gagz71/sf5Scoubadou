@@ -26,11 +26,11 @@
             </div>
         </div>
 
-        <div class="row col-12 p-0 m-0 mb-5  d-flex justify-content-center" style="">
+        <div class="row col-12 p-0 m-0 mb-5  d-flex justify-content-center" >
+            <h3>Messages :</h3>
             {% for discussion in listDiscussions%}
                 <div class="col ml-2 mr-2 mt-5  pb-0 rounded shadow"  style="">
                     {{ discussion.content }}
-                    {{ dump(discussion) }}
                 </div>
             {% endfor %}
         </div>
