@@ -66,7 +66,7 @@ class AdoptingRequestController extends AbstractController
 
             $this->addFlash('success', 'Nouvelle requete envoyée ');
 
-            return $this->redirectToRoute('discussions');
+            return $this->redirectToRoute('discussions', ['id'=>$adoptingRequest->getId()]);
         }
 
         $listDiscussions = $adoptingRequest->getDiscussions();

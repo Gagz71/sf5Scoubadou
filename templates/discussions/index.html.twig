@@ -12,8 +12,6 @@
     </div>
     <div class="container">
         <div class="row col-6 mx-auto " style="">
-            {% for adoptingRequest in listAdoptingRequest%}
-
                 <div class="col-12 mt-5  pb-0 rounded shadow"  style="">
                     <h3 class="">  message {{ adoptingRequest.id }} </h3>
 
@@ -21,7 +19,6 @@
                         {{ discussion.content[:400] ~ '...'  }}
                     {% endfor %}
                 </div>
-            {% endfor %}
         </div>
     </div>
 
