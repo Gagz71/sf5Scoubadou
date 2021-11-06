@@ -7,33 +7,76 @@
         <div>
             <h1>Les dernières annonces</h1>
         </div>
-        <div class="row">
-        {% for advert in advertsHome %}
-        <div class="col">
-            <div class="card">
-                {% for picture in advert.getThreePictures() %}
-                    <img src="{{ picture.url }}" class="card-img-top" alt="...">
-                {% endfor %}
-                <div class="card-body">
-                    <h5 class="card-title">{{ advert.title }}</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">{{ advert.creationDate | date }}</h6>
-                    <p class="card-text">{{ advert.dogsNb }} chiens à adopter !</p>
-                    <div class="card-title">
-                        Les races
-                    </div>
-                    <ul>
-                        {% for dog in advert.dogs %}
-                            {% for race in dog.races %}
-                                <li>{{ race.name }}</li>
+        <div class="row col-12 mx-auto">
+            {% for advert in threeLastAdverts %}
+                <div class="col-4 mt-5   ">
+                    <div class="card rounded shadow">
+
+                        <div class="row col-12 p-0 m-0 mb-5  d-flex justify-content-center" style="">
+                            {% for picture in advert.getThreePictures() %}
+                                <div class="col ml-2 mr-2 mt-5  pb-0 rounded shadow"  style="height: 150px; width:300px; background-image: url({{ picture.url }}); background-size: cover"></div>
                             {% endfor %}
-                        {% endfor %}
-                    </ul>
+                        </div>
+
+
+                        <div class="card-body">
+                            <h5 class="card-title">{{ advert.title }}</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">{{ advert.creationDate | date ('D M Y h:i') }}</h6>
+                            <p class="card-text">{{ advert.dogsNb }} chiens à adopter !</p>
+                            <div class="card-title">
+                                Les races
+                            </div>
+                            <ul class=" " style="display: flex">
+                                {% for dog in advert.dogs %}
+                                    <div class="ml-2 p-2 rounded shadow"  style="background-color: #e3ecd3">
+                                        {% for race in dog.races %}
+                                            {{ race.name }}
+                                        {% endfor %}
+                                    </div>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            </div>
             {% endfor %}
         </div>
     </div>
+
+    <div class="row col-12 mx-auto">
+        {% for advert in twoNextAdverts %}
+            <div class="col-6 mt-5 mb-5">
+                <div class="card card rounded shadow">
+
+                    <div class="row col-12 p-0 m-0 mb-5  d-flex justify-content-center" style="">
+                        {% for picture in advert.getThreePictures() %}
+                            <div class="col ml-2 mr-2 mt-5  pb-0 rounded shadow"  style="height: 150px; width:300px; background-image: url({{ picture.url }}); background-size: cover"></div>
+                        {% endfor %}
+                    </div>
+
+
+                    <div class="card-body">
+                        <h5 class="card-title">{{ advert.title }}</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">{{ advert.creationDate | date ('D M Y h:i') }}</h6>
+                        <p class="card-text">{{ advert.dogsNb }} chiens à adopter !</p>
+                        <div class="card-title">
+                            Races :
+                        </div>
+                        <ul class=" " style="display: flex">
+                            {% for dog in advert.dogs %}
+                            <div class="ml-2 p-2 rounded shadow"  style="background-color: #e3ecd3">
+                                {% for race in dog.races %}
+                                        {{ race.name }}
+                                {% endfor %}
+                            </div>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+
     <div class="jumbotron">
         <h1 class="display-4">Les éleveurs</h1>
     </div>
