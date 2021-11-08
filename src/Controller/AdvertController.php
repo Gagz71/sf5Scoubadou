@@ -30,13 +30,13 @@ class AdvertController extends AbstractController
     /**
      * @Route("/annonces", name="adverts")
      */
-    public function index(EntityManagerInterface $entityManager,PaginatorInterface $paginator, Request $request): Response
+    public function index(EntityManagerInterface $entityManager, PaginatorInterface $paginator, Request $request): Response
     {
         $data = $this->getDoctrine()->getRepository(Advert::class)->findAll();
 
         $adverts = $paginator->paginate(
             $data,
-            $request->query->getInt('page', 1),6
+            $request->query->getInt('page', 1), 6
         );
 
         return $this->render('advert/index.html.twig', [
@@ -78,8 +78,10 @@ class AdvertController extends AbstractController
             $this->entityManager->persist($advert);
             $this->entityManager->flush();
             $this->addFlash('success', 'Nouvelle annonce ajoutée ');
+
             return $this->redirectToRoute('adverts');
         }
+
         return $this->render('advert/add-advert.html.twig', [
             'form' => $form->createView(),
         ]);
@@ -114,6 +116,7 @@ class AdvertController extends AbstractController
 
         $this->entityManager->remove($advert);
         $this->entityManager->flush();
+
         return $this->redirectToRoute('adverts');
     }
 
@@ -126,6 +129,4 @@ class AdvertController extends AbstractController
             'advertiser' => $advertiser,
         ]);
     }
-
-
 }

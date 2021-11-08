@@ -11,7 +11,6 @@ use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\InheritanceType;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
-use Symfony\Component\Validator\Constraints\Date;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
@@ -34,12 +33,10 @@ abstract class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     protected $email;
 
-
     /**
      * @ORM\Column(type="json")
      */
     protected $roles = [];
-
 
     /**
      * @var string The hashed password
@@ -63,7 +60,7 @@ abstract class User implements UserInterface, PasswordAuthenticatedUserInterface
     protected $registerDate;
 
     /**
-     * @var string | null
+     * @var string|null
      */
     protected $plainPassword;
 
@@ -81,9 +78,6 @@ abstract class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\Column(type="string", length=20, nullable=true)
      */
     private $zipCode;
-
-
-
 
     public function __construct()
     {
@@ -106,8 +100,6 @@ abstract class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
-
-
 
     /**
      * A visual identifier that represents this user.
@@ -178,7 +170,7 @@ abstract class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function eraseCredentials()
     {
         // If you store any temporary, sensitive data on the user, clear it here
-         $this->plainPassword = null;
+        $this->plainPassword = null;
     }
 
     public function getLastname(): ?string
@@ -217,17 +209,11 @@ abstract class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    /**
-     * @return string|null
-     */
     public function getPlainPassword(): ?string
     {
         return $this->plainPassword;
     }
 
-    /**
-     * @param string|null $plainPassword
-     */
     public function setPlainPassword(?string $plainPassword): void
     {
         $this->plainPassword = $plainPassword;
@@ -268,7 +254,4 @@ abstract class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
-
-
-
 }

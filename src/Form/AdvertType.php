@@ -18,38 +18,38 @@ class AdvertType extends AbstractType
     {
         $builder
             ->add('title', TextType::class, [
-			  'label' => 'Titre de la nouvelle annonce',
-	            'attr' => [
-				  'class'=>'col-6'
-	            ]
+              'label' => 'Titre de la nouvelle annonce',
+                'attr' => [
+                  'class' => 'col-6',
+                ],
             ])
             ->add('description', TextareaType::class, [
-			  'label' => 'Description de la nouvelle annonce',
-	            'attr' => [
-		            'class'=>'col-6'
-	            ]
+              'label' => 'Description de la nouvelle annonce',
+                'attr' => [
+                    'class' => 'col-6',
+                ],
             ])
             ->add('urlPicture', UrlType::class, [
-			  'label' => 'Lien url de la photo principal de l\'annonce',
-	            'attr' => [
-		            'class'=>'col-6'
-	            ]
+              'label' => 'Lien url de la photo principal de l\'annonce',
+                'attr' => [
+                    'class' => 'col-6',
+                ],
             ])
-	        
-	        ->add('dogs', CollectionType::class, [
-			   'entry_type' => DogType::class,
-		        'entry_options' => ['label' => false],
-		        'allow_add' => true,
-		        'label'  => false,
-		        'by_reference' => false,
-	        ])
-	        
-	        ->add('submit', SubmitType::class, [
-			   'label' => 'Créer ma nouvelle annonce',
-		        'attr'=>[
-				   'class' => 'btn btn-outline-secondary m-auto'
-		        ]
-	        ])
+
+            ->add('dogs', CollectionType::class, [
+               'entry_type' => DogType::class,
+                'entry_options' => ['label' => false],
+                'allow_add' => true,
+                'label' => false,
+                'by_reference' => false,
+            ])
+
+            ->add('submit', SubmitType::class, [
+               'label' => 'Créer ma nouvelle annonce',
+                'attr' => [
+                   'class' => 'btn btn-outline-secondary m-auto',
+                ],
+            ])
         ;
     }
 

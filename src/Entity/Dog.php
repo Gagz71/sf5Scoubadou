@@ -12,59 +12,57 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Dog
 {
+    /**
+     * @ORM\Id
+     * @ORM\GeneratedValue
+     * @ORM\Column(type="integer")
+     */
+    private $id;
 
-	/**
-	 * @ORM\Id
-	 * @ORM\GeneratedValue
-	 * @ORM\Column(type="integer")
-	 */
-	private $id;
-	
-	/**
-	 * @ORM\Column(type="string", length=255)
-	 */
-	private $name;
-	
-	/**
-	 * @ORM\Column(type="string", length=255, nullable=true)
-	 */
-	private $antecedents;
-	
-	/**
-	 * @ORM\Column(type="boolean")
-	 */
-	private $lof;
-	
-	/**
-	 * @ORM\Column(type="text", nullable=true)
-	 */
-	private $fullDescription;
-	
-	/**
-	 * @ORM\Column(type="boolean", nullable=true)
-	 */
-	private $sociable;
-	
-	/**
-	 * @ORM\Column(type="boolean")
-	 */
-	private $isAdopted;
-	
-	/**
-	 * @ORM\ManyToMany (targetEntity=AdoptingRequest::class, inversedBy="dogs")
-	 */
-	private $adoptingRequests;
-	
-	/**
-	 * @ORM\ManyToOne(targetEntity=Advert::class, inversedBy="dogs", cascade={"persist", "remove"})
-	 */
-	private $advert;
-	
-	/**
-	 * @ORM\ManyToMany(targetEntity=Race::class, mappedBy="dog")
-	 */
-	private $races;
-	
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $name;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $antecedents;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $lof;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $fullDescription;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $sociable;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isAdopted;
+
+    /**
+     * @ORM\ManyToMany (targetEntity=AdoptingRequest::class, inversedBy="dogs")
+     */
+    private $adoptingRequests;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Advert::class, inversedBy="dogs", cascade={"persist", "remove"})
+     */
+    private $advert;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Race::class, mappedBy="dog")
+     */
+    private $races;
 
     /**
      * @ORM\OneToMany(targetEntity=UrlPicture::class, mappedBy="dogs", cascade={"persist", "remove"})
@@ -94,7 +92,6 @@ class Dog
 
         return $this;
     }
-
 
     public function getAntecedents(): ?string
     {
@@ -221,7 +218,6 @@ class Dog
 
         return $this;
     }
-
 
     /**
      * @return Collection|UrlPicture[]

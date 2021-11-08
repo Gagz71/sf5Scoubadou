@@ -2,31 +2,53 @@
 
 {% block title %}Détails{% endblock %}
 
+{% block stylesheet %}
+    <link rel="stylesheet" href="{{ asset('assets/css/style-profile.css') }}">
+{% endblock %}
+
 {% block body %}
     <div class="container-fluid">
-        <div class="row">
-            <div class="card" style="width: 18rem;">
-                <h5 class="card-header">Mes infos personnelles</h5>
-                <p class="card-text"><small class="text-muted">Compte crée le {{ app.user.registerDate | date }}</small>
-                </p>
-                <div class="card-body">
-                    {% if is_granted('ROLE_ADVERTISER') %}
-                        <h5 class="card-title">Organisation</h5>
-                        <p>{{ app.user.organizationName }}</p>
-                        <p>{{ app.user.countAdverts }} annonces en
-                            lignes</p>
-                    {% endif %}
-                    <h5 class="card-title">Nom</h5>
-                    <p class="card-text">{{ app.user.lastname }}</p>
-                    <h5 class="card-title">Prénom</h5>
-                    <p class="card-text">{{ app.user.firstname }}</p>
-                    <h5 class="card-title">Email</h5>
-                    <p class="card-text">{{ app.user.email }}</p>
-                    <a href="{{ path('adopting_edit', {'id' : app.user.id}) }}" class="btn btn-warning">Modifier mes
-                        infos</a>
+
+        <div class="collapse" id="navbarToggleExternalContent">
+            <div class=" p-4">
+
+                <div class="card text-center card-infos shadow">
+                    <div class="card-header">
+                        Mes infos personnelles
+                    </div>
+                    <div class="card-body">
+                        {% if is_granted('ROLE_ADVERTISER') %}
+                        <h5 class="card-text"><small>Association :</small> {{ app.user.organizationName }}</h5>
+                        <p class="card-text"><small>Nombre d'annonces en lignes: </small>{{ app.user.countAdverts }} annonces en
+                            lignes.</p>
+                        {% endif %}
+                        <p class="card-title"><small>Nom: </small><b>{{ app.user.lastname }}</b></p>
+                        <p class="card-title"><small>Prénom: </small><b>{{ app.user.firstname }}</b></p>
+                        <p class="card-title"><small>Email: </small><b>{{ app.user.email }}</b></p>
+                        <a href="{{ path('adopting_edit', {'id' : app.user.id}) }}" class="btn btn-warning">Modifier mes
+                            infos</a>
+                    </div>
+                    <div class="card-footer text-muted">
+                        Compte crée le {{ app.user.registerDate | date }}
+                    </div>
                 </div>
+
+
+
             </div>
-            <div class="row">
+        </div>
+        <nav class="navbar navbar-dark ">
+            <div class="container-fluid">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon" title="Voir mes informations"></span>
+                </button>
+            </div>
+        </nav>
+        <div class="row">
+
+        </div>
+
+        <div class="d-flex justify-content-around">
 
                 <div class="jumbotron">
                     <div class="d-flex {% if is_granted('ROLE_ADOPTING') %}justify-content-between  {% endif %}{% if is_granted('ROLE_ADVERTISER') %}flex-column {% endif %}">
@@ -77,7 +99,7 @@
                         {% for advert in app.user.adverts %}
                             <table class="table table-striped table-hover">
                                 <thead>
-                            {% for request in advert.adoptingRequests %}
+
                                 <tr>
                                     <th scope="col">Annonce</th>
                                     <th scope="col">Adoptant</th>
@@ -85,13 +107,14 @@
                                 </tr>
                                 </thead>
                                 <tbody>
+                                {% for request in advert.adoptingRequests %}
                                 <tr>
                                     <td>{{ advert.title }}</td>
                                     <td>{{ request.adopting.lastname }} {{ request.adopting.firstname }}</td>
                                 {% for dog in request.dogs %}
                                     <td>{{ dog.name}} </td>
                                     {% endfor %}
-                                    <td colspan="2"> <a href="{{ path('discussions', {'id':request.id}) }}">Voir les messages</a></td>
+                                    <td colspan="2"> <a href="{{ path('discussions', {'id':request.id}) }}" class="btn btn-outline-dark">Voir les messages</a></td>
                                 </tr>
                                 </tbody>
                                 {% endfor %}
@@ -110,13 +133,13 @@
 
             <h1 class="display-4">Mes annonces</h1>
 
-
             <table class="table table-striped table-hover">
                 <thead>
                 <tr>
                     <th scope="col">Titre de l'annonce</th>
                     <th scope="col">Date de création</th>
                     <th scope="col">Statut</th>
+                    <th scope="col">Actions</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -125,6 +148,9 @@
                     <td>{{ advert.title }}</td>
                     <td>{{ advert.creationDate | date}}</td>
                     <td>{{ advert.status == 0 ? 'Pourvu' : 'A pourvoir' }}</td>
+                    <td><a href="{{ path('advert', {'slug' : advert.slug}) }}" class="btn btn-outline-secondary">Voir l'annonce</a></td>
+                    <td> <a href="{{ path('edit-advert', {'slug' : advert.slug}) }}" class="card-link btn btn-outline-warning" >Modifier l'annonce📝</a></td>
+                     <td> <a href="{{ path('remove-advert', {'slug': advert.slug}) }}" class="card-link btn btn-outline-danger">Supprimer l'annonce🗑️</a></td>
                 </tr>
                 </tbody>
                 {% endfor %}

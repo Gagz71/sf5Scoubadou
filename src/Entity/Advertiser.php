@@ -14,7 +14,6 @@ use Doctrine\ORM\Mapping\Entity;
  */
 class Advertiser extends User
 {
-
     /**
      * @ORM\Column(type="string", length=255)
      */
@@ -27,12 +26,10 @@ class Advertiser extends User
 
     public function __construct()
     {
-
         parent::__construct();
 
         $this->adverts = new ArrayCollection();
     }
-
 
     public function getOrganizationName(): ?string
     {
@@ -88,31 +85,37 @@ class Advertiser extends User
         return array_unique($roles);
     }
 
-    public function countAdvertsAvailable() {
+    public function countAdvertsAvailable()
+    {
         $cpt = 0;
         foreach ($this->getAdverts() as $advert) {
             if ($advert->getStatus()) {
-                $cpt++;
+                ++$cpt;
             }
         }
+
         return $cpt;
     }
 
-    public function countAdvertsNotAvailable() {
+    public function countAdvertsNotAvailable()
+    {
         $cpt = 0;
         foreach ($this->getAdverts() as $advert) {
             if (!$advert->getStatus()) {
-                $cpt++;
+                ++$cpt;
             }
         }
+
         return $cpt;
     }
 
-    public function countAdverts() {
+    public function countAdverts()
+    {
         $cpt = 0;
         foreach ($this->getAdverts() as $advert) {
-            $cpt++;
+            ++$cpt;
         }
+
         return $cpt;
     }
 }

@@ -6,7 +6,6 @@ use App\Repository\AdoptingRequestRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use App\Entity\Dog;
 
 /**
  * @ORM\Entity(repositoryClass=AdoptingRequestRepository::class)
@@ -56,16 +55,12 @@ class AdoptingRequest
         return $this->id;
     }
 
-    /**
-     * @return Adopting
-     */
     public function getAdopting(): Adopting
     {
         return $this->adopting;
     }
 
     /**
-     * @param Adopting $adopting
      * @return AdoptingRequest
      */
     public function setAdopting(Adopting $adopting): self
@@ -74,8 +69,6 @@ class AdoptingRequest
 
         return $this;
     }
-
-
 
     public function getStatus(): ?bool
     {
@@ -101,7 +94,7 @@ class AdoptingRequest
     {
         if (!$this->dogs->contains($dog)) {
             $this->dogs[] = $dog;
-		  $dog->addAdoptingRequest($this);
+            $dog->addAdoptingRequest($this);
         }
 
         return $this;

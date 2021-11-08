@@ -11,7 +11,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
-
 class DiscussionType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
@@ -19,6 +18,7 @@ class DiscussionType extends AbstractType
         $builder
 
             ->add('content', TextareaType::class, [
+
 			  'label' => 'Contenu du message',
 	            'constraints' => [
 				  new NotBlank([
@@ -39,6 +39,7 @@ class DiscussionType extends AbstractType
                     'class' => 'btn btn-outline-secondary m-auto'
                 ]
             ])
+
 
         ;
     }

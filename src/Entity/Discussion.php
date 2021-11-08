@@ -26,12 +26,12 @@ class Discussion
      * @ORM\Column(type="date")
      */
     private $creationDate;
-    
+
     /**
      * @ORM\ManyToOne(targetEntity=AdoptingRequest::class, inversedBy="discussions", cascade={"persist", "remove"})
      */
     private $adoptingRequest;
-	
+
     public function getId(): ?int
     {
         return $this->id;

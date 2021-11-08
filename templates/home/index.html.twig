@@ -1,6 +1,9 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}SCOUBADOO{% endblock %}
+{% block stylesheet %}
+    <link rel="stylesheet" href="{{ asset('assets/css/style-profile.css') }}">
+{% endblock %}
 
 {% block body %}
     <div class="container-fluid">
@@ -23,8 +26,6 @@
                                 <div class="col ml-2 mr-2 mt-5  pb-0 rounded shadow"  style="height: 150px; width:300px; background-image: url({{ picture.url }}); background-size: cover"></div>
                             {% endfor %}
                         </div>
-
-
                         <div class="card-body">
                             <h5 class="card-title">{{ advert.title }}</h5>
                             <h6 class="card-subtitle mb-2 text-muted">{{ advert.creationDate | date ('D M Y h:i') }}</h6>
@@ -92,32 +93,37 @@
 
 
     <div class="jumbotron">
-        <h1 class="display-4">Les éleveurs</h1>
+         <h1 class="display-4 text-center text-uppercase">Les éleveurs</h1>
 
+
+        <div class="card text-center card-infos shadow">
+            <table class="table table-warning table-striped table-hover">
+                <thead>
+                <tr>
+                    <th scope="col">Nom de l'association</th>
+                    <th scope="col">Nombre annonces pourvus</th>
+                    <th scope="col">Nombre annonces non pourvus</th>
+                </tr>
+                </thead>
+                {% for advertiser in advertisers %}
+                    <tbody>
+                    <tr>
+                        <th>
+                            <a href='{{ path("advertiser_view", {id: advertiser.id}) }}' class="ml-2 p-2 rounded shadow link-advertiser" style="background-color: #e3ecd3">{{ advertiser.organizationName }}</a>
+                        </th>
+                        {% if advertiser.countAdvertsAvailable >0 %}
+                            <td>{{ advertiser.countAdvertsAvailable }}</td>
+                        {% endif %}
+                        {% if advertiser.countAdvertsNotAvailable > 0 %}
+                            <td>{{ advertiser.countAdvertsNotAvailable }}</td>
+                        {% endif %}
+                    </tr>
+                    </tbody>
+                {% endfor %}
+            </table>
+        </div>
     </div>
-    <table class="table">
-        <thead>
-        <tr>
-            <th scope="col">Eleveurs</th>
-            <th scope="col">Nombre annonces pourvus</th>
-            <th scope="col">Nombre annonces non pourvus</th>
-        </tr>
-        </thead>
-        {% for advertiser in advertisers %}
-            <tbody>
-            <tr>
-                <th><a href='{{ path("advertiser_view", {id: advertiser.id}) }}'>{{ advertiser.organizationName }}</a>
-                </th>
-                {% if advertiser.countAdvertsAvailable >0 %}
-                    <td>{{ advertiser.countAdvertsAvailable }}</td>
-                {% endif %}
-                {% if advertiser.countAdvertsNotAvailable > 0 %}
-                    <td>{{ advertiser.countAdvertsNotAvailable }}</td>
-                {% endif %}
-            </tr>
-            </tbody>
-        {% endfor %}
-    </table>
+
     {{ knp_pagination_render(advertisers) }}
 {% endblock %}
 

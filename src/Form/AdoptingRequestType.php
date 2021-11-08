@@ -2,9 +2,7 @@
 
 namespace App\Form;
 
-use App\Entity\Adopting;
 use App\Entity\AdoptingRequest;
-use App\Entity\Advert;
 use App\Entity\Dog;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -23,35 +21,35 @@ class AdoptingRequestType extends AbstractType
         $builder
             ->add('dogs', EntityType::class, [
                 'label' => 'choix des Chiens',
-                'class'=> Dog ::class,
+                'class' => Dog::class,
                 'choice_label' => 'name',
                 'multiple' => true,
                 'expanded' => true,
-	            'by_reference' => false,
+                'by_reference' => false,
                 'query_builder' => function (EntityRepository $er) use ($advert) {
                     return $er->createQueryBuilder('d')
-                        ->andWhere("d.advert = :advertId")
+                        ->andWhere('d.advert = :advertId')
                         ->setParameter('advertId', $advert->getId())
                         ;
-                }
+                },
             ])
             //imbriquation des champs email,password,lastname, firstname
             ->add('adopting', AdoptingForRequestType::class, [
-                'label' => 'informations de l\'adoptant'
+                'label' => 'informations de l\'adoptant',
             ])
             ->add('discussions', CollectionType::class, [
-                'entry_type' =>DiscussionType::class,
+                'entry_type' => DiscussionType::class,
                 'by_reference' => false,
-                'allow_add'=> false,
-                'label' => 'Contenu du message',
+
+                'allow_add' => false,
 
             ])
 
             ->add('submit', SubmitType::class, [
                 'label' => 'i wAnT mY dOg',
-                'attr'=>[
-                    'class' => 'btn btn-outline-secondary m-auto'
-                ]
+                'attr' => [
+                    'class' => 'btn btn-outline-secondary m-auto',
+                ],
             ])
 
         ;
@@ -63,7 +61,7 @@ class AdoptingRequestType extends AbstractType
             'data_class' => AdoptingRequest::class,
         ]);
         $resolver->setRequired([
-            "advert"
+            'advert',
         ]);
     }
 }

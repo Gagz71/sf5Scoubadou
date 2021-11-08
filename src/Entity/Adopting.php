@@ -25,7 +25,6 @@ class Adopting extends User
         $this->adoptingRequests = new ArrayCollection();
     }
 
-
     /**
      * @see UserInterface
      */

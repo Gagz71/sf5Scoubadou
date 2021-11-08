@@ -2,13 +2,14 @@
 
 namespace App\Controller;
 
-use App\Entity\Adopting;
 use App\Entity\AdoptingRequest;
+
 use App\Entity\Advert;
 use App\Entity\Discussion;
 use App\Entity\User;
 use App\Form\DiscussionType;
 use Doctrine\ORM\EntityManagerInterface;
+
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -29,6 +30,7 @@ class DiscussionsController extends AbstractController
     public function addMessage(Request $request, AdoptingRequest $adoptingRequest ,Advert $advert)
         : Response
     {
+
 
         $discussion = new Discussion();
         $discussion->setCreationDate(new \DateTime());
@@ -58,6 +60,7 @@ class DiscussionsController extends AbstractController
             'form' =>$form->createView(),
             'listDiscussions' => $listDiscussions,
             'adoptingRequest' => $adoptingRequest,
+
 
         ]);
     }

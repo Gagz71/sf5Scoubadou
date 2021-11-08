@@ -14,7 +14,7 @@ class DogsPicturesType extends AbstractType
     {
         $builder
             ->add('url', UrlType::class, [
-			  'label' => 'Url de la photo'
+              'label' => 'Url de la photo',
             ])
         ;
     }

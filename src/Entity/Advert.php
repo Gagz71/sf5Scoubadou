@@ -57,7 +57,6 @@ class Advert
     private $dogs;
 
     /**
-
      * @ORM\ManyToOne(targetEntity=Advertiser::class, inversedBy="adverts", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      */
@@ -77,8 +76,6 @@ class Advert
      * @ORM\OneToMany(targetEntity=AdoptingRequest::class, mappedBy="advert")
      */
     private Collection $adoptingRequests;
-
-
 
     public function __construct()
     {
@@ -114,7 +111,6 @@ class Advert
 
         return $this;
     }
-
 
     public function getDogsNb(): ?int
     {
@@ -237,6 +233,7 @@ class Advert
                 }
             }
         }
+
         return $ret;
     }
 
@@ -269,9 +266,9 @@ class Advert
 
         return $this;
     }
-	
-	public function __sleep()
-	{
-		return [];
-	}
+
+    public function __sleep()
+    {
+        return [];
+    }
 }
