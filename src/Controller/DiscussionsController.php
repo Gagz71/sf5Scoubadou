@@ -9,6 +9,7 @@ use App\Entity\Discussion;
 use App\Entity\User;
 use App\Form\DiscussionType;
 use Doctrine\ORM\EntityManagerInterface;
+
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -59,6 +60,7 @@ class DiscussionsController extends AbstractController
             'form' =>$form->createView(),
             'listDiscussions' => $listDiscussions,
             'adoptingRequest' => $adoptingRequest,
+
 
         ]);
     }

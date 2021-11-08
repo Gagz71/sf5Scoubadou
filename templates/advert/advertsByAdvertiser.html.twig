@@ -8,7 +8,7 @@
         <div class="row">
             {% for advert in advertiser.adverts %}
             <div class="col-3 mb-4 shadow">
-                <div class="card">
+                <div class="card text-center shadow">
                     <div class="small">Crée le {{ advert.creationDate | date }}</div>
                 </div>
                 <img src="{{ advert.urlPicture }}" alt="" class="card-img">
@@ -24,7 +24,6 @@
                     <ul class="list-group list-group-flush lead">
                         {% for dog in advert.dogs %}
                             <li class="list-group-item"> 🐕{{ dog.name }}</li>
-
                         {% endfor %}
                     </ul>
                 </div>
@@ -32,18 +31,15 @@
                     <div class="small">
                         Statut: {{ advert.status == 0 ? 'Chiens tous adoptés' : ' Cherche une famille aimante' }}
                     </div>
-                    <div class="text"><a href="{{ path('advert', {'slug' : advert.slug}) }}"
-                                         title="Voir l'annonce en détail">En savoir plus</a></div>
+                    <div class="text"><a href="{{ path('advert', {'slug' : advert.slug}) }}" title="Voir l'annonce en détail"  class="btn btn-outline-info">En savoir plus</a></div>
                 </div>
             </div>
+            {% endfor %}
+        </div>
 
         </div>
-        {% endfor %}
-
-    </div>
 
 
-    </div>
 
 
 
