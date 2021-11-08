@@ -26,19 +26,12 @@
                         {% for race in dog.races %}
                         <h6 class="card-subtitle mb-2 text-muted">{{race.name }}</h6>
                         {% endfor %}
-                        <p class="card-text">TODO -> set description complète (texte descriptif du chien et de son comportement) dans fixtures</p>
+                        <p class="card-text">{{ dog.fullDescription }}</p>
                         <ul class="list-group list-group-flush">
                               <li class="list-group-item"><b>Antécédents: </b>{{ dog.antecedents }}</li>
                               <li class="list-group-item"><b>L.O.F.:</b> {{ dog.lof == true ? 'L.O.F.' : 'Chien de race non-homologué' }}</li>
                               <li class="list-group-item"><b>Sociabilité: </b>{{ dog.sociable == true ? 'Accepte les autres animaux' : 'Aime être la seule bête à poile à la maison' }}</li>
                               <li class="list-group-item"><b>Statut d'adoption: </b>{{ dog.isAdopted == true ? 'Adopté' : 'Cherche encore une famille' }}</li>
-                              {% if dog.adoptingRequests|length > 0 %}
-                                    {% for adoptingRequest in dog.adoptingRequests %}
-                                    <li class="list-group-item"><b>Demande d'adoptions: </b>{{dump(adoptingRequest)  }}</li>
-                                    {% endfor %}
-                              {% else %}
-                                          <li class="list-group-item"><b>Demande d'adoptions: </b>Aucune demandes d'adoption n'a encore été effectué.</li>
-                              {% endif %}
 
                         </ul>
                               {% if dog.isAdopted == 0 %}
