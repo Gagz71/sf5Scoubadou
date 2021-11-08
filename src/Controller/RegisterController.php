@@ -42,6 +42,10 @@ class RegisterController extends AbstractController
                 $entityManager->persist($adopting);
                 $entityManager->flush();
 
+                $this->addFlash(
+                    'notice',
+                    'Vos infos ont été modifiées !'
+                );
                 return $this->redirect($this->generateUrl('home'));
             } else {
                 return $this->redirect($this->generateUrl('adopting_edit', ['id' => $adopting->getId()]));
@@ -59,5 +63,8 @@ class RegisterController extends AbstractController
     public function showInfos()
     {
         return $this->render('register/info.html.twig');
+
     }
+
+
 }
