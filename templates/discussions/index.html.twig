@@ -4,13 +4,14 @@
 
 {% block body %}
         <h1 class="display-4">Vos messages</h1>
-    <div class="container">
+    <div class="container ">
         {% for discussion in adoptingRequest.discussions %}
-            <h3> message {{ adoptingRequest.id }} </h3>
-            {{ discussion.content[:400] ~ '...' }}
+            <div class="mt-5">
+                {#            <h3> message {{ adoptingRequest.id }} </h3>#}
+                {{ discussion.content[:400] ~ '...' }}
+            </div>
+
         {% endfor %}
-
-
 
         <h1 class="display-4">repondre au message</h1>
 
@@ -18,9 +19,9 @@
             <div class="form-group col-10 ">
 
                 {{ form_start(form) }}
-                {{ form_row(form.discussions) }}
-
+                {{ form_row(form.content) }}
                 {{ form_row(form.submit) }}
+
                 {{ form_end(form) }}
             </div>
         </div>

@@ -26,23 +26,8 @@ class DiscussionsController extends AbstractController
     /**
      * @Route("/discussions/{id}", name="discussions")
      */
-    public function showDiscussions(AdoptingRequest $adoptingRequest): Response
-    {
-
-        return $this->render('discussions/index.html.twig', [
-
-            'adoptingRequest' => $adoptingRequest
-
-        ]);
-    }
-
-
-    /**
-     * @Route("/discussions/{id}", name="discussions")
-     */
-    public function addMessage(Request $request ,AdoptingRequest $adoptingRequest ,Advert $advert)
+    public function addMessage(Request $request, AdoptingRequest $adoptingRequest ,Advert $advert)
         : Response
-
     {
 
         $discussion = new Discussion();
@@ -59,15 +44,20 @@ class DiscussionsController extends AbstractController
             $this->entityManager->flush();
 
             $this->addFlash('success', 'Nouveau message envoyé');
-            return $this->redirectToRoute('discussions', []);
+            return $this->redirectToRoute('discussions', [
+                'id' => $adoptingRequest->getId(),
+
+            ]);
+
 
         }
 
         $listDiscussions = $adoptingRequest->getDiscussions();
 
-        return $this->render('adopting_request/view.html.twig', [
+        return $this->render('discussions/index.html.twig', [
             'form' =>$form->createView(),
-            'listDiscussions' => $listDiscussions
+            'listDiscussions' => $listDiscussions,
+            'adoptingRequest' => $adoptingRequest,
 
         ]);
     }
