@@ -9,5 +9,24 @@
             <h3> message {{ adoptingRequest.id }} </h3>
             {{ discussion.content[:400] ~ '...' }}
         {% endfor %}
+
+
+
+        <h1 class="display-4">repondre au message</h1>
+
+        <div class="d-flex flex-column mt-5 mb-5">
+            <div class="form-group col-10 ">
+
+                {{ form_start(form) }}
+                {{ form_row(form.discussions) }}
+
+                {{ form_row(form.submit) }}
+                {{ form_end(form) }}
+            </div>
+        </div>
+
+
     </div>
+
+
 {% endblock %}
