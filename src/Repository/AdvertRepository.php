@@ -23,7 +23,7 @@ class AdvertRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('advert')
             ->orderBy('advert.creationDate','DESC')
             ->setMaxResults(3)
-            //->where('advert.status = true')
+            ->where('advert.status = true')
             ->getQuery()
             ->getResult();
 
@@ -34,7 +34,7 @@ class AdvertRepository extends ServiceEntityRepository
             ->orderBy('advert.creationDate','DESC')
             ->setFirstResult(3)
             ->setMaxResults(2)
-            //->where('advert.status = true')
+            ->where('advert.status = true')
             ->getQuery()
             ->getResult();
 
