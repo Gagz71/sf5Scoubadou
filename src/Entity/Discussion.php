@@ -22,7 +22,6 @@ class Discussion
      */
     private $content;
 
-
     /**
      * @ORM\Column(type="date")
      */

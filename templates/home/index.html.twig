@@ -28,9 +28,12 @@
                                     {% endfor %}
                                 {% endfor %}
                             </ul>
+                            <a href="{{ path('advert', {'slug' : advert.slug}) }}"
+                               title="Voir l'annonce en détail" class="btn btn-outline-info">En savoir plus</a>
                         </div>
                     </div>
                 </div>
+
             {% endfor %}
         </div>
     </div>
