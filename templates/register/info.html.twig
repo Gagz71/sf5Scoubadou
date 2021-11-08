@@ -91,7 +91,7 @@
                                 {% for dog in request.dogs %}
                                     <td>{{ dog.name}} </td>
                                     {% endfor %}
-                                    <td colspan="2"> <a href="">Voir les messages</a></td>
+                                    <td colspan="2"> <a href="{{ path('discussions', {'id':request.id}) }}">Voir les messages</a></td>
                                 </tr>
                                 </tbody>
                                 {% endfor %}
