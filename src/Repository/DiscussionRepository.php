@@ -18,5 +18,4 @@ class DiscussionRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Discussion::class);
     }
-
 }

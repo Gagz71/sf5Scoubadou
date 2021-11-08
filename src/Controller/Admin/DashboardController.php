@@ -15,16 +15,13 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-
-
 /**
- * Pour accéder à TOUTES les méthodes de ce contrôleur, il faut avoir le ROLE_ADMIN
+ * Pour accéder à TOUTES les méthodes de ce contrôleur, il faut avoir le ROLE_ADMIN.
  *
  * @IsGranted("ROLE_ADMIN")
  */
 class DashboardController extends AbstractDashboardController
 {
-
     /**
      * @Route("/admin")
      */
@@ -45,14 +42,12 @@ class DashboardController extends AbstractDashboardController
             'advertisers' => $advertisers,
             'adopting' => $adopting,
             'users' => $users,
-            'races'=> $races
+            'races' => $races,
         ]);
     }
 
-
     public function configureDashboard(): Dashboard
     {
-
         return Dashboard::new()
             // the name visible to end users
             ->setTitle('ScOuBaDoO Corp.')
@@ -103,12 +98,10 @@ class DashboardController extends AbstractDashboardController
             MenuItem::section('Annonceurs'),
             MenuItem::linkToCrud('Annonceur', 'fas fa-user-tie', Advertiser::class),
 
-
             MenuItem::section('Adoptants'),
             MenuItem::linkToCrud('Adoptants', 'fa fa-user', Adopting::class),
 
-            MenuItem::linkToLogout('Logout', 'fa fa-exit')
-
+            MenuItem::linkToLogout('Logout', 'fa fa-exit'),
         ];
     }
 }

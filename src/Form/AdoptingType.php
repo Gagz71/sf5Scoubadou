@@ -3,9 +3,6 @@
 namespace App\Form;
 
 use App\Entity\Adopting;
-use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\BrowserKit\Request;
-use Symfony\Component\BrowserKit\Response;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -17,16 +14,16 @@ class AdoptingType extends AbstractType
     {
         $builder
             ->add('email', TextType::class, [
-                'label' => 'Email'
+                'label' => 'Email',
             ])
             ->add('password', TextType::class, [
-                'label' => 'Mot de passe'
+                'label' => 'Mot de passe',
             ])
             ->add('lastname', TextType::class, [
-                'label' => 'Prénom'
+                'label' => 'Prénom',
             ])
             ->add('firstname', TextType::class, [
-                'label' => 'Nom'
+                'label' => 'Nom',
             ])
         ;
     }

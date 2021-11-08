@@ -3,12 +3,9 @@
 namespace App\DataFixtures;
 
 use App\Entity\Admin;
-use App\Entity\Advertiser;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
-use App\Entity\User;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
-use Symfony\Component\String\Slugger\AsciiSlugger;
 
 class UserFixtures extends Fixture
 {
@@ -20,7 +17,7 @@ class UserFixtures extends Fixture
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function load(ObjectManager $manager)
     {
@@ -28,7 +25,7 @@ class UserFixtures extends Fixture
         $pwd = $this->hasher->hashPassword($admin, '12345');
         $admin->setFirstName('admin');
         $admin->setLastName('admin');
-        $admin->setEmail("admin@admin.com");
+        $admin->setEmail('admin@admin.com');
         $admin->setPassword($pwd);
         $admin->setRegisterDate(new \DateTime());
 

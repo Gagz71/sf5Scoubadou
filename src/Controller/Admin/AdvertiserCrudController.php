@@ -18,14 +18,12 @@ class AdvertiserCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
-            IdField::new('id')-> hideOnForm(),
-            TextField::new('lastname','Votre nom'),
+            IdField::new('id')->hideOnForm(),
+            TextField::new('lastname', 'Votre nom'),
             TextField::new('firstname', 'Votre prénom'),
-	        TextField::new('organizationName', 'Nom de l\'association'),
+            TextField::new('organizationName', 'Nom de l\'association'),
             EmailField::new('email', 'Votre email'),
-            TextField::new('plainPassword', 'Mot de passe (personnel)')-> hideOnIndex()
-
-
+            TextField::new('plainPassword', 'Mot de passe (personnel)')->hideOnIndex(),
         ];
     }
 }

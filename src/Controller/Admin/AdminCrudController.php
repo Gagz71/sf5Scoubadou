@@ -14,17 +14,14 @@ class AdminCrudController extends AbstractCrudController
         return Admin::class;
     }
 
-
     public function configureFields(string $pageName): iterable
     {
         return [
-            IdField::new('id')-> hideOnForm(),
+            IdField::new('id')->hideOnForm(),
             TextField::new('email', 'Votre email'),
-            TextField::new('lastname','Votre nom'),
+            TextField::new('lastname', 'Votre nom'),
             TextField::new('firstname', 'Votre prénom'),
-            TextField::new('plainPassword', 'Mot de passe (personnel)')-> hideOnIndex()
-
+            TextField::new('plainPassword', 'Mot de passe (personnel)')->hideOnIndex(),
         ];
     }
-
 }
