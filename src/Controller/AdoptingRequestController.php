@@ -46,7 +46,7 @@ class AdoptingRequestController extends AbstractController
         $discussion->setCreationDate(new \DateTime());
 
         $adoptingRequest->addDiscussion($discussion);
-
+	   
 
         $form = $this->createForm(AdoptingRequestType::class, $adoptingRequest, [
             'advert' => $advert,
