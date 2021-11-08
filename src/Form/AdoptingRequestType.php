@@ -11,6 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 class AdoptingRequestType extends AbstractType
 {
@@ -39,7 +40,9 @@ class AdoptingRequestType extends AbstractType
             ->add('discussions', CollectionType::class, [
                 'entry_type' => DiscussionType::class,
                 'by_reference' => false,
+
                 'allow_add' => false,
+
             ])
 
             ->add('submit', SubmitType::class, [
