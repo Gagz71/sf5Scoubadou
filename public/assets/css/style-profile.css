@@ -5,3 +5,14 @@
     width: 50%;
     margin: auto;
 }
+
+.link-advertiser{
+    text-decoration: none;
+    color: black;
+}
+.link-advertiser:hover{
+    text-decoration: none;
+}
+.table{
+    margin-bottom: 0;
+}
