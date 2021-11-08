@@ -30,7 +30,7 @@ class AdvertController extends AbstractController
     /**
      * @Route("/annonces", name="adverts")
      */
-    public function index(EntityManagerInterface $entityManager, PaginatorInterface $paginator, Request $request): Response
+    public function index(PaginatorInterface $paginator, Request $request): Response
     {
         $data = $this->getDoctrine()->getRepository(Advert::class)->findAll();
 
