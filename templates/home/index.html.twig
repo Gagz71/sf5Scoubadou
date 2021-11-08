@@ -4,28 +4,42 @@
 
 {% block body %}
     <div class="container-fluid">
-        <div>
-            <h1>Les dernières annonces</h1>
+
+        <div class="jumbotron">
+            <h1 class="display-4">LES DERNIERES ANNONCES</h1>
+            <p class="lead">Rumor, abactus, et lacta. Domesticus, neuter tuss solite visum de bi-color, festus ventus. Sunt dominaes transferre fatalis, domesticus idoleumes.</p>
+            <hr class="my-4">
+            <p>"Et laboriosam consequuntur ut eveniet dolorem in earum nemo sit galisum earum sit earum ducimus quo voluptatem beatae sed ipsa expedita. Aut explicabo earum ea voluptatem soluta qui quam reiciendis ut illum magni aut sapiente dolore et incidunt! Est possimus ratione ut voluptatem voluptas et rerum cupiditate ab veniam voluptas sit autem voluptatibus et numquam quasi et iusto dicta? Et quod omnis aut omnis deleniti aut perferendis architecto et exercitationem nesciunt qui voluptatem sapiente ab eligendi consequatur ad iste perspiciatis! "</p>
         </div>
-        <div class="row">
-            {% for advert in advertsHome %}
-                <div class="col">
-                    <div class="card">
-                        {% for picture in advert.getThreePictures() %}
-                            <img src="{{ picture.url }}" class="card-img-top" alt="...">
-                        {% endfor %}
+
+
+        <div class="row col-12 mx-auto">
+            {% for advert in threeLastAdverts %}
+                <div class="col-4 mt-5   ">
+                    <div class="card rounded shadow">
+
+                        <div class="row col-12 p-0 m-0 mb-5  d-flex justify-content-center" style="">
+                            {% for picture in advert.getThreePictures() %}
+                                <div class="col ml-2 mr-2 mt-5  pb-0 rounded shadow"  style="height: 150px; width:300px; background-image: url({{ picture.url }}); background-size: cover"></div>
+                            {% endfor %}
+                        </div>
+
+
                         <div class="card-body">
                             <h5 class="card-title">{{ advert.title }}</h5>
-                            <h6 class="card-subtitle mb-2 text-muted">{{ advert.creationDate | date('d-M-Y') }}</h6>
+                            <h6 class="card-subtitle mb-2 text-muted">{{ advert.creationDate | date ('D M Y h:i') }}</h6>
                             <p class="card-text">{{ advert.dogsNb }} chiens à adopter !</p>
                             <div class="card-title">
-                                Les races
+                                Races
                             </div>
-                            <ul>
+                            <ul class=" " style="display: flex">
                                 {% for dog in advert.dogs %}
-                                    {% for race in dog.races %}
-                                        <li>{{ race.name }}</li>
-                                    {% endfor %}
+                                    <div class="ml-2 p-2 rounded shadow"  style="background-color: #e3ecd3">
+                                        {% for race in dog.races %}
+                                            {{ race.name }}
+                                        {% endfor %}
+                                    </div>
+
                                 {% endfor %}
                             </ul>
                         </div>
@@ -34,8 +48,46 @@
             {% endfor %}
         </div>
     </div>
-    <div>
-        <h1>Les éleveurs</h1>
+
+
+    <div class="row col-12 mx-auto">
+        {% for advert in twoNextAdverts %}
+            <div class="col-6 mt-5 mb-5">
+                <div class="card card rounded shadow">
+
+                    <div class="row col-12 p-0 m-0 mb-5  d-flex justify-content-center" style="">
+                        {% for picture in advert.getThreePictures() %}
+                            <div class="col ml-2 mr-2 mt-5  pb-0 rounded shadow"  style="height: 150px; width:300px; background-image: url({{ picture.url }}); background-size: cover"></div>
+                        {% endfor %}
+                    </div>
+
+
+                    <div class="card-body">
+                        <h5 class="card-title">{{ advert.title }}</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">{{ advert.creationDate | date ('D M Y h:i') }}</h6>
+                        <p class="card-text">{{ advert.dogsNb }} chiens à adopter !</p>
+                        <div class="card-title">
+                            Races :
+                        </div>
+                        <ul class=" " style="display: flex">
+                            {% for dog in advert.dogs %}
+                            <div class="ml-2 p-2 rounded shadow"  style="background-color: #e3ecd3">
+                                {% for race in dog.races %}
+                                        {{ race.name }}
+                                {% endfor %}
+                            </div>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+
+    <div class="jumbotron">
+        <h1 class="display-4">Les éleveurs</h1>
+
     </div>
     <table class="table">
         <thead>

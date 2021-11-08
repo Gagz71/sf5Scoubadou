@@ -19,10 +19,21 @@ class AdvertRepository extends ServiceEntityRepository
         parent::__construct($registry, Advert::class);
     }
 
-    public function callFiveAdverts() {
+    public function callThreeLastAdverts() {
         return $this->createQueryBuilder('advert')
             ->orderBy('advert.creationDate','DESC')
-            ->setMaxResults(5)
+            ->setMaxResults(3)
+            ->where('advert.status = true')
+            ->getQuery()
+            ->getResult();
+
+    }
+
+    public function callTwoNextAdverts() {
+        return $this->createQueryBuilder('advert')
+            ->orderBy('advert.creationDate','DESC')
+            ->setFirstResult(3)
+            ->setMaxResults(2)
             ->where('advert.status = true')
             ->getQuery()
             ->getResult();

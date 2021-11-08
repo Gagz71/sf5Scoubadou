@@ -26,7 +26,10 @@ class  HomeController extends AbstractController
      */
     public function index(Request $request, PaginatorInterface $paginator)
     {
-        $adverts = $this->advertRepository->callFiveAdverts();
+        $adverts = $this->advertRepository->callThreeLastAdverts();
+        $threeLastAdverts = $this->advertRepository->callThreeLastAdverts();
+        $twoNextAdverts = $this->advertRepository->callTwoNextAdverts();
+
         $advertisers = $this->advertiserRepository->getAdvertsByDate();
 
         $advertisers = $paginator->paginate(
@@ -35,6 +38,8 @@ class  HomeController extends AbstractController
         );
         return $this->render('home/index.html.twig', [
             'advertsHome' => $adverts,
+            'threeLastAdverts' => $threeLastAdverts,
+            'twoNextAdverts' => $twoNextAdverts,
             'advertisers' => $advertisers,
             'controller_name' => 'HomeController',
         ]);
