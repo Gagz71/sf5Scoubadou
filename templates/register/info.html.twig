@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Détails {% endblock %}
+{% block title %}Détails{% endblock %}
 
 {% block body %}
     <div class="container-fluid">
@@ -27,26 +27,16 @@
                 </div>
             </div>
             <div class="jumbotron">
-                <div class="d-flex justify-content-between">
+                <div class="d-flex {% if is_granted('ROLE_ADOPTING') %}justify-content-between  {% endif %}{% if is_granted('ROLE_ADVERTISER') %}flex-column {% endif %}">
 
                     <h1 class="display-4">Mes demandes d'adoptions</h1>
-
-                    {% if is_granted('ROLE_ADVERTISER') %}
-
-
-
-                    {% endif %}
-
-
-
-
-                    <div class="">
+                    <div class="request-count">
                         {% if is_granted('ROLE_ADOPTING') %}
                         <span class="badge badge-warning">{{ app.user.adoptingRequests.count }}</span>
-
                     </div>
                 </div>
                 <div class="row">
+                    {{ app.user.adoptingRequests.count == 0 ? 'Vous n\'avez faite encore aucune demande d\'adoption' }}
                 {% for adoptingRequest in app.user.adoptingRequests %}
 
                         <div class="col-sm-6">
@@ -82,6 +72,7 @@
                 {% endif %}
 
             </div>
+
             {% if is_granted('ROLE_ADVERTISER') %}
             <div>
                 <h2>Mes annonces</h2>
