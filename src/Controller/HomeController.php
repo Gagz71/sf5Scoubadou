@@ -14,6 +14,9 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class  HomeController extends AbstractController
 {
+    private AdvertiserRepository $advertiserRepository;
+    private AdvertRepository $advertRepository;
+
     public function __construct(AdvertRepository $advertRepository, AdvertiserRepository $advertiserRepository)
     {
         $this->advertRepository = $advertRepository;

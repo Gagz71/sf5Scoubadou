@@ -68,7 +68,7 @@
 					$advertRandomIndex = shuffle($adverts);
 					
 					$advertOrganizationRandIndex = shuffle($organizationNames);
-					$advertiser->setFirstName($firstname);
+					$advertiser->setFirstname($firstname);
 					$advertiser->setLastName($lastname);
 					
 					$advertiser->setEmail('email@'.$organizationNames[$advertOrganizationRandIndex]. $key0.$key.'.com');

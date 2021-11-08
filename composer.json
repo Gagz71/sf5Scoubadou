@@ -48,6 +48,10 @@
     },
     "require-dev": {
         "doctrine/doctrine-fixtures-bundle": "^3.4",
+        "phpstan/extension-installer": "^1.1",
+        "phpstan/phpstan-doctrine": "^1.0",
+        "phpstan/phpstan-strict-rules": "^1.0",
+        "phpstan/phpstan-symfony": "^1.0",
         "phpunit/phpunit": "^9.5",
         "symfony/browser-kit": "5.3.*",
         "symfony/css-selector": "5.3.*",
@@ -83,7 +87,9 @@
     "scripts": {
         "auto-scripts": {
             "cache:clear": "symfony-cmd",
-            "assets:install %PUBLIC_DIR%": "symfony-cmd"
+            "assets:install %PUBLIC_DIR%": "symfony-cmd",
+            "fix": "php-cs-fixer fix",
+            "analyse": "phpstan analyse"
         },
         "post-install-cmd": [
             "@auto-scripts"
@@ -100,5 +106,8 @@
             "allow-contrib": false,
             "require": "5.3.*"
         }
-    }
+    },
+
+
 }
+
