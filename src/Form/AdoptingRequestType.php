@@ -26,6 +26,7 @@ class AdoptingRequestType extends AbstractType
                 'choice_label' => 'name',
                 'multiple' => true,
                 'expanded' => true,
+	            'by_reference' => false,
                 'query_builder' => function (EntityRepository $er) use ($advert) {
                     return $er->createQueryBuilder('d')
                         ->andWhere("d.advert = :advertId")

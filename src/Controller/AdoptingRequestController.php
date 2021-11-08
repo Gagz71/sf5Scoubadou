@@ -50,11 +50,14 @@ class AdoptingRequestController extends AbstractController
 
         $form = $this->createForm(AdoptingRequestType::class, $adoptingRequest, [
             'advert' => $advert,
+
         ]);
         $form->handleRequest($request);
 
+
         if ($form->isSubmitted() && $form->isValid()) {
             $adoptingRequest->setStatus(0);
+		  
 
             // dd($adoptingRequest);
 
@@ -64,29 +67,20 @@ class AdoptingRequestController extends AbstractController
 
             $this->addFlash('success', 'Nouvelle requete envoyée ');
 
-            return $this->redirectToRoute('adverts');
+            return $this->redirectToRoute('discussions', ['id'=>$adoptingRequest->getId()]);
         }
+
+        $listDiscussions = $adoptingRequest->getDiscussions();
+
+        $advert = $adoptingRequest->getAdvert();
+
 
         return $this->render('adopting_request/view.html.twig', [
             'form' =>$form->createView(),
+            'listDiscussions' => $listDiscussions
+
         ]);
 
-
-        /*$adoptingRequests = $advert->getAdoptingRequest();
-        $dogStatus = $advert->getStatus();
-        $advertDogs = $advert->getDogs();
-
-        return $this->render('adopting_request/view.html.twig', [
-            'adoptingRequests' => $adoptingRequests,
-            'dogStatus' => $dogStatus,
-            'advertDogs' => $advertDogs
-        ]);*/
     }
-
-
-
-
-
-
 
 }

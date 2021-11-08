@@ -12,6 +12,7 @@
             <p>"Et laboriosam consequuntur ut eveniet dolorem in earum nemo sit galisum earum sit earum ducimus quo voluptatem beatae sed ipsa expedita. Aut explicabo earum ea voluptatem soluta qui quam reiciendis ut illum magni aut sapiente dolore et incidunt! Est possimus ratione ut voluptatem voluptas et rerum cupiditate ab veniam voluptas sit autem voluptatibus et numquam quasi et iusto dicta? Et quod omnis aut omnis deleniti aut perferendis architecto et exercitationem nesciunt qui voluptatem sapiente ab eligendi consequatur ad iste perspiciatis! "</p>
         </div>
 
+
         <div class="row col-12 mx-auto">
             {% for advert in threeLastAdverts %}
                 <div class="col-4 mt-5   ">
@@ -38,6 +39,7 @@
                                             {{ race.name }}
                                         {% endfor %}
                                     </div>
+
                                 {% endfor %}
                             </ul>
                         </div>
@@ -46,6 +48,7 @@
             {% endfor %}
         </div>
     </div>
+
 
     <div class="row col-12 mx-auto">
         {% for advert in twoNextAdverts %}
@@ -84,9 +87,9 @@
 
     <div class="jumbotron">
         <h1 class="display-4">Les éleveurs</h1>
+
     </div>
     <table class="table">
-
         <thead>
         <tr>
             <th scope="col">Eleveurs</th>
@@ -109,5 +112,6 @@
             </tbody>
         {% endfor %}
     </table>
+    {{ knp_pagination_render(advertisers) }}
 {% endblock %}
 

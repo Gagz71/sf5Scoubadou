@@ -14,8 +14,6 @@
             <a class="btn btn-dark" href="#" role="button"> Notre site</a>
         </p>
     </div>
-
-
     <div class="container">
         {% for advert in listAdverts%}
             <div class="row m-2 mt-5 pt-3 shadow rounded" style="">
@@ -28,6 +26,7 @@
                     <p>{{ advert.description }} </p>
                     <p>Date de création de l'annonce :  {{ advert.creationDate | date ('d M Y')}} </p>
                     <a class="btn btn-dark text-center" href="{{ path('adopting_request', {id: advert.id}) }}" role="button">AdoPt a Dog🐶</a>
+
                 </div>
 
                 <div class="row  mt-5 p-0 m-0  rounded-bottom shadow" style="background-color: #e3ecd3">

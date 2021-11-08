@@ -66,7 +66,7 @@ class DogsFixtures extends Fixture implements DependentFixtureInterface
 		    );
 		    $dog->setLof(random_int(0, 1));
 		    $dog->setSociable(random_int(0, 1));
-		    $dog->setIsAdopted(random_int(0, 1));
+		    $dog->setIsAdopted(0);
 //		    $dog->setAdvert($adverts[$advertsRandomIndex]);
 		    $dog->addRace($dogsRaces[$racesDogRandomIndex]);
 		    for ($i = 0; $i < 5; $i++){
