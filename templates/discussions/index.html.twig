@@ -7,7 +7,7 @@
     <div class="container ">
         {% for discussion in adoptingRequest.discussions %}
             <div class="mt-5">
-                <h2 class="mt-3 mb-1">{{ user.lastname }}</h2>
+{#                <h2 class="mt-3 mb-1">{{ user.lastname }}</h2>#}
                 {#            <h3> message {{ adoptingRequest.id }} </h3>#}
                 {{ discussion.content[:400] ~ '...' }}
             </div>
