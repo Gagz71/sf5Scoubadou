@@ -49,7 +49,7 @@ namespace App\DataFixtures;
                 $advert = new Advert();
                 $advert->setTitle($title.$i);
                 $advert->setDogsNb(2);
-                $advert->setStatus(1);
+                $advert->setStatus(true);
                 $advert->setCreationDate(new \DateTime());
                 $advert->setUrlPicture($advertsUrlPicture[$advertsUrlRandomIndex]);
                 $advert->setAdvertiser($advertisers[$advertisersRandomIndex]);
