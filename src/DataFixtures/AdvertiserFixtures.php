@@ -69,7 +69,7 @@
 					
 					$advertOrganizationRandIndex = shuffle($organizationNames);
 					$advertiser->setFirstname($firstname);
-					$advertiser->setLastName($lastname);
+					$advertiser->setLastname($lastname);
 					
 					$advertiser->setEmail('email@'.$organizationNames[$advertOrganizationRandIndex]. $key0.$key.'.com');
 					$advertiser->setOrganizationName($organizationNames[$advertOrganizationRandIndex]);

@@ -26,7 +26,7 @@ abstract class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    protected $id;
+    private ? int $id = null;
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)

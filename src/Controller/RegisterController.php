@@ -27,7 +27,7 @@ class RegisterController extends AbstractController
     public function index(Request $request, EntityManagerInterface $entityManager, ?Adopting $adopting = null): Response
     {
         $isNew = false;
-        if (!$adopting) {
+        if(is_null($adopting)) {
             $adopting = new Adopting();
             $isNew = true;
         }
@@ -65,6 +65,4 @@ class RegisterController extends AbstractController
         return $this->render('register/info.html.twig');
 
     }
-
-
 }

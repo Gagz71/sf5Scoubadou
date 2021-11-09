@@ -23,8 +23,8 @@ class UserFixtures extends Fixture
     {
         $admin = new Admin();
         $pwd = $this->hasher->hashPassword($admin, '12345');
-        $admin->setFirstName('admin');
-        $admin->setLastName('admin');
+        $admin->setFirstname('admin');
+        $admin->setLastname('admin');
         $admin->setEmail('admin@admin.com');
         $admin->setPassword($pwd);
         $admin->setRegisterDate(new \DateTime());

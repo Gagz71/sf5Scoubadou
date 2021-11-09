@@ -8,6 +8,7 @@ use App\Entity\Dog;
 use App\Entity\UrlPicture;
 use App\Form\AdvertType;
 use App\Repository\AdvertiserRepository;
+use App\Repository\AdvertRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -19,12 +20,10 @@ use Symfony\Component\Routing\Annotation\Route;
 class AdvertController extends AbstractController
 {
     private EntityManagerInterface $entityManager;
-    private AdvertiserRepository $advertiserRepository;
 
-    public function __construct(EntityManagerInterface $entityManager, AdvertiserRepository $advertiserRepository)
+    public function __construct(EntityManagerInterface $entityManager)
     {
         $this->entityManager = $entityManager;
-        $this->advertiserRepository = $advertiserRepository;
     }
 
     /**
@@ -53,11 +52,8 @@ class AdvertController extends AbstractController
     {
         /** @var Advertiser $advertiser */
         $advertiser = $this->getUser();
-        if (!$advertiser instanceof Advertiser) {
-            return $this->redirectToRoute('adverts');
-        }
 
-        if (!$advert) {
+        if (is_null($advert)) {
             $advert = new Advert();
 
             $dog = new Dog();
@@ -73,7 +69,7 @@ class AdvertController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $advert->setCreationDate(new \DateTime());
-            $advert->setStatus(0);
+            $advert->setStatus(false);
             $advert->setAdvertiser($advertiser);
             $this->entityManager->persist($advert);
             $this->entityManager->flush();
@@ -90,11 +86,11 @@ class AdvertController extends AbstractController
     /**
      * @Route("/annonce/{slug}", name="advert")
      */
-    public function singleAdvert($slug): Response
+    public function singleAdvert(string $slug, AdvertRepository $advertRepository): Response
     {
-        $advert = $this->entityManager->getRepository(Advert::class)->findOneBySlug($slug);
+        $advert = $advertRepository->findOneBy(['slug' => $slug]);
 
-        if (!$advert) {
+        if (is_null($advert)) {
             return $this->redirectToRoute('adverts');
         }
 
@@ -106,9 +102,9 @@ class AdvertController extends AbstractController
     /**
      * @Route("/annonce/{slug}/supprimer", name="remove-advert")
      */
-    public function removeAdvert($slug): Response
+    public function removeAdvert(string $slug, AdvertRepository $advertRepository): Response
     {
-        $advert = $this->entityManager->getRepository(Advert::class)->findOneBySlug($slug);
+        $advert = $advertRepository->findOneBy(['slug' => $slug]);
         $dogs = $advert->getDogs();
         foreach ($dogs as $dog) {
             $advert->removeDog($dog);

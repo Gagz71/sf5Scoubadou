@@ -16,7 +16,10 @@ class UserUpdateSubscriber implements EventSubscriberInterface
         $this->encoder = $encoder;
     }
 
-    public function onBeforeEntityPersistedEvent(BeforeEntityPersistedEvent $event)
+    /**
+     * @param BeforeEntityPersistedEvent|BeforeEntityUpdatedEvent $event
+     */
+    public function onBeforeEntityPersistedEvent($event)
     {
         // ...
         $user = $event->getEntityInstance();
@@ -24,20 +27,20 @@ class UserUpdateSubscriber implements EventSubscriberInterface
             return;
         }
 
-        if (!empty($user->getPlainPassword())) {
-            //sinon on encode le mot de passe
+        if (!is_null($user->getPlainPassword())) {
             $newPwd = $this->encoder->hashPassword($user, $user->getPlainPassword());
             $user->setPassword($newPwd);
         }
     }
 
     /**
-     * @return string[]
+     * @return array<string, string>
      */
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             BeforeEntityPersistedEvent::class => 'onBeforeEntityPersistedEvent',
+            BeforeEntityUpdatedEvent::class => 'onBeforeEntityPersistedEvent',
         ];
     }
 }
