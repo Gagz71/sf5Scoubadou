@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use App\Repository\UserRepository;
 use DateTime;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\DiscriminatorColumn;
 use Doctrine\ORM\Mapping\DiscriminatorMap;
@@ -79,9 +81,24 @@ abstract class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $zipCode;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Discussion::class, mappedBy="sender")
+     */
+    private $sender;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Discussion::class, mappedBy="receiver")
+     */
+    private $receiver;
+
+
+
     public function __construct()
     {
         $this->registerDate = new DateTime();
+        $this->sender = new ArrayCollection();
+        $this->receiver = new ArrayCollection();
+
     }
 
     public function getId(): ?int
@@ -254,4 +271,66 @@ abstract class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
+    /**
+     * @return Collection|Discussion[]
+     */
+    public function getSender(): Collection
+    {
+        return $this->sender;
+    }
+
+    public function addSender(Discussion $sender): self
+    {
+        if (!$this->sender->contains($sender)) {
+            $this->sender[] = $sender;
+            $sender->setSender($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSender(Discussion $sender): self
+    {
+        if ($this->sender->removeElement($sender)) {
+            // set the owning side to null (unless already changed)
+            if ($sender->getSender() === $this) {
+                $sender->setSender(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Discussion[]
+     */
+    public function getReceiver(): Collection
+    {
+        return $this->receiver;
+    }
+
+    public function addReceiver(Discussion $receiver): self
+    {
+        if (!$this->receiver->contains($receiver)) {
+            $this->receiver[] = $receiver;
+            $receiver->setReceiver($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReceiver(Discussion $receiver): self
+    {
+        if ($this->receiver->removeElement($receiver)) {
+            // set the owning side to null (unless already changed)
+            if ($receiver->getReceiver() === $this) {
+                $receiver->setReceiver(null);
+            }
+        }
+
+        return $this;
+    }
+
+
 }

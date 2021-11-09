@@ -32,6 +32,18 @@ class Discussion
      */
     private $adoptingRequest;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="sender")
+     */
+    private $sender;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="receiver")
+     */
+    private $receiver;
+
+
+
     public function getId(): ?int
     {
         return $this->id;
@@ -72,4 +84,32 @@ class Discussion
 
         return $this;
     }
+
+    public function getSender(): ?User
+    {
+        return $this->sender;
+    }
+
+    public function setSender(?User $sender): self
+    {
+        $this->sender = $sender;
+
+        return $this;
+    }
+
+    public function getReceiver(): ?User
+    {
+        return $this->receiver;
+    }
+
+    public function setReceiver(?User $receiver): self
+    {
+        $this->receiver = $receiver;
+
+        return $this;
+    }
+
+
+
+
 }
