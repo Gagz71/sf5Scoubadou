@@ -37,6 +37,8 @@ class Adopting extends User
         return array_unique($roles);
     }
 
+
+
     /**
      * @return Collection|AdoptingRequest[]
      */
@@ -58,12 +60,10 @@ class Adopting extends User
     public function removeAdoptingRequest(AdoptingRequest $adoptingRequest): self
     {
         if ($this->adoptingRequests->removeElement($adoptingRequest)) {
-            // set the owning side to null (unless already changed)
             if ($adoptingRequest->getAdopting() === $this) {
-                $adoptingRequest->setAdopting(null);
+                $adoptingRequest->setAdopting($this);
             }
         }
-
         return $this;
     }
 

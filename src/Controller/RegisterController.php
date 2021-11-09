@@ -27,7 +27,7 @@ class RegisterController extends AbstractController
     public function index(Request $request, EntityManagerInterface $entityManager, ?Adopting $adopting = null): Response
     {
         $isNew = false;
-        if (!$adopting) {
+        if(is_null($adopting)) {
             $adopting = new Adopting();
             $isNew = true;
         }
@@ -42,6 +42,10 @@ class RegisterController extends AbstractController
                 $entityManager->persist($adopting);
                 $entityManager->flush();
 
+                $this->addFlash(
+                    'notice',
+                    'Vos infos ont été modifiées !'
+                );
                 return $this->redirect($this->generateUrl('home'));
             } else {
                 return $this->redirect($this->generateUrl('adopting_edit', ['id' => $adopting->getId()]));
@@ -59,5 +63,6 @@ class RegisterController extends AbstractController
     public function showInfos()
     {
         return $this->render('register/info.html.twig');
+
     }
 }

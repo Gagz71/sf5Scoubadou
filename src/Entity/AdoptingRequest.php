@@ -17,7 +17,7 @@ class AdoptingRequest
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private ? int $id = null;
 
     /**
      * @ORM\ManyToOne(targetEntity=Adopting::class, inversedBy="adoptingRequests")

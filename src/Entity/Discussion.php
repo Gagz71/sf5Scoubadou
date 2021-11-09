@@ -15,7 +15,7 @@ class Discussion
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private ? int $id = null;
 
     /**
      * @ORM\Column(type="text")

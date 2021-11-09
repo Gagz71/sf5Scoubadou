@@ -48,7 +48,8 @@ class AdoptingRequestController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $adoptingRequest->setStatus(0);
+            $adoptingRequest->setStatus(false);
+		  
 
             // On enregistre
             $this->entityManager->persist($adoptingRequest);
