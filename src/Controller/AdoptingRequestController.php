@@ -66,6 +66,7 @@ class AdoptingRequestController extends AbstractController
         return $this->render('adopting_request/view.html.twig', [
             'form' => $form->createView(),
             'listDiscussions' => $listDiscussions,
+            'user' => $this->getUser(),
         ]);
     }
 }
